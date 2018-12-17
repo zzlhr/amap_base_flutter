@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amap_base_search/amap_base.dart';
 import 'package:amap_base_search/src/search/model/poi_item.dart';
 import 'package:amap_base_search/src/search/model/poi_query.dart';
@@ -118,11 +120,6 @@ class PoiResult {
 
   @override
   String toString() {
-    return '''PoiResult{
-		pageCount: $pageCount,
-		pois: $pois,
-		query: $query,
-		searchSuggestionCitys: $searchSuggestionCitys,
-		searchSuggestionKeywords: $searchSuggestionKeywords}''';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }

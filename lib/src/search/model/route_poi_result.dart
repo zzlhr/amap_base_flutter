@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amap_base_search/amap_base.dart';
 
 class RoutePoiResult {
@@ -54,6 +56,6 @@ class RoutePoiItem {
 
   @override
   String toString() {
-    return 'RoutePoiItem{id: $id, title: $title, point: $point, distance: $distance, duration: $duration}';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amap_base_search/src/map/model/latlng.dart';
 import 'package:amap_base_search/src/search/model/indoor_data.dart';
 import 'package:amap_base_search/src/search/model/photo.dart';
@@ -286,6 +288,6 @@ class PoiItem {
 
   @override
   String toString() {
-    return 'PoiItem{poiId: $poiId, adCode: $adCode, adName: $adName, businessArea: $businessArea, cityCode: $cityCode, cityName: $cityName, direction: $direction, distance: $distance, email: $email, indoorData: $indoorData, isIndoorMap: $isIndoorMap, latLonPoint: $latLonPoint, enter: $enter, exit: $exit, parkingType: $parkingType, photos: $photos, poiExtension: $poiExtension, postcode: $postcode, provinceCode: $provinceCode, provinceName: $provinceName, shopID: $shopID, snippet: $snippet, subPois: $subPois, tel: $tel, title: $title, typeCode: $typeCode, typeDes: $typeDes, website: $website, gridCode: $gridCode}';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }
