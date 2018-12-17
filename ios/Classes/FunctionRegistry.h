@@ -16,10 +16,10 @@
 
 @protocol NaviMethodHandler;
 @interface NaviFunctionRegistry : NSObject
-+ (NSDictionary<NSString *, NSObject <SearchMethodHandler> *> *)naviMethodHandler;
++ (NSDictionary<NSString *, NSObject <NaviMethodHandler> *> *)naviMethodHandler;
 @end
 
 @protocol LocationMethodHandler;
 @interface LocationFunctionRegistry : NSObject
-+ (NSDictionary<NSString *, NSObject <SearchMethodHandler> *> *)locationMethodHandler;
++ (NSDictionary<NSString *, NSObject <LocationMethodHandler> *> *)locationMethodHandler;
 @end
