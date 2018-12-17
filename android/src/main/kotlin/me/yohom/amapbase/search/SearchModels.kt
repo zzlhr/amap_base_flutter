@@ -52,7 +52,6 @@ internal class UnifiedDriveRouteResult(driveRouteResult: DriveRouteResult) {
     val paths: List<UnifiedDrivePath> = driveRouteResult.paths.map { UnifiedDrivePath(it) }
 }
 
-
 class UnifiedDrivePath(drivePath: DrivePath) {
     val strategy: String = drivePath.strategy
     val tolls: Double = drivePath.tolls.toDouble()

@@ -57,6 +57,7 @@ static NSDictionary<NSString *, NSObject <SearchMethodHandler> *> *_searchDictio
                 @"search#searchRoutePoiLine": [SearchRoutePoiLine alloc],
                 @"search#searchRoutePoiPolygon": [SearchRoutePoiPolygon alloc],
                 @"search#searchGeocode": [SearchGeocode alloc],
+                @"search#searchReGeocode": [SearchReGeocode alloc],
         };
     }
     return _searchDictionary;

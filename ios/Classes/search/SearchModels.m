@@ -7,6 +7,8 @@
 #import "NSArray+Rx.h"
 #import "NSString+GeoPoint.h"
 #import "MJExtension.h"
+#import "AMapSearchKit.h"
+#import "AMapCommonObj.h"
 
 
 //region RoutePlanParam
@@ -47,7 +49,6 @@
 }
 
 @end
-
 
 @implementation UnifiedDrivePathResult {
 }
@@ -147,7 +148,7 @@
 - (instancetype)initWithAMapGeocodeSearchResponse:(AMapGeocodeSearchResponse *)response {
     self = [super init];
     if (self) {
-        _geocodeAddressList = [response.geocodes map:^(AMapGeocode* geocode) {
+        _geocodeAddressList = [response.geocodes map:^(AMapGeocode *geocode) {
             return [[UnifiedGeocodeAddress alloc] initWithAMapGeocode:geocode];
         }];
     }
@@ -182,6 +183,139 @@
 
 @implementation UnifiedGeocodeQuery {
 
+}
+@end
+//endregion
+
+
+//region UnifiedGeocodeResult
+@implementation UnifiedReGeocodeResult {
+
+}
+
+- (instancetype)initWithAMapReGeocodeSearchResponse:(AMapReGeocodeSearchResponse *)response {
+    self = [super init];
+    if (self) {
+        _regeocodeAddress = [[RegeocodeAddress alloc] initWithAMapReGeocode:response.regeocode];
+    }
+
+    return self;
+}
+@end
+
+@implementation RegeocodeQuery : NSObject
+
+@end
+
+@implementation RegeocodeAddress : NSObject
+- (instancetype)initWithAMapReGeocode:(AMapReGeocode *)reGeocode {
+    self = [super init];
+    if (self) {
+        _adCode = reGeocode.addressComponent.adcode;
+        _aois = [reGeocode.aois map:^(AMapAOI *aoi) {
+            return [[Aoi alloc] initWithAMapAOI:aoi];
+        }];
+        _building = reGeocode.addressComponent.building;
+        _businessAreas = [reGeocode.addressComponent.businessAreas map:^(AMapBusinessArea *area) {
+            return [[BusinessAreas alloc] initWithAMapBusinessArea:area];
+        }];
+        _city = reGeocode.addressComponent.city;
+        _cityCode = reGeocode.addressComponent.citycode;
+        _crossroads = [reGeocode.roadinters map:^(AMapRoadInter *roadInter) {
+            return [[Crossroad alloc] initWithAMapRoadInter:roadInter];
+        }];
+        _district = reGeocode.addressComponent.district;
+        _formatAddress = reGeocode.formattedAddress;
+        _neighborhood = reGeocode.addressComponent.neighborhood;
+        _pois = [reGeocode.pois map:^(AMapPOI *poi) {
+            return [[PoiItem alloc] initWithAMapPOI:poi];
+        }];
+        _province = reGeocode.addressComponent.province;
+        _roads = [reGeocode.roads map:^(AMapRoad *road) {
+            return [[Road alloc] initWithAMapRoad:road];
+        }];
+        _streetNumber = [[StreetNumber alloc] initWithAMapStreetNumber:reGeocode.addressComponent.streetNumber];
+        _towncode = reGeocode.addressComponent.towncode;
+        _township = reGeocode.addressComponent.township;
+    }
+
+    return self;
+}
+@end
+
+@implementation Aoi : NSObject
+- (instancetype)initWithAMapAOI:(AMapAOI *)aoi {
+    self = [super init];
+    if (self) {
+        _adCode = aoi.adcode;
+        _aoiArea = aoi.area;
+        _aoiCenterPoint = aoi.location;
+        _aoiId = aoi.uid;
+        _aoiName = aoi.name;
+    }
+
+    return self;
+}
+@end
+
+@implementation BusinessAreas : NSObject
+- (instancetype)initWithAMapBusinessArea:(AMapBusinessArea *)businessArea {
+    self = [super init];
+    if (self) {
+        _centerPoint = businessArea.location;
+        _name = businessArea.name;
+    }
+
+    return self;
+}
+@end
+
+@implementation Crossroad : NSObject
+- (instancetype)initWithAMapRoadInter:(AMapRoadInter *)roadInter {
+    self = [super init];
+    if (self) {
+        _centerPoint = roadInter.location;
+        _direction = roadInter.direction;
+        _distance = roadInter.distance;
+        _firstRoadId = roadInter.firstId;
+        _firstRoadName = roadInter.firstName;
+//        _id = roadInter.
+//_roadWidth = roadInter.wi
+        _secondRoadId = roadInter.secondId;
+        _secondRoadName = roadInter.secondName;
+    }
+
+    return self;
+}
+@end
+
+@implementation Road : NSObject
+- (instancetype)initWithAMapRoad:(AMapRoad *)road {
+    self = [super init];
+    if (self) {
+        _direction = road.direction;
+        _distance = road.distance;
+        _id = road.uid;
+        _latLngPoint = road.location;
+        _name = road.name;
+    }
+
+    return self;
+}
+@end
+
+@implementation StreetNumber : NSObject
+- (instancetype)initWithAMapStreetNumber:(AMapStreetNumber *)streetNumber {
+    self = [super init];
+    if (self) {
+        _direction = streetNumber.direction;
+        _distance = streetNumber.distance;
+        _latLonPoint = streetNumber.location;
+        _number = streetNumber.number;
+        _street = streetNumber.street;
+    }
+
+    return self;
 }
 @end
 //endregion

@@ -40,6 +40,20 @@
 @class AMapRoutePOISearchRequest;
 @class UnifiedRoutePOIItem;
 @class AMapRoutePOISearchResponse;
+@class AMapReGeocodeSearchResponse;
+@class AMapReGeocode;
+@class RegeocodeQuery;
+@class RegeocodeAddress;
+@class Aoi;
+@class BusinessAreas;
+@class AMapBusinessArea;
+@class AMapRoadInter;
+@class Crossroad;
+@class Road;
+@class AMapRoad;
+@class AMapStreetNumber;
+@class StreetNumber;
+@class AMapAOI;
 
 //region RoutePlanParam
 @interface RoutePlanParam : NSObject
@@ -57,14 +71,12 @@
 @property(nonatomic) NSString *avoidRoad;
 
 - (NSString *)description;
-
 @end
 //endregion
 
 
 //region UnifiedDriveRouteResult
 @interface UnifiedDriveRouteResult : NSObject
-
 - (instancetype)initWithAMapRouteSearchResponse:(AMapRouteSearchResponse *)response;
 
 @property(nonatomic) AMapGeoPoint *startPos;
@@ -74,7 +86,6 @@
 @end
 
 @interface UnifiedDrivePathResult : NSObject
-
 - (instancetype)initWithAMapPath:(AMapPath *)path;
 
 @property(nonatomic) NSString *strategy;
@@ -83,11 +94,9 @@
 @property(nonatomic) NSInteger totalTrafficlights;
 @property(nonatomic) NSArray <UnifiedDriveStepResult *> *steps;
 @property(nonatomic) NSInteger restriction;
-
 @end
 
 @interface UnifiedDriveStepResult : NSObject
-
 - (instancetype)initWithAMapStep:(AMapStep *)step;
 
 @property(nonatomic) NSString *instruction;
@@ -106,14 +115,12 @@
 @end
 
 @interface UnifiedRouteSearchCityResult : NSObject
-
 - (instancetype)initWithAMapCity:(AMapCity *)step;
 
 @property(nonatomic) NSArray <UnifiedDistrictResult *> *districts;
 @end
 
 @interface UnifiedTMCResult : NSObject
-
 - (instancetype)initWithAMapTMC:(AMapTMC *)tmc;
 
 @property(nonatomic) NSInteger distance;
@@ -122,7 +129,6 @@
 @end
 
 @interface UnifiedDistrictResult : NSObject
-
 - (instancetype)initWithAMapDistrict:(AMapDistrict *)district;
 
 @property(nonatomic) NSString *districtName;
@@ -133,7 +139,6 @@
 
 //region UnifiedGeocodeResult
 @interface UnifiedGeocodeResult : NSObject
-
 - (instancetype)initWithAMapGeocodeSearchResponse:(AMapGeocodeSearchResponse *)response;
 
 @property(nonatomic) UnifiedGeocodeQuery *geocodeQuery;
@@ -141,7 +146,6 @@
 @end
 
 @interface UnifiedGeocodeAddress : NSObject
-
 - (instancetype)initWithAMapGeocode:(AMapGeocode *)geocode;
 
 @property(nonatomic) NSString *formatAddress;
@@ -163,9 +167,94 @@
 //endregion
 
 
+//region UnifiedGeocodeResult
+@interface UnifiedReGeocodeResult : NSObject
+- (instancetype)initWithAMapReGeocodeSearchResponse:(AMapReGeocodeSearchResponse *)response;
+
+@property(nonatomic) RegeocodeQuery *regeocodeQuery;
+@property(nonatomic) RegeocodeAddress *regeocodeAddress;
+@end
+
+@interface RegeocodeQuery : NSObject
+@end
+
+@interface RegeocodeAddress : NSObject
+- (instancetype)initWithAMapReGeocode:(AMapReGeocode *)reGeocode;
+
+@property(nonatomic) NSString *adCode;
+@property(nonatomic) NSArray<Aoi *> *aois;
+@property(nonatomic) NSString *building;
+@property(nonatomic) NSArray<BusinessAreas *> *businessAreas;
+@property(nonatomic) NSString *city;
+@property(nonatomic) NSString *cityCode;
+@property(nonatomic) NSString *country;
+@property(nonatomic) NSArray<Crossroad *> *crossroads;
+@property(nonatomic) NSString *district;
+@property(nonatomic) NSString *formatAddress;
+@property(nonatomic) NSString *neighborhood;
+@property(nonatomic) NSArray<PoiItem *> *pois;
+@property(nonatomic) NSString *province;
+@property(nonatomic) NSArray<Road *> *roads;
+@property(nonatomic) StreetNumber *streetNumber;
+@property(nonatomic) NSString *towncode;
+@property(nonatomic) NSString *township;
+@end
+
+@interface Aoi : NSObject
+- (instancetype)initWithAMapAOI:(AMapAOI *)aoi;
+
+@property(nonatomic) NSString *adCode;
+@property(nonatomic) double aoiArea;
+@property(nonatomic) AMapGeoPoint *aoiCenterPoint;
+@property(nonatomic) NSString *aoiId;
+@property(nonatomic) NSString *aoiName;
+@end
+
+@interface BusinessAreas : NSObject
+- (instancetype)initWithAMapBusinessArea:(AMapBusinessArea *)businessArea;
+
+@property(nonatomic) AMapGeoPoint *centerPoint;
+@property(nonatomic) NSString *name;
+@end
+
+@interface Crossroad : NSObject
+- (instancetype)initWithAMapRoadInter:(AMapRoadInter *)roadInter;
+
+@property(nonatomic) AMapGeoPoint *centerPoint;
+@property(nonatomic) NSString *direction;
+@property(nonatomic) double distance;
+@property(nonatomic) NSString *firstRoadId;
+@property(nonatomic) NSString *firstRoadName;
+@property(nonatomic) NSString *id;
+@property(nonatomic) double roadWidth;
+@property(nonatomic) NSString *secondRoadId;
+@property(nonatomic) NSString *secondRoadName;
+@end
+
+@interface Road : NSObject
+- (instancetype)initWithAMapRoad:(AMapRoad *)road;
+
+@property(nonatomic) NSString *direction;
+@property(nonatomic) double distance;
+@property(nonatomic) NSString *id;
+@property(nonatomic) AMapGeoPoint *latLngPoint;
+@property(nonatomic) NSString *name;
+@end
+
+@interface StreetNumber : NSObject
+- (instancetype)initWithAMapStreetNumber:(AMapStreetNumber *)streetNumber;
+
+@property(nonatomic) NSString *direction;
+@property(nonatomic) double distance;
+@property(nonatomic) AMapGeoPoint *latLonPoint;
+@property(nonatomic) NSString *number;
+@property(nonatomic) NSString *street;
+@end
+//endregion
+
+
 //region UnifiedPoiResult
 @interface UnifiedPoiResult : NSObject
-
 - (instancetype)initWithPoiResult:(AMapPOISearchResponse *)result;
 
 /// 返回的POI数目
@@ -176,11 +265,9 @@
 @property(nonatomic) NSArray <SuggestionCity *> *searchSuggestionCitys;
 /// 关键字建议列表
 @property(nonatomic) NSArray<NSString *> *searchSuggestionKeywords;
-
 @end
 
 @interface PoiItem : NSObject
-
 - (instancetype)initWithAMapPOI:(AMapPOI *)aMapPOI;
 
 /// POI全局唯一ID
@@ -241,11 +328,9 @@
 @property(nonatomic) NSString *website;
 /// 地理格ID [iOS]
 @property(nonatomic) NSString *gridCode;
-
 @end
 
 @interface SuggestionCity : NSObject
-
 - (instancetype)initWithAMapSuggestion:(AMapCity *)suggestion;
 
 /// 城市名称
@@ -258,11 +343,9 @@
 @property NSInteger suggestionNum;
 /// 途径区域
 @property(nonatomic) NSObject *districts;
-
 @end
 
 @interface SubPoiItem : NSObject
-
 - (instancetype)initWithSubPoi:(AMapSubPOI *)subPOI;
 
 /// POI全局唯一ID
@@ -279,11 +362,9 @@
 @property(nonatomic) NSString *snippet;
 /// 子POI类型
 @property(nonatomic) NSString *subTypeDes;
-
 @end
 
 @interface PoiExtension : NSObject
-
 - (instancetype)initWithAMapPOIExtension:(AMapPOIExtension *)poiExtension;
 
 /// 营业时间
@@ -292,22 +373,18 @@
 @property NSString *rating;
 /// 人均消费
 @property CGFloat cost;
-
 @end
 
 @interface Photo : NSObject
-
 - (instancetype)initWithAMapImage:(AMapImage *)image;
 
 /// 标题
 @property(nonatomic) NSString *title;
 /// url
 @property(nonatomic) NSString *url;
-
 @end
 
 @interface IndoorData : NSObject
-
 - (instancetype)initWithAMapIndoorData:(AMapIndoorData *)indoorData;
 
 /// 楼层，为0时为POI本身
@@ -316,7 +393,6 @@
 @property(nonatomic) NSString *floorName;
 /// 建筑物ID
 @property(nonatomic) NSString *poiId;
-
 @end
 //endregion
 
@@ -357,7 +433,6 @@
 
 /// 转换为周边搜索对象
 - (AMapPOIPolygonSearchRequest *)toAMapPOIPolygonSearchRequest;
-
 @end
 //endregion
 
@@ -374,14 +449,12 @@
 - (AMapRoutePOISearchRequest *)toAMapRoutePOISearchRequestLine;
 
 - (AMapRoutePOISearchRequest *)toAMapRoutePOISearchRequestPolygon;
-
 @end
 //endregion
 
 
 //region UnifiedRoutePOISearchResult
 @interface UnifiedRoutePOISearchResult : NSObject
-
 - (instancetype)initWithAMapRoutePOISearchResponse:(AMapRoutePOISearchResponse *)result;
 
 @property(nonatomic) NSArray <UnifiedRoutePOIItem *> *routePoiList;
@@ -389,7 +462,6 @@
 @end
 
 @interface UnifiedRoutePOIItem : NSObject
-
 - (instancetype)initWithAMapPOI:(AMapPOI *)aMapPOI;
 
 @property(nonatomic) NSString *id;
@@ -397,7 +469,6 @@
 @property(nonatomic) AMapGeoPoint *point;
 @property(nonatomic) NSInteger distance;
 @property(nonatomic) NSInteger duration;
-
 @end
 //endregion
 

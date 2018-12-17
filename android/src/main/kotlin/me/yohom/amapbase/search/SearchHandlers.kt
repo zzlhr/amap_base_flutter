@@ -2,10 +2,7 @@ package me.yohom.amapbase.search
 
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.PoiItem
-import com.amap.api.services.geocoder.GeocodeQuery
-import com.amap.api.services.geocoder.GeocodeResult
-import com.amap.api.services.geocoder.GeocodeSearch
-import com.amap.api.services.geocoder.RegeocodeResult
+import com.amap.api.services.geocoder.*
 import com.amap.api.services.poisearch.PoiResult
 import com.amap.api.services.poisearch.PoiSearch
 import com.amap.api.services.route.*
@@ -17,6 +14,46 @@ import me.yohom.amapbase.common.log
 import me.yohom.amapbase.common.parseJson
 import me.yohom.amapbase.common.toAMapError
 import me.yohom.amapbase.common.toJson
+
+/**
+ * 逆地理编码（坐标转地址）
+ */
+object SearchReGeocode : SearchMethodHandler {
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val point = call.argument<String>("point") ?: "{}"
+        val radius = call.argument<Double>("radius") ?: 100.0
+        val latLonType = call.argument<Int>("latLonType") ?: 0
+
+        val query = RegeocodeQuery(
+                point.parseJson<LatLng>().toLatLonPoint(),
+                radius.toFloat(),
+                when (latLonType) {
+                    0 -> GeocodeSearch.AMAP
+                    1 -> GeocodeSearch.GPS
+                    else -> GeocodeSearch.AMAP
+                }
+        )
+
+        GeocodeSearch(AMapBasePlugin.registrar.activity()).run {
+            setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
+                override fun onRegeocodeSearched(reGeocodeResult: RegeocodeResult?, resultID: Int) {
+                    if (reGeocodeResult != null) {
+                        result.success(reGeocodeResult.toJson())
+                    } else {
+                        result.error("搜索不到结果", "搜索不到结果", "搜索不到结果")
+                    }
+                }
+
+                override fun onGeocodeSearched(geocodeResult: GeocodeResult?, resultID: Int) {
+
+                }
+            })
+
+            getFromLocationAsyn(query)
+        }
+    }
+}
 
 object SearchGeocode : SearchMethodHandler {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
