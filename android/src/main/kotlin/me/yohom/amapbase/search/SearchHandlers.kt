@@ -10,10 +10,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.amapbase.AMapBasePlugin
 import me.yohom.amapbase.SearchMethodHandler
-import me.yohom.amapbase.common.log
-import me.yohom.amapbase.common.parseJson
-import me.yohom.amapbase.common.toAMapError
-import me.yohom.amapbase.common.toJson
+import me.yohom.amapbase.common.*
 
 /**
  * 逆地理编码（坐标转地址）
@@ -39,7 +36,7 @@ object SearchReGeocode : SearchMethodHandler {
             setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
                 override fun onRegeocodeSearched(reGeocodeResult: RegeocodeResult?, resultID: Int) {
                     if (reGeocodeResult != null) {
-                        result.success(reGeocodeResult.toJson())
+                        result.success(reGeocodeResult.toFastJson())
                     } else {
                         result.error("搜索不到结果", "搜索不到结果", "搜索不到结果")
                     }
