@@ -1,15 +1,12 @@
 package me.yohom.amapbase.common
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-
-val gson: Gson = GsonBuilder().serializeNulls().create()
+import com.alibaba.fastjson.JSON
+import com.alibaba.fastjson.TypeReference
 
 inline fun <reified K> String.parseJson(): K {
-    return gson.fromJson(this, object : TypeToken<K>() {}.type)
+    return JSON.parseObject(this, object : TypeReference<K>() {}.type)
 }
 
 fun Any.toJson(): String {
-    return gson.toJson(this)
+    return JSON.toJSONString(this)
 }
