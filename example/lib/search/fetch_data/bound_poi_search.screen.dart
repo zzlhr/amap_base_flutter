@@ -99,13 +99,13 @@ class _BoundPoiSearchScreenState extends State<BoundPoiSearchScreen> {
                   ),
                 ).then((poiResult) {
                   setState(() {
-                    _result = jsonFormat(poiResult.toJson());
+                    _result = poiResult.toString();
                   });
                 }).catchError((e) => showError(context, e.toString()));
               },
             ),
             SPACE_NORMAL,
-            ListView(children: <Widget>[Text(_result)]),
+            Text(_result),
           ],
         ),
       ),
