@@ -62,7 +62,7 @@ class PoiResult {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['pageCount'] = this.pageCount;
-    data['bound'] = this.bound.toJson();
+    data['bound'] = this.bound?.toJson();
     if (this.pois != null) {
       data['pois'] = this.pois.map((v) => v.toJson()).toList();
     }
