@@ -62,19 +62,19 @@ class ReGeocodeResult {
 
 class RegeocodeAddress {
   String adCode;
-  List<Aois> aois;
+  List<Aoi> aois;
   String building;
   List<BusinessAreas> businessAreas;
   String city;
   String cityCode;
   String country;
-  List<Crossroads> crossroads;
+  List<Crossroad> crossroads;
   String district;
   String formatAddress;
   String neighborhood;
   List<PoiItem> pois;
   String province;
-  List<Roads> roads;
+  List<Road> roads;
   StreetNumber streetNumber;
   String towncode;
   String township;
@@ -102,9 +102,9 @@ class RegeocodeAddress {
   RegeocodeAddress.fromJson(Map<String, dynamic> json) {
     adCode = json['adCode'] as String;
     if (json['aois'] != null) {
-      aois = List<Aois>();
+      aois = List<Aoi>();
       json['aois'].forEach((v) {
-        aois.add(Aois.fromJson(v as Map<String, dynamic>));
+        aois.add(Aoi.fromJson(v as Map<String, dynamic>));
       });
     }
     building = json['building'] as String;
@@ -118,9 +118,9 @@ class RegeocodeAddress {
     cityCode = json['cityCode'] as String;
     country = json['country'] as String;
     if (json['crossroads'] != null) {
-      crossroads = List<Crossroads>();
+      crossroads = List<Crossroad>();
       json['crossroads'].forEach((v) {
-        crossroads.add(Crossroads.fromJson(v as Map<String, dynamic>));
+        crossroads.add(Crossroad.fromJson(v as Map<String, dynamic>));
       });
     }
     district = json['district'] as String;
@@ -134,9 +134,9 @@ class RegeocodeAddress {
     }
     province = json['province'] as String;
     if (json['roads'] != null) {
-      roads = List<Roads>();
+      roads = List<Road>();
       json['roads'].forEach((v) {
-        roads.add(Roads.fromJson(v as Map<String, dynamic>));
+        roads.add(Road.fromJson(v as Map<String, dynamic>));
       });
     }
     streetNumber = json['streetNumber'] != null
@@ -270,14 +270,14 @@ class RegeocodeAddress {
   }
 }
 
-class Aois {
+class Aoi {
   String adCode;
-  double aoiArea;
-  AoiCenterPoint aoiCenterPoint;
+  num aoiArea;
+  LatLng aoiCenterPoint;
   String aoiId;
   String aoiName;
 
-  Aois({
+  Aoi({
     this.adCode,
     this.aoiArea,
     this.aoiCenterPoint,
@@ -285,11 +285,11 @@ class Aois {
     this.aoiName,
   });
 
-  Aois.fromJson(Map<String, dynamic> json) {
+  Aoi.fromJson(Map<String, dynamic> json) {
     adCode = json['adCode'] as String;
-    aoiArea = json['aoiArea'] as double;
+    aoiArea = json['aoiArea'] as num;
     aoiCenterPoint = json['aoiCenterPoint'] != null
-        ? AoiCenterPoint.fromJson(json['aoiCenterPoint'])
+        ? LatLng.fromJson(json['aoiCenterPoint'])
         : null;
     aoiId = json['aoiId'] as String;
     aoiName = json['aoiName'] as String;
@@ -307,14 +307,14 @@ class Aois {
     return data;
   }
 
-  Aois copyWith({
+  Aoi copyWith({
     String adCode,
-    double aoiArea,
-    AoiCenterPoint aoiCenterPoint,
+    num aoiArea,
+    LatLng aoiCenterPoint,
     String aoiId,
     String aoiName,
   }) {
-    return Aois(
+    return Aoi(
       adCode: adCode ?? this.adCode,
       aoiArea: aoiArea ?? this.aoiArea,
       aoiCenterPoint: aoiCenterPoint ?? this.aoiCenterPoint,
@@ -326,7 +326,7 @@ class Aois {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Aois &&
+      other is Aoi &&
           runtimeType == other.runtimeType &&
           adCode == other.adCode &&
           aoiArea == other.aoiArea &&
@@ -348,56 +348,8 @@ class Aois {
   }
 }
 
-class AoiCenterPoint {
-  double latitude;
-  double longitude;
-
-  AoiCenterPoint({
-    this.latitude,
-    this.longitude,
-  });
-
-  AoiCenterPoint.fromJson(Map<String, dynamic> json) {
-    latitude = json['latitude'] as double;
-    longitude = json['longitude'] as double;
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    return data;
-  }
-
-  AoiCenterPoint copyWith({
-    double latitude,
-    double longitude,
-  }) {
-    return AoiCenterPoint(
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is AoiCenterPoint &&
-          runtimeType == other.runtimeType &&
-          latitude == other.latitude &&
-          longitude == other.longitude;
-
-  @override
-  int get hashCode => latitude.hashCode ^ longitude.hashCode;
-
-  @override
-  String toString() {
-    return JsonEncoder.withIndent('  ').convert(toJson());
-  }
-}
-
 class BusinessAreas {
-  CenterPoint centerPoint;
+  LatLng centerPoint;
   String name;
 
   BusinessAreas({
@@ -407,7 +359,7 @@ class BusinessAreas {
 
   BusinessAreas.fromJson(Map<String, dynamic> json) {
     centerPoint = json['centerPoint'] != null
-        ? CenterPoint.fromJson(json['centerPoint'])
+        ? LatLng.fromJson(json['centerPoint'])
         : null;
     name = json['name'] as String;
   }
@@ -422,7 +374,7 @@ class BusinessAreas {
   }
 
   BusinessAreas copyWith({
-    CenterPoint centerPoint,
+    LatLng centerPoint,
     String name,
   }) {
     return BusinessAreas(
@@ -448,66 +400,18 @@ class BusinessAreas {
   }
 }
 
-class CenterPoint {
-  double latitude;
-  double longitude;
-
-  CenterPoint({
-    this.latitude,
-    this.longitude,
-  });
-
-  CenterPoint.fromJson(Map<String, dynamic> json) {
-    latitude = json['latitude'] as double;
-    longitude = json['longitude'] as double;
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    return data;
-  }
-
-  CenterPoint copyWith({
-    double latitude,
-    double longitude,
-  }) {
-    return CenterPoint(
-      latitude: latitude ?? this.latitude,
-      longitude: longitude ?? this.longitude,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is CenterPoint &&
-          runtimeType == other.runtimeType &&
-          latitude == other.latitude &&
-          longitude == other.longitude;
-
-  @override
-  int get hashCode => latitude.hashCode ^ longitude.hashCode;
-
-  @override
-  String toString() {
-    return JsonEncoder.withIndent('  ').convert(toJson());
-  }
-}
-
-class Crossroads {
-  CenterPoint centerPoint;
+class Crossroad {
+  LatLng centerPoint;
   String direction;
-  double distance;
+  num distance;
   String firstRoadId;
   String firstRoadName;
   String id;
-  double roadWidth;
+  num roadWidth;
   String secondRoadId;
   String secondRoadName;
 
-  Crossroads({
+  Crossroad({
     this.centerPoint,
     this.direction,
     this.distance,
@@ -519,16 +423,16 @@ class Crossroads {
     this.secondRoadName,
   });
 
-  Crossroads.fromJson(Map<String, dynamic> json) {
+  Crossroad.fromJson(Map<String, dynamic> json) {
     centerPoint = json['centerPoint'] != null
-        ? CenterPoint.fromJson(json['centerPoint'])
+        ? LatLng.fromJson(json['centerPoint'])
         : null;
     direction = json['direction'] as String;
-    distance = json['distance'] as double;
+    distance = json['distance'] as num;
     firstRoadId = json['firstRoadId'] as String;
     firstRoadName = json['firstRoadName'] as String;
     id = json['id'] as String;
-    roadWidth = json['roadWidth'] as double;
+    roadWidth = json['roadWidth'] as num;
     secondRoadId = json['secondRoadId'] as String;
     secondRoadName = json['secondRoadName'] as String;
   }
@@ -549,18 +453,18 @@ class Crossroads {
     return data;
   }
 
-  Crossroads copyWith({
-    CenterPoint centerPoint,
+  Crossroad copyWith({
+    LatLng centerPoint,
     String direction,
-    double distance,
+    num distance,
     String firstRoadId,
     String firstRoadName,
     String id,
-    double roadWidth,
+    num roadWidth,
     String secondRoadId,
     String secondRoadName,
   }) {
-    return Crossroads(
+    return Crossroad(
       centerPoint: centerPoint ?? this.centerPoint,
       direction: direction ?? this.direction,
       distance: distance ?? this.distance,
@@ -576,7 +480,7 @@ class Crossroads {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Crossroads &&
+      other is Crossroad &&
           runtimeType == other.runtimeType &&
           centerPoint == other.centerPoint &&
           direction == other.direction &&
@@ -606,14 +510,14 @@ class Crossroads {
   }
 }
 
-class Roads {
+class Road {
   String direction;
-  double distance;
+  num distance;
   String id;
   LatLng latLngPoint;
   String name;
 
-  Roads({
+  Road({
     this.direction,
     this.distance,
     this.id,
@@ -621,9 +525,9 @@ class Roads {
     this.name,
   });
 
-  Roads.fromJson(Map<String, dynamic> json) {
+  Road.fromJson(Map<String, dynamic> json) {
     direction = json['direction'] as String;
-    distance = json['distance'] as double;
+    distance = json['distance'] as num;
     id = json['id'] as String;
     latLngPoint = json['latLngPoint'] != null
         ? LatLng.fromJson(json['latLngPoint'])
@@ -643,14 +547,14 @@ class Roads {
     return data;
   }
 
-  Roads copyWith({
+  Road copyWith({
     String direction,
-    double distance,
+    num distance,
     String id,
     LatLng latLngPoint,
     String name,
   }) {
-    return Roads(
+    return Road(
       direction: direction ?? this.direction,
       distance: distance ?? this.distance,
       id: id ?? this.id,
@@ -662,7 +566,7 @@ class Roads {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Roads &&
+      other is Road &&
           runtimeType == other.runtimeType &&
           direction == other.direction &&
           distance == other.distance &&
@@ -686,7 +590,7 @@ class Roads {
 
 class StreetNumber {
   String direction;
-  double distance;
+  num distance;
   LatLng latLonPoint;
   String number;
   String street;
@@ -701,7 +605,7 @@ class StreetNumber {
 
   StreetNumber.fromJson(Map<String, dynamic> json) {
     direction = json['direction'] as String;
-    distance = json['distance'] as double;
+    distance = json['distance'] as num;
     latLonPoint = json['latLonPoint'] != null
         ? LatLng.fromJson(json['latLonPoint'])
         : null;
@@ -723,7 +627,7 @@ class StreetNumber {
 
   StreetNumber copyWith({
     String direction,
-    double distance,
+    num distance,
     LatLng latLonPoint,
     String number,
     String street,
@@ -766,7 +670,7 @@ class RegeocodeQuery {
   String latLonType;
   String poiType;
   LatLng point;
-  double radius;
+  num radius;
 
   RegeocodeQuery({
     this.latLonType,
@@ -779,7 +683,7 @@ class RegeocodeQuery {
     latLonType = json['latLonType'] as String;
     poiType = json['poiType'] as String;
     point = json['point'] != null ? LatLng.fromJson(json['point']) : null;
-    radius = json['radius'] as double;
+    radius = json['radius'] as num;
   }
 
   Map<String, dynamic> toJson() {
@@ -797,7 +701,7 @@ class RegeocodeQuery {
     String latLonType,
     String poiType,
     LatLng point,
-    double radius,
+    num radius,
   }) {
     return RegeocodeQuery(
       latLonType: latLonType ?? this.latLonType,
