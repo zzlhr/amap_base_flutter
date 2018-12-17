@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amap_base/amap_base.dart';
 
 class GeocodeResult {
@@ -57,9 +59,7 @@ class GeocodeResult {
 
   @override
   String toString() {
-    return '''GeocodeResult{
-		geocodeAddressList: $geocodeAddressList,
-		geocodeQuery: $geocodeQuery}''';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }
 

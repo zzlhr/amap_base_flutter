@@ -30,7 +30,12 @@ class AMapFactory(private val activityState: AtomicInteger)
     override fun create(context: Context, id: Int, params: Any?): PlatformView {
         checkPermission()
 
-        val view = AMapView(context, id, activityState, (params as String).parseJson<UnifiedAMapOptions>().toAMapOption())
+        val view = AMapView(
+                context,
+                id,
+                activityState,
+                (params as String).parseJson<UnifiedAMapOptions>().toAMapOption()
+        )
         view.setup()
         return view
     }
