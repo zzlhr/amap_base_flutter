@@ -3,6 +3,7 @@ import 'package:amap_base_example/search/fetch_data/geocode.screen.dart';
 import 'package:amap_base_example/search/fetch_data/id_poi_search.screen.dart';
 import 'package:amap_base_example/search/fetch_data/keyword_poi_search.screen.dart';
 import 'package:amap_base_example/search/fetch_data/polygon_poi_search.screen.dart';
+import 'package:amap_base_example/search/fetch_data/regeocode.screen.dart';
 import 'package:amap_base_example/search/fetch_data/route_poi_search.screen.dart';
 import 'package:amap_base_example/search/route_plan/driving_route_plan.screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
@@ -58,6 +59,11 @@ class SearchScreen extends StatelessWidget {
               label: '地理编码（地址转坐标）',
               sublabel: 'GeocodeScreen',
               target: GeocodeScreen(),
+            ),
+            FunctionItem(
+              label: '逆地理编码（坐标转地址）',
+              sublabel: 'ReGeocodeScreen',
+              target: ReGeocodeScreen(),
             ),
           ],
         ),
