@@ -62,6 +62,65 @@
 
 @end
 
+@implementation SearchReGeocode {
+    AMapSearchAPI *_search;
+    FlutterResult _result;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        // 搜索api回调设置
+        _search = [[AMapSearchAPI alloc] init];
+        _search.delegate = self;
+    }
+
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    _result = result;
+
+    NSDictionary *paramDic = call.arguments;
+
+    NSString *pointJson = (NSString *) paramDic[@"point"];
+    double radius = [paramDic[@"radius"] doubleValue];
+    NSInteger latLonType = [paramDic[@"latLonType"] integerValue];
+
+    NSLog(@"search#searchReGeocode ios端参数: point -> %@, radius -> %f, latLonType -> %d", pointJson, radius, latLonType);
+
+    AMapGeoPoint *point = [AMapGeoPoint mj_objectWithKeyValues:pointJson];
+
+    AMapReGeocodeSearchRequest *request = [[AMapReGeocodeSearchRequest alloc] init];
+    request.location = [AMapGeoPoint locationWithLatitude:point.latitude longitude:point.longitude];
+    request.requireExtension = YES;
+    request.radius = (NSInteger) radius;
+
+    [_search AMapReGoecodeSearch:request];
+}
+
+/// 逆地理编码回调
+- (void)onReGeocodeSearchDone:(AMapReGeocodeSearchRequest *)request response:(AMapReGeocodeSearchResponse *)response {
+    if (response.regeocode == nil) {
+        _result([FlutterError errorWithCode:@"搜索不到结果"
+                                    message:@"搜索不到结果"
+                                    details:nil]);
+        return;
+    }
+
+    _result([[[UnifiedReGeocodeResult alloc] initWithAMapReGeocodeSearchResponse:response] mj_JSONString]);
+}
+
+/// 搜索失败回调
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    NSLog(@"搜索失败回调");
+    _result([FlutterError errorWithCode:[NSString stringWithFormat:@"%d", error.code]
+                                message:[Misc toAMapErrorDesc:error.code]
+                                details:nil]);
+}
+
+@end
+
 @implementation SearchPoiBound {
     AMapSearchAPI *_search;
     FlutterResult _result;

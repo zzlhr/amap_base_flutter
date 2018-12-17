@@ -10,6 +10,9 @@
 @interface SearchGeocode : NSObject<SearchMethodHandler, AMapSearchDelegate>
 @end
 
+@interface SearchReGeocode : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@end
+
 @interface SearchPoiBound : NSObject<SearchMethodHandler, AMapSearchDelegate>
 @end
 
