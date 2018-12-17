@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.TextureMapView
-import com.google.gson.Gson
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.StandardMessageCodec
@@ -17,6 +16,7 @@ import io.flutter.plugin.platform.PlatformViewFactory
 import me.yohom.amapbase.*
 import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
 import me.yohom.amapbase.common.checkPermission
+import me.yohom.amapbase.common.parseJson
 import me.yohom.amapbase.common.toJson
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -30,10 +30,12 @@ class AMapFactory(private val activityState: AtomicInteger)
     override fun create(context: Context, id: Int, params: Any?): PlatformView {
         checkPermission()
 
-        val options = Gson()
-                .fromJson(params as String, UnifiedAMapOptions::class.java)
-
-        val view = AMapView(context, id, activityState, options.toAMapOption())
+        val view = AMapView(
+                context,
+                id,
+                activityState,
+                (params as String).parseJson<UnifiedAMapOptions>().toAMapOption()
+        )
         view.setup()
         return view
     }
