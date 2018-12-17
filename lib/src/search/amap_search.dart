@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:amap_base_search/amap_base.dart';
 import 'package:amap_base_search/src/common/log.dart';
-import 'package:amap_base_search/src/map/model/poi_result.dart';
+import 'package:amap_base_search/src/search/model/poi_item.dart';
+import 'package:amap_base_search/src/search/model/poi_result.dart';
 import 'package:amap_base_search/src/search/model/drive_route_result.dart';
+import 'package:amap_base_search/src/search/model/regeocode_result.dart';
 import 'package:flutter/services.dart';
 
 class AMapSearch {
@@ -110,5 +112,26 @@ class AMapSearch {
         )
         .then((result) => result as String)
         .then((jsonResult) => GeocodeResult.fromJson(jsonDecode(jsonResult)));
+  }
+
+  /// 逆地理编码（坐标转地址）
+  Future<ReGeocodeResult> searchReGeocode(
+    LatLng point,
+    double radius,
+    int latLonType,
+  ) {
+    L.p('方法searchReGeocode dart端参数: point -> ${point.toJsonString()}, radius -> $radius, latLonType -> $latLonType');
+
+    return _searchChannel
+        .invokeMethod(
+          'search#searchReGeocode',
+          {
+            'point': point.toJsonString(),
+            'radius': radius,
+            'latLonType': latLonType,
+          },
+        )
+        .then((result) => result as String)
+        .then((jsonResult) => ReGeocodeResult.fromJson(jsonDecode(jsonResult)));
   }
 }
