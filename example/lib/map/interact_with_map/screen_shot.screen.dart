@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:amap_base_example/widgets/dimens.dart';
-import 'package:amap_base_map/amap_base.dart';
+import 'package:amap_base/amap_base.dart';
 import 'package:flutter/material.dart';
 
 class ScreenShotScreen extends StatefulWidget {
@@ -18,7 +18,9 @@ class _ScreenShotScreenState extends State<ScreenShotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('截图'),
+        title: const Text('截图'),
+        backgroundColor: Colors.black,
+        centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
