@@ -12,8 +12,8 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      padding: EdgeInsets.symmetric(vertical: 16),
+    return OutlineButton(
+      padding: EdgeInsets.symmetric(vertical: 8),
       color: Colors.black,
       onPressed: () => onPressed(context),
       shape: StadiumBorder(),

@@ -1,66 +1,115 @@
 import 'package:amap_base_example/utils/misc.dart';
+import 'package:amap_base_example/widgets/button.widget.dart';
+import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_location/amap_base.dart';
 import 'package:flutter/material.dart';
 
-class LocationScreen extends StatefulWidget {
+class LocationDemo extends StatefulWidget {
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  _LocationDemoState createState() => _LocationDemoState();
 }
 
-class _LocationScreenState extends State<LocationScreen> {
-  String _result = '';
+class _LocationDemoState extends State<LocationDemo> {
+  final _amapLocation = AMapLocation();
+
+  List<Location> _result = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _amapLocation.init();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        RaisedButton(
-          child: Text('单次定位'),
-          onPressed: () {
-            AMapLocation()
-                .startLocate(LocationClientOptions(
-                    isOnceLocation: true, locatingWithReGeocode: true))
-                .listen((result) {
-              print(result.toString());
-              setState(() {
-                _result = jsonFormat(result.toJson());
-              });
-            });
-          },
-        ),
-        RaisedButton(
-          child: Text('连续定位'),
-          onPressed: () async {
-            await AMapLocation().init();
-            AMapLocation()
-                .startLocate(LocationClientOptions(
-              isOnceLocation: false,
-              locatingWithReGeocode: true,
-            ))
-                .listen((result) {
-              print(result.toString());
-              setState(() {
-                _result = jsonFormat(result.toJson());
-              });
-            });
-          },
-        ),
-        RaisedButton(
-          child: Text('停止定位'),
-          onPressed: () async {
-            await AMapLocation().init();
-            AMapLocation().stopLocate();
-          },
-        ),
-        Flexible(child: ListView(children: <Widget>[Text(_result)])),
-      ],
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Flexible(
+            child: ListView(
+              children:
+                  _result.map((location) => _ResultItem(location)).toList(),
+            ),
+          ),
+          SPACE_NORMAL,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Button(
+                label: '单次定位',
+                onPressed: (context) {
+                  final options = LocationClientOptions(
+                    isOnceLocation: true,
+                    locatingWithReGeocode: true,
+                  );
+
+                  _amapLocation
+                      .startLocate(options)
+                      .map(_result.add)
+                      .listen((_) => setState(() {}));
+                },
+              ),
+              Button(
+                label: '连续定位',
+                onPressed: (context) async {
+                  final options = LocationClientOptions(
+                    isOnceLocation: false,
+                    locatingWithReGeocode: true,
+                  );
+
+                  _amapLocation
+                      .startLocate(options)
+                      .map(_result.add)
+                      .listen((_) => setState(() {}));
+                },
+              ),
+              Button(
+                label: '停止定位',
+                onPressed: (context) async {
+                  _amapLocation.stopLocate();
+                },
+              ),
+            ],
+          ),
+          SPACE_NORMAL,
+        ],
+      ),
     );
   }
 
   @override
   void dispose() {
-    AMapLocation().stopLocate();
+    _amapLocation.stopLocate();
     super.dispose();
+  }
+}
+
+class _ResultItem extends StatelessWidget {
+  final Location _data;
+
+  const _ResultItem(this._data, {Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(kSpaceBig),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            DateTime.now().toIso8601String(),
+            style: TextStyle(color: Colors.grey),
+          ),
+          SPACE_SMALL,
+          Text(
+            jsonFormat(_data.toJson()),
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+    );
   }
 }
