@@ -6,6 +6,12 @@
 #import "IMethodHandler.h"
 
 
+@interface SetCustomMapStylePath : NSObject <MapMethodHandler>
+@end
+
+@interface SetMapCustomEnable : NSObject <MapMethodHandler>
+@end
+
 @interface ConvertCoordinate : NSObject <MapMethodHandler>
 @end
 

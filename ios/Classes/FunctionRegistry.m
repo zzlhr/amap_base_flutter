@@ -32,6 +32,8 @@ static NSDictionary<NSString *, NSObject <MapMethodHandler> *> *_mapDictionary;
                 @"map#zoomToSpan": [ZoomToSpan alloc],
                 @"map#changeLatLng": [ChangeLatLng alloc],
                 @"map#screenshot":[ScreenShot alloc],
+                @"map#setCustomMapStylePath":[SetCustomMapStylePath alloc],
+                @"map#setMapCustomEnable":[SetMapCustomEnable alloc],
         };
     }
     return _mapDictionary;

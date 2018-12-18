@@ -9,7 +9,49 @@
 #import "AMapViewFactory.h"
 #import "MapModels.h"
 #import "MJExtension.h"
+#import "UnifiedAssets.h"
 
+
+@implementation SetCustomMapStylePath {
+    MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    NSDictionary *paramDic = call.arguments;
+    NSString *path = (NSString *) paramDic[@"path"];
+
+    NSData *data = [NSData dataWithContentsOfFile:[UnifiedAssets getAssetPath:path]];
+    [_mapView setCustomMapStyleWithWebData:data];
+    result(success);
+}
+
+@end
+
+@implementation SetMapCustomEnable {
+    MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    NSDictionary *paramDic = call.arguments;
+
+    BOOL enabled = [paramDic[@"enabled"] boolValue];
+
+    [_mapView setCustomMapStyleEnabled:enabled];
+
+    result(success);
+}
+
+@end
 
 @implementation ConvertCoordinate {
     MAMapView *_mapView;
@@ -89,7 +131,6 @@
 @end
 
 
-
 @implementation SetLanguage {
     MAMapView *_mapView;
 }
@@ -138,7 +179,6 @@
 @end
 
 
-
 @implementation SetMyLocationStyle {
     MAMapView *_mapView;
 }
@@ -183,7 +223,6 @@
 }
 
 @end
-
 
 
 @implementation ShowIndoorMap {
@@ -284,7 +323,6 @@
 @end
 
 
-
 @implementation AddPolyline {
     MAMapView *_mapView;
 }
@@ -315,7 +353,6 @@
 }
 
 @end
-
 
 
 @implementation ClearMarker {
@@ -437,8 +474,6 @@
 @end
 
 
-
-
 @implementation ZoomToSpan {
     MAMapView *_mapView;
 }
@@ -468,22 +503,23 @@
 
 @end
 
-@implementation ScreenShot{
+@implementation ScreenShot {
     MAMapView *_mapView;
 }
-- (NSObject<MapMethodHandler> *)initWith:(MAMapView *)mapView {
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
     _mapView = mapView;
     return self;
 }
+
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
     CGRect rect = [_mapView frame];
     [_mapView takeSnapshotInRect:rect withCompletionBlock:^(UIImage *resultImage, NSInteger state) {
-        if(resultImage == nil){
+        if (resultImage == nil) {
             FlutterError *err = [FlutterError errorWithCode:@"截图失败,渲染未完成" message:@"截图失败,渲染未完成" details:nil];
             result(err);
             return;
         }
-        if(state != 1){
+        if (state != 1) {
             FlutterError *err = [FlutterError errorWithCode:@"截图失败,渲染未完成" message:@"截图失败,渲染未完成" details:nil];
             result(err);
             return;
