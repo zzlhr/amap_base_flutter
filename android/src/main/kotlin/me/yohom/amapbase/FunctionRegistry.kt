@@ -23,6 +23,8 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#addPolyline" to AddPolyline,
         "map#zoomToSpan" to ZoomToSpan,
         "map#screenshot" to ScreenShot,
+        "map#setCustomMapStylePath" to SetCustomMapStylePath,
+        "map#setMapCustomEnable" to SetMapCustomEnable,
         "map#changeLatLng" to ChangeLatLng
 )
 

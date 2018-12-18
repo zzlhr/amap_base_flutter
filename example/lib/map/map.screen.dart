@@ -1,3 +1,4 @@
+import 'package:amap_base_example/map/create_map/custom_map.screen.dart';
 import 'package:amap_base_map/amap_base.dart';
 import 'package:amap_base_example/map/create_map/show_indoor_map.screen.dart';
 import 'package:amap_base_example/map/create_map/show_map.screen.dart';
@@ -42,6 +43,11 @@ class MapScreen extends StatelessWidget {
               label: '切换地图图层',
               sublabel: 'SwitchMapLayerScreen',
               target: SwitchMapLayerScreen(),
+            ),
+            FunctionItem(
+              label: '自定义地图',
+              sublabel: 'CustomMapScreen',
+              target: CustomMapScreen(),
             ),
             Column(
               children: <Widget>[

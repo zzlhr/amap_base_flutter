@@ -197,14 +197,6 @@ class AMapController {
     );
   }
 
-  //endregion
-
-  /// marker点击事件流
-  Stream<MarkerOptions> get markerClickedEvent => _markerClickedEventChannel
-      .receiveBroadcastStream()
-      .map((data) => MarkerOptions.fromJson(jsonDecode(data)));
-
-
   /// 截图
   ///
   /// 可能会抛出 [PlatformException]
@@ -225,4 +217,29 @@ class AMapController {
       throw Error();
     }
   }
+
+  Future setCustomMapStylePath(String path) {
+    L.p('setCustomMapStylePath dart端参数: path -> $path');
+
+    return _mapChannel.invokeMethod(
+      'map#setCustomMapStylePath',
+      {'path': path},
+    );
+  }
+
+  Future setMapCustomEnable(bool enabled) {
+    L.p('setMapCustomEnable dart端参数: enabled -> $enabled');
+
+    return _mapChannel.invokeMethod(
+      'map#setMapCustomEnable',
+      {'enabled': enabled},
+    );
+  }
+
+  //endregion
+
+  /// marker点击事件流
+  Stream<MarkerOptions> get markerClickedEvent => _markerClickedEventChannel
+      .receiveBroadcastStream()
+      .map((data) => MarkerOptions.fromJson(jsonDecode(data)));
 }
