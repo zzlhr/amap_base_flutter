@@ -5,6 +5,7 @@ import 'package:amap_base_example/map/create_map/switch_map_layer.screen.dart';
 import 'package:amap_base_example/map/interact_with_map/code_interaction.screen.dart';
 import 'package:amap_base_example/map/interact_with_map/control_interaction.screen.dart';
 import 'package:amap_base_example/map/interact_with_map/gesture_interaction.screen.dart';
+import 'package:amap_base_example/map/interact_with_map/screen_shot.screen.dart';
 import 'package:amap_base_example/map/draw_on_map/draw_point.screen.dart';
 import 'package:amap_base_example/map/draw_on_map/draw_polyline.screen.dart';
 import 'package:amap_base_example/map/tools/coordinate_transformation_screen.dart';
@@ -67,6 +68,11 @@ class MapScreen extends StatelessWidget {
               label: '调用方法交互',
               sublabel: 'CodeInteractionScreen',
               target: CodeInteractionScreen(),
+            ),
+            FunctionItem(
+              label: '截图',
+              sublabel: 'ScreenShotScreen',
+              target: ScreenShotScreen(),
             ),
           ],
         ),

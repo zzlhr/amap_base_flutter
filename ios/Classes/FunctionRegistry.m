@@ -34,6 +34,7 @@ static NSDictionary<NSString *, NSObject <MapMethodHandler> *> *_mapDictionary;
                 @"map#addPolyline": [AddPolyline alloc],
                 @"map#zoomToSpan": [ZoomToSpan alloc],
                 @"map#changeLatLng": [ChangeLatLng alloc],
+                @"map#screenshot":[ScreenShot alloc],
         };
     }
     return _mapDictionary;

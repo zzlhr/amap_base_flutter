@@ -2,13 +2,9 @@ import 'dart:convert';
 
 import 'package:amap_base/amap_base.dart';
 import 'package:amap_base/src/common/log.dart';
-import 'package:amap_base/src/map/model/poi_result.dart';
 import 'package:amap_base/src/search/model/drive_route_result.dart';
-import 'package:amap_base/amap_base.dart';
-import 'package:amap_base/src/common/log.dart';
 import 'package:amap_base/src/search/model/poi_item.dart';
 import 'package:amap_base/src/search/model/poi_result.dart';
-import 'package:amap_base/src/search/model/drive_route_result.dart';
 import 'package:amap_base/src/search/model/regeocode_result.dart';
 import 'package:flutter/services.dart';
 
