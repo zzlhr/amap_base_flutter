@@ -12,15 +12,102 @@ import com.amap.api.maps.offlinemap.OfflineMapActivity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.amapbase.AMapBasePlugin
+import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
 import me.yohom.amapbase.MapMethodHandler
 import me.yohom.amapbase.common.log
 import me.yohom.amapbase.common.parseJson
 import me.yohom.amapbase.common.toJson
-import java.io.ByteArrayOutputStream
+import java.io.*
 import java.util.*
 
-
 val beijingLatLng = LatLng(39.941711, 116.382248)
+
+object SetCustomMapStyleID : MapMethodHandler {
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val styleId = call.argument("styleId") ?: ""
+
+        log("方法map#setCustomMapStyleID android端参数: styleId -> $styleId")
+
+        map.setCustomMapStyleID(styleId)
+
+        result.success(success)
+    }
+}
+
+object SetCustomMapStylePath : MapMethodHandler {
+
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): SetCustomMapStylePath {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val path = call.argument("path") ?: ""
+
+        log("方法map#setCustomMapStylePath android端参数: path -> $path")
+
+        var outputStream: FileOutputStream? = null
+        var inputStream: InputStream? = null
+        val filePath: String?
+        try {
+            inputStream = registrar.context().assets.open(registrar.lookupKeyForAsset(path))
+            val b = ByteArray(inputStream!!.available())
+            inputStream.read(b)
+
+            filePath = registrar.context().filesDir.absolutePath
+            val file = File("$filePath/$path")
+            if (file.exists()) {
+                file.delete()
+            }
+
+            if (!file.parentFile.exists()) {
+                file.parentFile.mkdirs()
+            }
+            file.createNewFile()
+            outputStream = FileOutputStream(file)
+            outputStream.write(b)
+        } catch (e: IOException) {
+            result.error(e.message, e.localizedMessage, e.printStackTrace())
+            return
+        } finally {
+            inputStream?.close()
+            outputStream?.close()
+        }
+
+        map.setCustomMapStylePath("$filePath/$path")
+
+        result.success(success)
+    }
+}
+
+object SetMapCustomEnable : MapMethodHandler {
+
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): SetMapCustomEnable {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val enabled = call.argument("enabled") ?: false
+
+        log("方法map#setMapCustomEnable android端参数: enabled -> $enabled")
+
+        map.setMapCustomEnable(enabled)
+
+        result.success(success)
+    }
+}
 
 object ConvertCoordinate : MapMethodHandler {
 
