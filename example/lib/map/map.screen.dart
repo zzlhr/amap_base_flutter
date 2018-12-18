@@ -1,4 +1,5 @@
 import 'package:amap_base_example/map/create_map/custom_map.screen.dart';
+import 'package:amap_base_example/map/tools/calcute_distance_screen.dart';
 import 'package:amap_base_map/amap_base.dart';
 import 'package:amap_base_example/map/create_map/show_indoor_map.screen.dart';
 import 'package:amap_base_example/map/create_map/show_map.screen.dart';
@@ -154,6 +155,11 @@ class MapScreen extends StatelessWidget {
               label: "坐标转换",
               sublabel: "CoordinateTransformationScreen",
               target: CoordinateTransformationScreen(),
+            ),
+            FunctionItem(
+              label: "两点间距离计算",
+              sublabel: "CalcuteDistanceScreen",
+              target: CalcuteDistanceScreen(),
             ),
           ],
         ),

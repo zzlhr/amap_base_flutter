@@ -120,6 +120,49 @@
 
 @end
 
+@implementation CalcDistance{
+    MAMapView *_mapView;
+}
+
+- (NSObject<MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    NSDictionary *params = [call arguments];
+    NSDictionary *p1 = [params valueForKey:@"p1"];
+    NSDictionary *p2 = [params valueForKey:@"p2"];
+    CLLocationDistance distance = MAMetersBetweenMapPoints([self getPointFromDict:p1],[self getPointFromDict:p2]);
+    result([NSNumber numberWithDouble:distance]);
+}
+
+-(MAMapPoint) getPointFromDict:(NSDictionary *) dict {
+    CGFloat lat = [[dict valueForKey:@"latitude"] floatValue];
+    CGFloat lng = [[dict valueForKey:@"longitude"] floatValue];
+    return MAMapPointForCoordinate(CLLocationCoordinate2DMake(lat,lng));
+}
+
+@end
+
+@implementation GetCenterPoint{
+     MAMapView *_mapView;
+}
+
+- (NSObject<MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    CLLocationCoordinate2D coor = _mapView.centerCoordinate;
+    LatLng *latlng = [LatLng new];
+    latlng.latitude = coor.latitude;
+    latlng.longitude = coor.longitude;
+    result([latlng mj_JSONString]);
+}
+
+@end
 
 @implementation ClearMap {
     MAMapView *_mapView;
