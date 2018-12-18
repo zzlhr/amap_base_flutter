@@ -1,6 +1,7 @@
 package me.yohom.amapbase.map
 
 import android.content.Intent
+import android.graphics.Bitmap
 import com.amap.api.maps.AMap
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.CoordinateConverter
@@ -15,6 +16,7 @@ import me.yohom.amapbase.MapMethodHandler
 import me.yohom.amapbase.common.log
 import me.yohom.amapbase.common.parseJson
 import me.yohom.amapbase.common.toJson
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 
@@ -68,7 +70,7 @@ object ClearMap : MapMethodHandler {
     }
 }
 
-object OpenOfflineManager: MapMethodHandler {
+object OpenOfflineManager : MapMethodHandler {
 
     override fun with(map: AMap): MapMethodHandler {
         return this
@@ -362,5 +364,34 @@ object ZoomToSpan : MapMethodHandler {
         ))
 
         methodResult.success(success)
+    }
+}
+
+object ScreenShot : MapMethodHandler {
+    lateinit var map: AMap
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
+        map.getMapScreenShot(object : AMap.OnMapScreenShotListener {
+            override fun onMapScreenShot(bitmap: Bitmap?) {
+            }
+
+            override fun onMapScreenShot(bitmap: Bitmap?, status: Int) {
+                if (bitmap == null) {
+                    methodResult.error("截图失败", null, null)
+                    return
+                }
+                if (status != 0) {
+                    val outputStream = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                    methodResult.success(outputStream.toByteArray())
+                } else {
+                    methodResult.error("截图失败,渲染未完成", "截图失败,渲染未完成", null)
+                }
+            }
+        })
     }
 }

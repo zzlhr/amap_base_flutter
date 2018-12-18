@@ -468,3 +468,29 @@
 
 @end
 
+@implementation ScreenShot{
+    MAMapView *_mapView;
+}
+- (NSObject<MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    CGRect rect = [_mapView frame];
+    [_mapView takeSnapshotInRect:rect withCompletionBlock:^(UIImage *resultImage, NSInteger state) {
+        if(resultImage == nil){
+            FlutterError *err = [FlutterError errorWithCode:@"截图失败,渲染未完成" message:@"截图失败,渲染未完成" details:nil];
+            result(err);
+            return;
+        }
+        if(state != 1){
+            FlutterError *err = [FlutterError errorWithCode:@"截图失败,渲染未完成" message:@"截图失败,渲染未完成" details:nil];
+            result(err);
+            return;
+        }
+        NSData *data = UIImageJPEGRepresentation(resultImage, 100);
+        FlutterStandardTypedData *r = [FlutterStandardTypedData typedDataWithBytes:data];
+        result(r);
+    }];
+}
+@end
