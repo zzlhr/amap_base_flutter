@@ -72,3 +72,6 @@
 
 @interface ZoomToSpan : NSObject <MapMethodHandler>
 @end
+
+@interface ScreenShot : NSObject<MapMethodHandler>
+@end

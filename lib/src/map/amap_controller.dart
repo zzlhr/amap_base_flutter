@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:amap_base/amap_base.dart';
 import 'package:amap_base/src/common/log.dart';
@@ -202,4 +203,26 @@ class AMapController {
   Stream<MarkerOptions> get markerClickedEvent => _markerClickedEventChannel
       .receiveBroadcastStream()
       .map((data) => MarkerOptions.fromJson(jsonDecode(data)));
+
+
+  /// 截图
+  ///
+  /// 可能会抛出 [PlatformException]
+  Future<Uint8List> screenShot() async {
+    try {
+      var result = await _mapChannel.invokeMethod("map#screenshot");
+      if (result is List<dynamic>) {
+        return Uint8List.fromList(result.map((i) => i as int).toList());
+      } else if (result is Uint8List) {
+        return result;
+      }
+      throw PlatformException(code: "不支持的类型");
+    } catch (e) {
+      if (e is PlatformException) {
+        L.d(e.code);
+        throw e;
+      }
+      throw Error();
+    }
+  }
 }
