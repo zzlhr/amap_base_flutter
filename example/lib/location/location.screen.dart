@@ -9,10 +9,14 @@ class LocationDemo extends StatefulWidget {
   _LocationDemoState createState() => _LocationDemoState();
 }
 
-class _LocationDemoState extends State<LocationDemo> {
+class _LocationDemoState extends State<LocationDemo>
+    with AutomaticKeepAliveClientMixin {
   final _amapLocation = AMapLocation();
 
   List<Location> _result = [];
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
