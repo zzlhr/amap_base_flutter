@@ -33,6 +33,7 @@ static NSDictionary<NSString *, NSObject <MapMethodHandler> *> *_mapDictionary;
                 @"map#changeLatLng": [ChangeLatLng alloc],
                 @"map#screenshot":[ScreenShot alloc],
                 @"map#setCustomMapStylePath":[SetCustomMapStylePath alloc],
+                @"map#setCustomMapStyleID":[SetCustomMapStyleID alloc],
                 @"map#setMapCustomEnable":[SetMapCustomEnable alloc],
         };
     }

@@ -6,6 +6,9 @@
 #import "IMethodHandler.h"
 
 
+@interface SetCustomMapStyleID : NSObject <MapMethodHandler>
+@end
+
 @interface SetCustomMapStylePath : NSObject <MapMethodHandler>
 @end
 

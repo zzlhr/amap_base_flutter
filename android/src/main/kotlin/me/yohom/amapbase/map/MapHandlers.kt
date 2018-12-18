@@ -22,6 +22,25 @@ import java.util.*
 
 val beijingLatLng = LatLng(39.941711, 116.382248)
 
+object SetCustomMapStyleID : MapMethodHandler {
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val styleId = call.argument("styleId") ?: ""
+
+        log("方法map#setCustomMapStyleID android端参数: styleId -> $styleId")
+
+        map.setCustomMapStyleID(styleId)
+
+        result.success(success)
+    }
+}
+
 object SetCustomMapStylePath : MapMethodHandler {
 
     private lateinit var map: AMap

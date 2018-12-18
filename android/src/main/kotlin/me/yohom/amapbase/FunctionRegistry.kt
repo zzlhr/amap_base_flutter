@@ -25,6 +25,7 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#screenshot" to ScreenShot,
         "map#setCustomMapStylePath" to SetCustomMapStylePath,
         "map#setMapCustomEnable" to SetMapCustomEnable,
+        "map#setCustomMapStyleID" to SetCustomMapStyleID,
         "map#changeLatLng" to ChangeLatLng
 )
 

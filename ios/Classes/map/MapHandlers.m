@@ -12,6 +12,27 @@
 #import "UnifiedAssets.h"
 
 
+@implementation SetCustomMapStyleID {
+    MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    NSDictionary *paramDic = call.arguments;
+    NSString *styleId = (NSString *) paramDic[@"styleId"];
+
+    NSLog(@"方法map#setCustomMapStyleID iOS: styleId -> %@", styleId);
+
+    [_mapView setCustomMapStyleID:styleId];
+    result(success);
+}
+
+@end
+
 @implementation SetCustomMapStylePath {
     MAMapView *_mapView;
 }
@@ -24,6 +45,8 @@
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
     NSDictionary *paramDic = call.arguments;
     NSString *path = (NSString *) paramDic[@"path"];
+
+    NSLog(@"方法map#setCustomMapStylePath iOS: path -> %@", path);
 
     NSData *data = [NSData dataWithContentsOfFile:[UnifiedAssets getAssetPath:path]];
     [_mapView setCustomMapStyleWithWebData:data];
@@ -43,8 +66,9 @@
 
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
     NSDictionary *paramDic = call.arguments;
-
     BOOL enabled = [paramDic[@"enabled"] boolValue];
+
+    NSLog(@"方法map#setMapCustomEnable iOS: enabled -> %d", enabled);
 
     [_mapView setCustomMapStyleEnabled:enabled];
 

@@ -218,6 +218,7 @@ class AMapController {
     }
   }
 
+  /// 设置自定义样式的文件路径
   Future setCustomMapStylePath(String path) {
     L.p('setCustomMapStylePath dart端参数: path -> $path');
 
@@ -227,12 +228,23 @@ class AMapController {
     );
   }
 
+  /// 使能自定义样式
   Future setMapCustomEnable(bool enabled) {
     L.p('setMapCustomEnable dart端参数: enabled -> $enabled');
 
     return _mapChannel.invokeMethod(
       'map#setMapCustomEnable',
       {'enabled': enabled},
+    );
+  }
+
+  /// 使用在线自定义样式
+  Future setCustomMapStyleID(String styleId) {
+    L.p('setCustomMapStyleID dart端参数: styleId -> $styleId');
+
+    return _mapChannel.invokeMethod(
+      'map#setCustomMapStyleID',
+      {'styleId': styleId},
     );
   }
 
