@@ -81,9 +81,22 @@
 }
 
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:[MAOfflineMapViewController sharedInstance]
-                                                                                 animated:YES
-                                                                               completion:nil];
+    UIViewController *ctl = [MAOfflineMapViewController sharedInstance];
+    UINavigationController *naviCtl = [[UINavigationController alloc] initWithRootViewController:ctl];
+    
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    
+//    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)];
+    
+    [[ctl navigationItem]setLeftBarButtonItem:item];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController: naviCtl animated:YES completion:nil];
+}
+
+-(void)dismiss{
+    UIViewController *ctl = [MAOfflineMapViewController sharedInstance];
+    if([ctl navigationController]){
+        [[ctl navigationController] dismissViewControllerAnimated:true completion:nil];
+    }
 }
 
 @end
