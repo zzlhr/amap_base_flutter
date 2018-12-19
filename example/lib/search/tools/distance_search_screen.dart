@@ -1,6 +1,6 @@
 import 'package:amap_base_example/utils/log.dart';
 import 'package:amap_base_example/utils/misc.dart';
-import 'package:amap_base_search/amap_base.dart';
+import 'package:amap_base/amap_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
