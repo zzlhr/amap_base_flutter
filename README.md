@@ -11,7 +11,7 @@ amap_base: x.x.x
 amap_base_map: x.x.x # 仅地图
 amap_base_navi: x.x.x # 仅导航(高德导航SDK已包含地图, 不要跟amap_base_map重复引用)
 amap_base_search: x.x.x # 仅搜索
-amap_base_location: x.x.x # 仅定位(暂未实现)
+amap_base_location: x.x.x # 仅定位
 ```
 如果你想要指定某个版本/分支/提交, 那么:
 ```
