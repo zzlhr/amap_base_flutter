@@ -16,7 +16,7 @@ import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
 import 'package:flutter/material.dart';
 
-class MapScreen extends StatelessWidget {
+class MapDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
