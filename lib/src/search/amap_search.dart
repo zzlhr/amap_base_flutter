@@ -134,4 +134,31 @@ class AMapSearch {
         .then((result) => result as String)
         .then((jsonResult) => ReGeocodeResult.fromJson(jsonDecode(jsonResult)));
   }
+
+  /// 距离测量 参考[链接](https://lbs.amap.com/api/android-sdk/guide/computing-equipment/distancesearch)
+  ///
+  /// type 分别对应
+  Future<List<int>> distanceSearch(
+      List<LatLng> origins, LatLng target, DistanceSearchType type) async {
+    List<Map<String, Object>> oriList = [];
+
+    origins.forEach((o) {
+      oriList.add(o.toJson());
+    });
+
+    Map<String, dynamic> params = {
+      "origin": oriList,
+      "target": target.toJson(),
+      "type": DistanceSearchType.values.indexOf(type),
+    };
+
+    List<dynamic> result =
+        await _searchChannel.invokeMethod("tool#distanceSearch", params);
+    return result.map((v) => v as int).toList();
+  }
+}
+
+enum DistanceSearchType {
+  line,
+  driver,
 }
