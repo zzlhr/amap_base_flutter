@@ -278,3 +278,38 @@ object CalculateDriveRoute : SearchMethodHandler {
         }
     }
 }
+
+object DistanceSearchHandler : SearchMethodHandler {
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result?) {
+        val search = DistanceSearch(AMapBasePlugin.registrar.context())
+        search.setDistanceSearchListener { distanceResult, i ->
+            search.setDistanceSearchListener(null)
+            if (i == 1000) {
+                val list = distanceResult.distanceResults.map {
+                    it.distance.toInt()
+                }
+                result?.success(list)
+            } else {
+                result?.error("测量失败 code ==> $i", null, null)
+            }
+        }
+
+        val origins = call.argument<List<Map<String, Any>>>("origin")!!
+        val target = call.argument<Map<String, Any>>("target")!!
+        val type = call.argument<Int>("type")!!
+
+        search.calculateRouteDistanceAsyn(DistanceSearch.DistanceQuery().apply {
+            this.origins = origins.map {
+                it.toLatlng().toLatLonPoint()
+            }.toMutableList()
+            this.destination = target.toLatlng().toLatLonPoint()
+            this.type = type
+        })
+    }
+
+    fun Map<String, Any>.toLatlng(): LatLng {
+        val lat = this["latitude"] as Double
+        val lng = this["longitude"] as Double
+        return LatLng(lat, lng)
+    }
+}

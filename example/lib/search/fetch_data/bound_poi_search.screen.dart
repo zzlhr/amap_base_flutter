@@ -26,9 +26,9 @@ class _BoundPoiSearchScreenState extends State<BoundPoiSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('周边检索POI'),
-        backgroundColor: Colors.black,
-        centerTitle: true,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(8.0),
@@ -40,6 +40,7 @@ class _BoundPoiSearchScreenState extends State<BoundPoiSearchScreen> {
                 hintText: '输入中心',
                 border: OutlineInputBorder(),
               ),
+              style: TextStyle(color: Colors.white),
               enabled: false,
               controller: _centerController,
               validator: (value) {
@@ -54,6 +55,7 @@ class _BoundPoiSearchScreenState extends State<BoundPoiSearchScreen> {
                 hintText: '输入关键字',
                 border: OutlineInputBorder(),
               ),
+              style: TextStyle(color: Colors.white),
               controller: _keywordController,
               validator: (value) {
                 if (value.isEmpty) {
@@ -65,8 +67,11 @@ class _BoundPoiSearchScreenState extends State<BoundPoiSearchScreen> {
             TextFormField(
               decoration: InputDecoration(
                 hintText: '输入半径/米',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
               ),
+              style: TextStyle(color: Colors.white),
               keyboardType: TextInputType.number,
               controller: _rangeController,
               validator: (value) {
@@ -105,7 +110,7 @@ class _BoundPoiSearchScreenState extends State<BoundPoiSearchScreen> {
               },
             ),
             SPACE_NORMAL,
-            Text(_result),
+            Text(_result, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

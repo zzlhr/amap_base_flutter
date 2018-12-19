@@ -33,3 +33,6 @@
 
 @interface CalculateDriveRoute : NSObject<SearchMethodHandler, AMapSearchDelegate>
 @end
+
+@interface DistanceSearch : NSObject<SearchMethodHandler,AMapSearchDelegate>
+@end

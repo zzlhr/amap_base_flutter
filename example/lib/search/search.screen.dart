@@ -6,12 +6,13 @@ import 'package:amap_base_example/search/fetch_data/polygon_poi_search.screen.da
 import 'package:amap_base_example/search/fetch_data/regeocode.screen.dart';
 import 'package:amap_base_example/search/fetch_data/route_poi_search.screen.dart';
 import 'package:amap_base_example/search/route_plan/driving_route_plan.screen.dart';
+import 'package:amap_base_example/search/tools/distance_search_screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -23,6 +24,7 @@ class SearchScreen extends StatelessWidget {
               label: '驾车出行路线规划',
               sublabel: 'DrivingRoutPlanScreen',
               target: DrivingRoutPlanScreen(),
+              isLast: true,
             ),
           ],
         ),
@@ -64,6 +66,18 @@ class SearchScreen extends StatelessWidget {
               label: '逆地理编码（坐标转地址）',
               sublabel: 'ReGeocodeScreen',
               target: ReGeocodeScreen(),
+              isLast: true,
+            ),
+          ],
+        ),
+        SPACE_BIG,
+        FunctionGroup(
+          headLabel: "工具",
+          children: <Widget>[
+            FunctionItem(
+              label: '测量距离',
+              sublabel: 'DistanceSearch',
+              target: DistanceSearchScreen(),
             ),
           ],
         ),

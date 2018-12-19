@@ -22,16 +22,22 @@ class DrivingRoutPlanScreenState extends State<DrivingRoutPlanScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('驾车出行路线规划'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text('起点: 39.993291, 116.473188'),
-            Text('终点: 39.940474, 116.355426'),
+            Text(
+              '起点: 39.993291, 116.473188',
+              style: TextStyle(color: Colors.white),
+            ),
+            Text(
+              '终点: 39.940474, 116.355426',
+              style: TextStyle(color: Colors.white),
+            ),
             SPACE_NORMAL,
             Button(
               label: '开始规划',

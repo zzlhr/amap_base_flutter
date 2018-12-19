@@ -22,9 +22,9 @@ class _IdPoiSearchScreenState extends State<IdPoiSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ID检索POI'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -34,7 +34,11 @@ class _IdPoiSearchScreenState extends State<IdPoiSearchScreen> {
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               children: <Widget>[
-                Text('ID: B0FFJD44SX', textAlign: TextAlign.center),
+                Text(
+                  'ID: B0FFJD44SX',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white),
+                ),
                 SPACE_NORMAL,
                 Button(
                   label: '开始搜索',
@@ -54,7 +58,7 @@ class _IdPoiSearchScreenState extends State<IdPoiSearchScreen> {
                   },
                 ),
                 SPACE_NORMAL,
-                Text(_result),
+                Text(_result, style: TextStyle(color: Colors.white)),
               ],
             ),
           ),

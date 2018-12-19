@@ -16,7 +16,7 @@ import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
 import 'package:flutter/material.dart';
 
-class MapScreen extends StatelessWidget {
+class MapDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -47,12 +47,20 @@ class MapScreen extends StatelessWidget {
             Column(
               children: <Widget>[
                 ListTile(
-                  title: Text('使用离线地图'),
-                  subtitle: Text('使用离线地图'),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                  title: Text(
+                    '使用离线地图',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  subtitle: Text(
+                    '使用离线地图',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  trailing: Icon(
+                    Icons.keyboard_arrow_right,
+                    color: Colors.white,
+                  ),
                   onTap: () => OfflineManager().openOfflineManager(),
                 ),
-                Divider(height: 1, indent: 16),
               ],
             ),
           ],
@@ -80,6 +88,7 @@ class MapScreen extends StatelessWidget {
               label: '截图',
               sublabel: 'ScreenShotScreen',
               target: ScreenShotScreen(),
+              isLast: true,
             ),
           ],
         ),
@@ -96,6 +105,7 @@ class MapScreen extends StatelessWidget {
               label: '绘制线',
               sublabel: 'DrawPolylineScreen',
               target: DrawPolylineScreen(),
+              isLast: true,
             ),
           ],
         ),
@@ -112,6 +122,7 @@ class MapScreen extends StatelessWidget {
               label: "两点间距离计算",
               sublabel: "CalcuteDistanceScreen",
               target: CalcuteDistanceScreen(),
+              isLast: true,
             ),
           ],
         ),

@@ -25,9 +25,9 @@ class _ReGeocodeScreenState extends State<ReGeocodeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('逆地理编码（坐标转地址）'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -42,6 +42,7 @@ class _ReGeocodeScreenState extends State<ReGeocodeScreen> {
                     hintText: '输入目标经纬度',
                     border: OutlineInputBorder(),
                   ),
+                  style: TextStyle(color: Colors.white),
                   controller: _nameController,
                   validator: (value) {
                     if (value.isEmpty) {
@@ -56,6 +57,7 @@ class _ReGeocodeScreenState extends State<ReGeocodeScreen> {
                     border: OutlineInputBorder(),
                   ),
                   controller: _cityController,
+                  style: TextStyle(color: Colors.white),
                   validator: (value) {
                     if (value.isEmpty) {
                       return '输入搜索范围';
@@ -85,7 +87,7 @@ class _ReGeocodeScreenState extends State<ReGeocodeScreen> {
                   },
                 ),
                 SPACE_NORMAL,
-                Text(_result),
+                Text(_result, style: TextStyle(color: Colors.white)),
               ],
             ),
           ),

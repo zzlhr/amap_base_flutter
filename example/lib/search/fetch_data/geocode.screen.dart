@@ -27,9 +27,9 @@ class _GeocodeScreenState extends State<GeocodeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('地理编码（地址转坐标）'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: ListView(
         shrinkWrap: true,
         children: <Widget>[
@@ -44,6 +44,7 @@ class _GeocodeScreenState extends State<GeocodeScreen> {
                     hintText: '输入目标地址',
                     border: OutlineInputBorder(),
                   ),
+                  style: TextStyle(color: Colors.white),
                   controller: _nameController,
                   validator: (value) {
                     if (value.isEmpty) {
@@ -57,6 +58,7 @@ class _GeocodeScreenState extends State<GeocodeScreen> {
                     hintText: '输入所在城市',
                     border: OutlineInputBorder(),
                   ),
+                  style: TextStyle(color: Colors.white),
                   controller: _cityController,
                   validator: (value) {
                     if (value.isEmpty) {
@@ -86,7 +88,7 @@ class _GeocodeScreenState extends State<GeocodeScreen> {
                   },
                 ),
                 SPACE_NORMAL,
-                Text(_result),
+                Text(_result, style: TextStyle(color: Colors.white)),
               ],
             ),
           ),
