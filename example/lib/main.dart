@@ -1,7 +1,5 @@
-import 'package:amap_base_map/amap_base.dart';
 import 'package:amap_base_example/map/map.screen.dart';
-import 'package:amap_base_example/navi/navi.screen.dart';
-import 'package:amap_base_example/widgets/dimens.dart';
+import 'package:amap_base_map/amap_base.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -19,30 +17,7 @@ class LauncherScreen extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.grey.shade200,
-      body: DefaultTabController(
-        length: 2,
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              child: TabBarView(children: [
-                MapScreen(),
-                NaviScreen(),
-              ]),
-            ),
-            SPACE_TINY,
-            Container(
-              color: Colors.white,
-              height: 48,
-              child: TabBar(
-                tabs: [
-                  Text('地图', style: TextStyle(color: Colors.black)),
-                  Text('导航', style: TextStyle(color: Colors.black)),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: MapDemo(),
     );
   }
 }
