@@ -49,6 +49,16 @@ class CalculateTools {
 
     return LatLng.fromJson(jsonDecode(result));
   }
+
+  Future<double> calcDistance(LatLng latLng1, LatLng latLng2) async {
+    Map<String, dynamic> params = {
+      "p1": latLng1.toJson(),
+      "p2": latLng2.toJson(),
+    };
+
+    double length = await _channel.invokeMethod("tool#calcDistance", params);
+    return length;
+  }
 }
 
 enum LatLngType {

@@ -3,6 +3,7 @@ package me.yohom.amapbase.map
 import android.content.Intent
 import android.graphics.Bitmap
 import com.amap.api.maps.AMap
+import com.amap.api.maps.AMapUtils
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.CoordinateConverter
 import com.amap.api.maps.model.CameraPosition
@@ -138,6 +139,30 @@ object ConvertCoordinate : MapMethodHandler {
                 .convert()
 
         result.success(amapCoordinate.toJson())
+    }
+}
+
+object CalcDistance : MapMethodHandler {
+    lateinit var map: AMap
+
+    override fun with(map: AMap): CalcDistance {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val p1 = call.argument<Map<String, Object>>("p1")
+        val p2 = call.argument<Map<String, Object>>("p2")
+        val latlng1 = p1!!.getLntlng()
+        val latlng2 = p2!!.getLntlng()
+        val dis = AMapUtils.calculateLineDistance(latlng1, latlng2)
+        result.success(dis)
+    }
+
+    private fun Map<String, Object>.getLntlng(): LatLng {
+        val lat = get("latitude") as Double
+        val lng = get("longitude") as Double
+        return LatLng(lat, lng)
     }
 }
 
@@ -365,6 +390,19 @@ object ChangeLatLng : MapMethodHandler {
         map.animateCamera(CameraUpdateFactory.changeLatLng(targetJson.parseJson<LatLng>()))
 
         methodResult.success(success)
+    }
+}
+
+object GetCenterLnglat : MapMethodHandler {
+    lateinit var map: AMap
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
+        val target = map.cameraPosition.target
+        methodResult.success(target.toJson())
     }
 }
 
