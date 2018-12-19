@@ -65,7 +65,7 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
             |-- MapHandlers
             |-- MapModels: 数据模型
             |-- `AMapFactory`: AMapView工厂, Flutter的platform view需要
-        |-- navi: 导航功能模块(未实现)
+        |-- navi: 导航功能模块
             |-- NaviHandlers
             |-- NaviModels: 数据模型
         |-- search: 搜索功能模块
@@ -104,10 +104,10 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
         * [ ] 轨迹纠偏
         * [ ] 点平滑移动
         * [ ] 绘制海量点图层
-    * [ ] 地图计算工具
+    * [x] 地图计算工具
         * [x] 坐标转换
         * [x] 距离/面积计算
-        * [ ] 距离测量
+        * [x] 距离测量
 * 搜索
     * [ ] 获取地图数据
         * [x] 获取POI数据
