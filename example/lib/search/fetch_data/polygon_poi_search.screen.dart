@@ -24,9 +24,9 @@ class _PolygonPoiSearchScreenState extends State<PolygonPoiSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('多边形内检索的POI'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(8.0),
@@ -36,6 +36,7 @@ class _PolygonPoiSearchScreenState extends State<PolygonPoiSearchScreen> {
             Text(
               '多边形区域:\nLatLng(39.941711, 116.382248),\nLatLng(39.884882, 116.359566),\nLatLng(39.878120, 116.437630),\nLatLng(39.941711, 116.382248)',
               textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
             ),
             SPACE_NORMAL,
             TextFormField(
@@ -44,6 +45,7 @@ class _PolygonPoiSearchScreenState extends State<PolygonPoiSearchScreen> {
                 border: OutlineInputBorder(),
               ),
               controller: _keywordController,
+              style: TextStyle(color: Colors.white),
               validator: (value) {
                 if (value.isEmpty) {
                   return '请输入关键字';
@@ -81,7 +83,7 @@ class _PolygonPoiSearchScreenState extends State<PolygonPoiSearchScreen> {
               },
             ),
             SPACE_NORMAL,
-            Text(_result),
+            Text(_result, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

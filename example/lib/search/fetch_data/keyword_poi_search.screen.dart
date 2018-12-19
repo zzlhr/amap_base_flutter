@@ -25,9 +25,9 @@ class _KeywordPoiSearchScreenState extends State<KeywordPoiSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('关键字检索POI'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(8.0),
@@ -38,6 +38,7 @@ class _KeywordPoiSearchScreenState extends State<KeywordPoiSearchScreen> {
                 hintText: '输入关键字',
                 border: OutlineInputBorder(),
               ),
+              style: TextStyle(color: Colors.white),
               controller: _queryController,
               validator: (value) {
                 if (value.isEmpty) {
@@ -51,6 +52,7 @@ class _KeywordPoiSearchScreenState extends State<KeywordPoiSearchScreen> {
                 hintText: '输入城市',
                 border: OutlineInputBorder(),
               ),
+              style: TextStyle(color: Colors.white),
               controller: _cityController,
               validator: (value) {
                 if (value.isEmpty) {
@@ -81,7 +83,7 @@ class _KeywordPoiSearchScreenState extends State<KeywordPoiSearchScreen> {
                 }).catchError((e) => showError(context, e.toString()));
               },
             ),
-            Text(_result),
+            Text(_result, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),

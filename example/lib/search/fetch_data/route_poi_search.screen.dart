@@ -22,9 +22,9 @@ class _RoutePoiSearchScreenState extends State<RoutePoiSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('道路沿途检索POI'),
-        backgroundColor: Colors.black,
         centerTitle: true,
       ),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Form(
         child: ListView(
           padding: const EdgeInsets.all(8.0),
@@ -34,6 +34,7 @@ class _RoutePoiSearchScreenState extends State<RoutePoiSearchScreen> {
             Text(
               '出发点: LatLng(39.993291, 116.473188),\n终点: LatLng(39.940474, 116.355426)',
               textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
             ),
             SPACE_NORMAL,
             Button(
@@ -60,7 +61,7 @@ class _RoutePoiSearchScreenState extends State<RoutePoiSearchScreen> {
               },
             ),
             SPACE_NORMAL,
-            Text(_result),
+            Text(_result, style: TextStyle(color: Colors.white)),
           ],
         ),
       ),
