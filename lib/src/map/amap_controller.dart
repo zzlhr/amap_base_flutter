@@ -24,8 +24,7 @@ class AMapController {
 
   //region dart -> native
   Future setMyLocationStyle(MyLocationStyle style) {
-    final _styleJson =
-        jsonEncode(style?.toJson() ?? MyLocationStyle().toJson());
+    final _styleJson = jsonEncode(style?.toJson() ?? MyLocationStyle().toJson());
 
     L.p('方法setMyLocationStyle dart端参数: styleJson -> $_styleJson');
     return _mapChannel.invokeMethod(
@@ -53,10 +52,8 @@ class AMapController {
     );
   }
 
-  Future addMarkers(List<MarkerOptions> optionsList,
-      {bool moveToCenter = true, bool clear = true}) {
-    final _optionsListJson =
-        jsonEncode(optionsList.map((it) => it.toJson()).toList());
+  Future addMarkers(List<MarkerOptions> optionsList, {bool moveToCenter = true, bool clear = true}) {
+    final _optionsListJson = jsonEncode(optionsList.map((it) => it.toJson()).toList());
     L.p('方法addMarkers dart端参数: _optionsListJson -> $_optionsListJson');
     return _mapChannel.invokeMethod(
       'marker#addMarkers',
@@ -173,8 +170,7 @@ class AMapController {
     List<LatLng> bound, {
     int padding = 80,
   }) {
-    final boundJson =
-        jsonEncode(bound?.map((it) => it.toJson())?.toList() ?? List());
+    final boundJson = jsonEncode(bound?.map((it) => it.toJson())?.toList() ?? List());
 
     L.p('zoomToSpan dart端参数: bound -> $boundJson');
 
@@ -195,6 +191,12 @@ class AMapController {
       'map#changeLatLng',
       {'target': target.toJsonString()},
     );
+  }
+
+  /// 获取中心点
+  Future<LatLng> getCenterLatlng() async {
+    String result = await _mapChannel.invokeMethod("map#getCenterPoint");
+    return LatLng.fromJson(json.decode(result));
   }
 
   /// 截图
@@ -251,7 +253,5 @@ class AMapController {
   //endregion
 
   /// marker点击事件流
-  Stream<MarkerOptions> get markerClickedEvent => _markerClickedEventChannel
-      .receiveBroadcastStream()
-      .map((data) => MarkerOptions.fromJson(jsonDecode(data)));
+  Stream<MarkerOptions> get markerClickedEvent => _markerClickedEventChannel.receiveBroadcastStream().map((data) => MarkerOptions.fromJson(jsonDecode(data)));
 }
