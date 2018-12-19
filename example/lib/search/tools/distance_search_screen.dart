@@ -19,7 +19,7 @@ class _DistanceSearchScreenState extends State<DistanceSearchScreen> {
   @override
   void initState() {
     super.initState();
-    CalculateTools().distanceSearch(
+    AMapSearch().distanceSearch(
       [src1, src2],
       target,
       DistanceSearchType.driver,
