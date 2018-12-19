@@ -6,20 +6,28 @@ class FunctionItem extends StatelessWidget {
     @required this.label,
     @required this.sublabel,
     @required this.target,
+    this.isLast = false,
   }) : super(key: key);
 
   final String label;
   final String sublabel;
   final Widget target;
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ListTile(
-          title: Text(label),
-          subtitle: Text(sublabel),
-          trailing: Icon(Icons.keyboard_arrow_right),
+          title: Text(
+            label,
+            style: TextStyle(color: Colors.white),
+          ),
+          subtitle: Text(
+            sublabel,
+            style: TextStyle(color: Colors.white),
+          ),
+          trailing: Icon(Icons.keyboard_arrow_right, color: Colors.white),
           onTap: () {
             Navigator.push(
               context,
@@ -27,7 +35,9 @@ class FunctionItem extends StatelessWidget {
             );
           },
         ),
-        Divider(height: 1, indent: 16),
+        isLast
+            ? SizedBox.shrink()
+            : Divider(height: 1, indent: 16, color: Colors.white),
       ],
     );
   }

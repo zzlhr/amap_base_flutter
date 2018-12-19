@@ -1,8 +1,5 @@
 import 'package:amap_base_example/search/search.screen.dart';
 import 'package:amap_base_search/amap_base.dart';
-import 'package:amap_base_example/map/map.screen.dart';
-import 'package:amap_base_example/navi/navi.screen.dart';
-import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -16,36 +13,10 @@ class LauncherScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('AMaps examples'),
-        backgroundColor: Colors.black,
-        centerTitle: true,
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-      backgroundColor: Colors.grey.shade200,
-      body: DefaultTabController(
-        length: 3,
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              child: TabBarView(children: [
-                MapScreen(),
-                SearchScreen(),
-                NaviScreen(),
-              ]),
-            ),
-            SPACE_TINY,
-            Container(
-              color: Colors.white,
-              height: 48,
-              child: TabBar(
-                tabs: [
-                  Text('地图', style: TextStyle(color: Colors.black)),
-                  Text('搜索', style: TextStyle(color: Colors.black)),
-                  Text('导航', style: TextStyle(color: Colors.black)),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      backgroundColor: Color(0xff747474),
+      body: SearchDemo(),
     );
   }
 }

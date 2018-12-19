@@ -11,7 +11,7 @@ import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -23,6 +23,7 @@ class SearchScreen extends StatelessWidget {
               label: '驾车出行路线规划',
               sublabel: 'DrivingRoutPlanScreen',
               target: DrivingRoutPlanScreen(),
+              isLast: true,
             ),
           ],
         ),
@@ -64,6 +65,7 @@ class SearchScreen extends StatelessWidget {
               label: '逆地理编码（坐标转地址）',
               sublabel: 'ReGeocodeScreen',
               target: ReGeocodeScreen(),
+              isLast: true,
             ),
           ],
         ),
