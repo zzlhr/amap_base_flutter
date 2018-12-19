@@ -29,7 +29,7 @@ class LauncherScreen extends StatelessWidget {
           children: <Widget>[
             Flexible(
               child: TabBarView(children: [
-                MapScreen(),
+                MapDemo(),
                 SearchDemo(),
                 LocationDemo(),
                 NaviScreen(),
