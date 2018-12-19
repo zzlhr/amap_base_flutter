@@ -450,3 +450,61 @@
 }
 
 @end
+
+@implementation DistanceSearch{
+    AMapSearchAPI *_search;
+    FlutterResult _result;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        // 搜索api回调设置
+        _search = [[AMapSearchAPI alloc] init];
+        _search.delegate = self;
+    }
+    
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    _result = result;
+    NSDictionary *dict = call.arguments;
+    NSArray<NSDictionary*> *originArray = [dict valueForKey:@"origin"];
+    NSDictionary *targetDict =[dict valueForKey:@"target"];
+    
+    NSArray<AMapGeoPoint*> *srcPoints = [AMapGeoPoint mj_objectArrayWithKeyValuesArray:originArray];
+    AMapGeoPoint *target = [AMapGeoPoint mj_objectWithKeyValues:targetDict];
+    
+    AMapDistanceSearchRequest *request = [AMapDistanceSearchRequest new];
+    request.type = [[dict valueForKey:@"type"] intValue];
+    request.origins = srcPoints;
+    request.destination = target;
+    
+    [_search AMapDistanceSearch:request];
+}
+
+-(void)onDistanceSearchDone:(AMapDistanceSearchRequest *)request response:(AMapDistanceSearchResponse *)response{
+    NSArray<AMapDistanceResult *> *results = [response results];
+    
+    NSMutableArray *distances = [NSMutableArray new];
+    
+    for (AMapDistanceResult * r in results) {
+        [distances addObject:[NSNumber numberWithInteger: r.distance]];
+    }
+    [self setResult: distances];
+}
+
+-(void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error{
+    NSString *msg = [NSString stringWithFormat:@"测量失败 失败代码 code==> %ld",(long)[error code]];
+    [self setResult:[FlutterError errorWithCode:msg message:nil details:nil]];
+}
+
+-(void)setResult:(id _Nullable)r{
+    if(_result){
+        _result(r);
+        _result = nil;
+    }
+}
+
+@end

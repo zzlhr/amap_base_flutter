@@ -37,6 +37,7 @@ static NSDictionary<NSString *, NSObject <SearchMethodHandler> *> *_searchDictio
                 @"search#searchRoutePoiPolygon": [SearchRoutePoiPolygon alloc],
                 @"search#searchGeocode": [SearchGeocode alloc],
                 @"search#searchReGeocode": [SearchReGeocode alloc],
+                @"tool#distanceSearch":[DistanceSearch alloc],
         };
     }
     return _searchDictionary;

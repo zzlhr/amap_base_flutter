@@ -6,6 +6,7 @@ import 'package:amap_base_example/search/fetch_data/polygon_poi_search.screen.da
 import 'package:amap_base_example/search/fetch_data/regeocode.screen.dart';
 import 'package:amap_base_example/search/fetch_data/route_poi_search.screen.dart';
 import 'package:amap_base_example/search/route_plan/driving_route_plan.screen.dart';
+import 'package:amap_base_example/search/tools/distance_search_screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
@@ -66,6 +67,17 @@ class SearchDemo extends StatelessWidget {
               sublabel: 'ReGeocodeScreen',
               target: ReGeocodeScreen(),
               isLast: true,
+            ),
+          ],
+        ),
+        SPACE_BIG,
+        FunctionGroup(
+          headLabel: "工具",
+          children: <Widget>[
+            FunctionItem(
+              label: '测量距离',
+              sublabel: 'DistanceSearch',
+              target: DistanceSearchScreen(),
             ),
           ],
         ),
