@@ -13,7 +13,7 @@ class FunctionGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).primaryColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -23,10 +23,15 @@ class FunctionGroup extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(headLabel,
-                    style: Theme.of(context).textTheme.headline),
+                child: Text(
+                  headLabel,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline
+                      .copyWith(color: Colors.white),
+                ),
               ),
-              Divider(height: 1, indent: 16),
+              Divider(height: 1, indent: 16, color: Colors.white),
             ],
           ),
         ]..addAll(children),

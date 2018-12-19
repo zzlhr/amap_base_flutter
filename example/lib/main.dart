@@ -4,6 +4,7 @@ import 'package:amap_base/amap_base.dart';
 import 'package:amap_base_example/map/map.screen.dart';
 import 'package:amap_base_example/navi/navi.screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
+import 'package:amap_base_search/amap_base.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -30,7 +31,7 @@ class LauncherScreen extends StatelessWidget {
             Flexible(
               child: TabBarView(children: [
                 MapScreen(),
-                SearchScreen(),
+                SearchDemo(),
                 LocationDemo(),
                 NaviScreen(),
               ]),
