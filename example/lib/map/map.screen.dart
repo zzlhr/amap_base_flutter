@@ -9,6 +9,7 @@ import 'package:amap_base_example/map/interact_with_map/code_interaction.screen.
 import 'package:amap_base_example/map/interact_with_map/control_interaction.screen.dart';
 import 'package:amap_base_example/map/interact_with_map/gesture_interaction.screen.dart';
 import 'package:amap_base_example/map/interact_with_map/screen_shot.screen.dart';
+import 'package:amap_base_example/map/tools/calcute_distance_screen.dart';
 import 'package:amap_base_example/map/tools/coordinate_transformation_screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_example/widgets/function_group.widget.dart';
@@ -106,6 +107,11 @@ class MapScreen extends StatelessWidget {
               label: "坐标转换",
               sublabel: "CoordinateTransformationScreen",
               target: CoordinateTransformationScreen(),
+            ),
+            FunctionItem(
+              label: "两点间距离计算",
+              sublabel: "CalcuteDistanceScreen",
+              target: CalcuteDistanceScreen(),
             ),
           ],
         ),

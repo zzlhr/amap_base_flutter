@@ -18,6 +18,11 @@
 @interface ConvertCoordinate : NSObject <MapMethodHandler>
 @end
 
+@interface GetCenterPoint : NSObject <MapMethodHandler>
+@end
+
+@interface CalcDistance : NSObject <MapMethodHandler>
+@end
 
 @interface ClearMap : NSObject<MapMethodHandler>
 @end

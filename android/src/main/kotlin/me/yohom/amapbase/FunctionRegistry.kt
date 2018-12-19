@@ -24,6 +24,7 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#setPosition" to SetPosition,
         "map#setMapStatusLimits" to SetMapStatusLimits,
         "tool#convertCoordinate" to ConvertCoordinate,
+        "tool#calcDistance" to CalcDistance,
         "offline#openOfflineManager" to OpenOfflineManager,
         "map#addPolyline" to AddPolyline,
         "map#zoomToSpan" to ZoomToSpan,
@@ -31,6 +32,7 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#setCustomMapStylePath" to SetCustomMapStylePath,
         "map#setMapCustomEnable" to SetMapCustomEnable,
         "map#setCustomMapStyleID" to SetCustomMapStyleID,
+        "map#getCenterPoint" to GetCenterLnglat,
         "map#changeLatLng" to ChangeLatLng
 )
 
