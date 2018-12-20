@@ -1,5 +1,7 @@
 package me.yohom.amapbase.search
 
+import com.amap.api.services.busline.BusStationQuery
+import com.amap.api.services.busline.BusStationSearch
 import com.amap.api.services.core.AMapException
 import com.amap.api.services.core.PoiItem
 import com.amap.api.services.geocoder.*
@@ -9,8 +11,10 @@ import com.amap.api.services.route.*
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.amapbase.AMapBasePlugin
+import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
 import me.yohom.amapbase.SearchMethodHandler
 import me.yohom.amapbase.common.*
+
 
 /**
  * 逆地理编码（坐标转地址）
@@ -311,5 +315,33 @@ object DistanceSearchHandler : SearchMethodHandler {
         val lat = this["latitude"] as Double
         val lng = this["longitude"] as Double
         return LatLng(lat, lng)
+    }
+}
+
+object SearchBusStation : SearchMethodHandler {
+
+    override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
+        val stationName = methodCall.argument<String>("stationName") ?: ""
+        val city = methodCall.argument<String>("city") ?: ""
+
+        log("方法map#searchBusStation android端参数: stationName -> $stationName, city -> $city")
+
+        BusStationSearch(registrar.context(), BusStationQuery(stationName, city))
+                .run {
+                    setOnBusStationSearchListener { result, resultCode ->
+                        if (resultCode != AMapException.CODE_AMAP_SUCCESS || result == null) {
+                            methodResult.error(
+                                    resultCode.toString(),
+                                    resultCode.toAMapError(),
+                                    resultCode.toAMapError()
+                            )
+                        } else {
+                            print(result.toFastJson())
+                            methodResult.success(result.toFastJson())
+                        }
+                    }
+
+                    searchBusStationAsyn()
+                }
     }
 }

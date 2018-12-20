@@ -7,6 +7,7 @@
 #import "MJExtension.h"
 #import "SearchModels.h"
 
+#define NSLog(FORMAT, ...) printf("%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 
 @implementation SearchGeocode {
     AMapSearchAPI *_search;
@@ -451,7 +452,7 @@
 
 @end
 
-@implementation DistanceSearch{
+@implementation DistanceSearch {
     AMapSearchAPI *_search;
     FlutterResult _result;
 }
@@ -463,48 +464,102 @@
         _search = [[AMapSearchAPI alloc] init];
         _search.delegate = self;
     }
-    
+
     return self;
 }
 
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
     _result = result;
     NSDictionary *dict = call.arguments;
-    NSArray<NSDictionary*> *originArray = [dict valueForKey:@"origin"];
-    NSDictionary *targetDict =[dict valueForKey:@"target"];
-    
-    NSArray<AMapGeoPoint*> *srcPoints = [AMapGeoPoint mj_objectArrayWithKeyValuesArray:originArray];
+    NSArray<NSDictionary *> *originArray = [dict valueForKey:@"origin"];
+    NSDictionary *targetDict = [dict valueForKey:@"target"];
+
+    NSArray<AMapGeoPoint *> *srcPoints = [AMapGeoPoint mj_objectArrayWithKeyValuesArray:originArray];
     AMapGeoPoint *target = [AMapGeoPoint mj_objectWithKeyValues:targetDict];
-    
+
     AMapDistanceSearchRequest *request = [AMapDistanceSearchRequest new];
     request.type = [[dict valueForKey:@"type"] intValue];
     request.origins = srcPoints;
     request.destination = target;
-    
+
     [_search AMapDistanceSearch:request];
 }
 
--(void)onDistanceSearchDone:(AMapDistanceSearchRequest *)request response:(AMapDistanceSearchResponse *)response{
+- (void)onDistanceSearchDone:(AMapDistanceSearchRequest *)request response:(AMapDistanceSearchResponse *)response {
     NSArray<AMapDistanceResult *> *results = [response results];
-    
+
     NSMutableArray *distances = [NSMutableArray new];
-    
-    for (AMapDistanceResult * r in results) {
-        [distances addObject:[NSNumber numberWithInteger: r.distance]];
+
+    for (AMapDistanceResult *r in results) {
+        [distances addObject:@(r.distance)];
     }
-    [self setResult: distances];
+    [self setResult:distances];
 }
 
--(void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error{
-    NSString *msg = [NSString stringWithFormat:@"测量失败 失败代码 code==> %ld",(long)[error code]];
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    NSString *msg = [NSString stringWithFormat:@"测量失败 失败代码 code==> %ld", (long) [error code]];
     [self setResult:[FlutterError errorWithCode:msg message:nil details:nil]];
 }
 
--(void)setResult:(id _Nullable)r{
-    if(_result){
+- (void)setResult:(id _Nullable)r {
+    if (_result) {
         _result(r);
         _result = nil;
     }
+}
+
+@end
+
+@implementation SearchBusStation {
+    AMapSearchAPI *_search;
+    FlutterResult _result;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        // 搜索api回调设置
+        _search = [[AMapSearchAPI alloc] init];
+        _search.delegate = self;
+    }
+
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+    _result = result;
+
+    NSDictionary *paramDic = call.arguments;
+
+    NSString *stationName = (NSString *) paramDic[@"stationName"];
+    NSString *city = (NSString *) paramDic[@"city"];
+
+    NSLog(@"方法map#searchBusStation ios端参数: stationName -> %@, city -> %@", stationName, city);
+
+    AMapBusStopSearchRequest *request = [[AMapBusStopSearchRequest alloc] init];
+    request.keywords = stationName;
+    request.city = city;
+
+    [_search AMapBusStopSearch:request];
+}
+
+/// 公交站点回调
+- (void)onBusStopSearchDone:(AMapBusStopSearchRequest *)request response:(AMapBusStopSearchResponse *)response {
+    if (response.busstops.count == 0) {
+        return _result([FlutterError errorWithCode:@"没有搜索到结果"
+                                           message:@"没有搜索到结果"
+                                           details:@"没有搜索到结果"]);
+    }
+
+    NSLog([response mj_JSONString]);
+    _result([response mj_JSONString]);
+}
+
+/// 搜索失败回调
+- (void)AMapSearchRequest:(id)request didFailWithError:(NSError *)error {
+    _result([FlutterError errorWithCode:[NSString stringWithFormat:@"%d", error.code]
+                                message:[Misc toAMapErrorDesc:error.code]
+                                details:nil]);
 }
 
 @end

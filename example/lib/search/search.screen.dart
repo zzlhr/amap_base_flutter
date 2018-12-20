@@ -5,6 +5,7 @@ import 'package:amap_base_example/search/fetch_data/keyword_poi_search.screen.da
 import 'package:amap_base_example/search/fetch_data/polygon_poi_search.screen.dart';
 import 'package:amap_base_example/search/fetch_data/regeocode.screen.dart';
 import 'package:amap_base_example/search/fetch_data/route_poi_search.screen.dart';
+import 'package:amap_base_example/search/fetch_data/search_bus_station.screen.dart';
 import 'package:amap_base_example/search/route_plan/driving_route_plan.screen.dart';
 import 'package:amap_base_example/search/tools/distance_search_screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
@@ -61,6 +62,11 @@ class SearchDemo extends StatelessWidget {
               label: '地理编码（地址转坐标）',
               sublabel: 'GeocodeScreen',
               target: GeocodeScreen(),
+            ),
+            FunctionItem(
+              label: '获取公交数据',
+              sublabel: 'SearchBusStationScreen',
+              target: SearchBusStationScreen(),
             ),
             FunctionItem(
               label: '逆地理编码（坐标转地址）',

@@ -7,32 +7,35 @@
 #import "AMapSearchAPI.h"
 
 
-@interface SearchGeocode : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchGeocode : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchReGeocode : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchReGeocode : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchPoiBound : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchPoiBound : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchPoiId : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchPoiId : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchPoiKeyword : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchPoiKeyword : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchPoiPolygon : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchPoiPolygon : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchRoutePoiLine : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchRoutePoiLine : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface SearchRoutePoiPolygon : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface SearchRoutePoiPolygon : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface CalculateDriveRoute : NSObject<SearchMethodHandler, AMapSearchDelegate>
+@interface CalculateDriveRoute : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end
 
-@interface DistanceSearch : NSObject<SearchMethodHandler,AMapSearchDelegate>
+@interface DistanceSearch : NSObject <SearchMethodHandler, AMapSearchDelegate>
+@end
+
+@interface SearchBusStation : NSObject <SearchMethodHandler, AMapSearchDelegate>
 @end

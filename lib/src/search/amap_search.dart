@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:amap_base/amap_base.dart';
 import 'package:amap_base/src/common/log.dart';
+import 'package:amap_base/src/search/model/bus_station_result.dart';
 import 'package:amap_base/src/search/model/drive_route_result.dart';
 import 'package:amap_base/src/search/model/poi_item.dart';
 import 'package:amap_base/src/search/model/poi_result.dart';
 import 'package:amap_base/src/search/model/regeocode_result.dart';
+import 'package:amap_base/src/search/model_ios/bus_station_result.ios.dart';
 import 'package:flutter/services.dart';
 
 class AMapSearch {
@@ -155,6 +158,31 @@ class AMapSearch {
     List<dynamic> result =
         await _searchChannel.invokeMethod("tool#distanceSearch", params);
     return result.map((v) => v as int).toList();
+  }
+
+  /// 公交站点查询
+  ///
+  /// [stationName] 公交站点名
+  /// [city] 所在城市名或者城市区号
+  Future<BusStationResult> searchBusStation(String stationName, String city) {
+    L.p('方法searchBusStation dart端参数: stationName -> $stationName, city -> $city');
+
+    return _searchChannel
+        .invokeMethod(
+          'search#searchBusStation',
+          {'stationName': stationName, 'city': city},
+        )
+        .then((result) => result as String)
+        .then((json) {
+          if (Platform.isIOS) {
+            return BusStationResult.ios(
+                BusStationResult_iOS.fromJson(jsonDecode(json)));
+          } else if (Platform.isAndroid) {
+            return BusStationResult.fromJson(jsonDecode(json));
+          } else {
+            return null;
+          }
+        });
   }
 }
 
