@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:amap_base_search/amap_base.dart';
 import 'package:amap_base_search/src/common/log.dart';
@@ -7,6 +8,7 @@ import 'package:amap_base_search/src/search/model/drive_route_result.dart';
 import 'package:amap_base_search/src/search/model/poi_item.dart';
 import 'package:amap_base_search/src/search/model/poi_result.dart';
 import 'package:amap_base_search/src/search/model/regeocode_result.dart';
+import 'package:amap_base_search/src/search/model_ios/bus_station_result.ios.dart';
 import 'package:flutter/services.dart';
 
 class AMapSearch {
@@ -171,7 +173,16 @@ class AMapSearch {
           {'stationName': stationName, 'city': city},
         )
         .then((result) => result as String)
-        .then((json) => BusStationResult.fromJson(jsonDecode(json)));
+        .then((json) {
+          if (Platform.isIOS) {
+            return BusStationResult.ios(
+                BusStationResult_iOS.fromJson(jsonDecode(json)));
+          } else if (Platform.isAndroid) {
+            return BusStationResult.fromJson(jsonDecode(json));
+          } else {
+            return null;
+          }
+        });
   }
 }
 

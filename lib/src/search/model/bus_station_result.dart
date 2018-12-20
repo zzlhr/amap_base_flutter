@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:amap_base_search/src/map/model/latlng.dart';
 import 'package:amap_base_search/src/search/model/suggestion_city.dart';
+import 'package:amap_base_search/src/search/model_ios/bus_station_result.ios.dart';
 
 class BusStationResult {
   List<BusStation> busStations;
@@ -17,6 +18,46 @@ class BusStationResult {
     this.searchSuggestionCities,
     this.searchSuggestionKeywords,
   });
+
+  BusStationResult.ios(BusStationResult_iOS result) {
+    busStations = result.busstops?.map((stop) {
+      return BusStation(
+        adCode: stop.adcode,
+        busLineItems: stop.buslines?.map((busline) {
+          return BusLineItem(
+            basicPrice: busline.basicPrice.toDouble(),
+            busLineId: busline.uid,
+            busLineName: busline.name,
+            busLineType: busline.type,
+            cityCode: busline.citycode,
+            distance: busline.distance.toDouble(),
+            originatingStation: busline.startStop,
+            terminalStation: busline.endStop,
+            totalPrice: busline.totalPrice.toDouble(),
+          );
+        })?.toList(),
+        busStationId: stop.uid,
+        busStationName: stop.name,
+        cityCode: stop.citycode,
+        latLng: stop.location,
+      );
+    })?.toList();
+    pageCount = result.count;
+//    searchSuggestionCities = result.suggestion.cities?.map((city) {
+//      return SuggestionCity(
+//        cityName: city.city,
+//        cityCode: city.citycode,
+//        adCode: city.adcode,
+//        suggestionNum: city.num,
+//        districts: city.districts?.map((district) {
+//          return District(
+//
+//          );
+//        });
+//      );
+//    });
+    searchSuggestionKeywords = result.suggestion.keywords;
+  }
 
   BusStationResult.fromJson(Map<String, dynamic> json) {
     if (json['busStations'] != null) {

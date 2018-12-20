@@ -38,6 +38,7 @@ static NSDictionary<NSString *, NSObject <SearchMethodHandler> *> *_searchDictio
                 @"search#searchGeocode": [SearchGeocode alloc],
                 @"search#searchReGeocode": [SearchReGeocode alloc],
                 @"tool#distanceSearch":[DistanceSearch alloc],
+                @"search#searchBusStation":[SearchBusStation alloc],
         };
     }
     return _searchDictionary;

@@ -54,6 +54,9 @@
 @class AMapStreetNumber;
 @class StreetNumber;
 @class AMapAOI;
+@class BusLineItem;
+@class Query;
+@class BusStation;
 
 //region RoutePlanParam
 @interface RoutePlanParam : NSObject
