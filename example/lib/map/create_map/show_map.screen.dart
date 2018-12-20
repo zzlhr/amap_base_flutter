@@ -28,7 +28,7 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
           Flexible(
             child: AMapView(
               onAMapViewCreated: (controller) {
-                setState(() => _controller = controller);
+                _controller = controller;
               },
               amapOptions: AMapOptions(
                 compassEnabled: false,
