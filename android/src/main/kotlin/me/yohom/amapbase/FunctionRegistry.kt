@@ -21,6 +21,7 @@ val SEARCH_METHOD_HANDLER: Map<String, SearchMethodHandler> = mapOf(
         "search#searchRoutePoiPolygon" to SearchRoutePoiPolygon,
         "search#searchGeocode" to SearchGeocode,
         "search#searchReGeocode" to SearchReGeocode,
+        "search#searchBusStation" to SearchBusStation,
         "tool#distanceSearch" to DistanceSearchHandler
 )
 
