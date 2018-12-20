@@ -181,7 +181,6 @@
 
 @end
 
-
 @implementation OpenOfflineManager {
 
 }
@@ -210,7 +209,6 @@
 
 @end
 
-
 @implementation SetLanguage {
     MAMapView *_mapView;
 }
@@ -233,7 +231,6 @@
 }
 
 @end
-
 
 @implementation SetMapType {
     MAMapView *_mapView;
@@ -258,7 +255,6 @@
 
 @end
 
-
 @implementation SetMyLocationStyle {
     MAMapView *_mapView;
 }
@@ -280,7 +276,6 @@
 }
 
 @end
-
 
 @implementation SetUiSettings {
     MAMapView *_mapView;
@@ -304,7 +299,6 @@
 
 @end
 
-
 @implementation ShowIndoorMap {
     MAMapView *_mapView;
 }
@@ -326,7 +320,6 @@
 }
 
 @end
-
 
 @implementation AddMarker {
     MAMapView *_mapView;
@@ -356,7 +349,6 @@
 }
 
 @end
-
 
 @implementation AddMarkers {
     MAMapView *_mapView;
@@ -402,7 +394,6 @@
 
 @end
 
-
 @implementation AddPolyline {
     MAMapView *_mapView;
 }
@@ -434,7 +425,6 @@
 
 @end
 
-
 @implementation ClearMarker {
     MAMapView *_mapView;
 }
@@ -450,7 +440,6 @@
 }
 
 @end
-
 
 @implementation ChangeLatLng {
     MAMapView *_mapView;
@@ -473,7 +462,6 @@
 }
 
 @end
-
 
 @implementation SetMapStatusLimits {
     MAMapView *_mapView;
@@ -505,7 +493,6 @@
 
 @end
 
-
 @implementation SetPosition {
     MAMapView *_mapView;
 }
@@ -532,7 +519,6 @@
 
 @end
 
-
 @implementation SetZoomLevel {
     MAMapView *_mapView;
 }
@@ -552,7 +538,6 @@
 }
 
 @end
-
 
 @implementation ZoomToSpan {
     MAMapView *_mapView;

@@ -53,7 +53,8 @@ class AMapOptions {
     this.zoomGesturesEnabled = true,
     this.tiltGesturesEnabled = true,
     this.rotateGesturesEnabled = true,
-    this.myLocationEnabled = false,
+    @Deprecated('在AMapController.setMyLocationStyle中去设置我的位置相关的配置')
+        this.myLocationEnabled = false,
   });
 
   /// “高德地图”Logo的位置 [Android]
