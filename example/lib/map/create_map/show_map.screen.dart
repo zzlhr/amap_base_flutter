@@ -1,5 +1,5 @@
-import 'package:amap_base_map/amap_base.dart';
 import 'package:amap_base_example/widgets/setting.widget.dart';
+import 'package:amap_base_map/amap_base.dart';
 import 'package:flutter/material.dart';
 
 class ShowMapScreen extends StatefulWidget {
@@ -30,7 +30,15 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
               onAMapViewCreated: (controller) {
                 setState(() => _controller = controller);
               },
-              amapOptions: AMapOptions(),
+              amapOptions: AMapOptions(
+                compassEnabled: false,
+                myLocationEnabled: true,
+                zoomControlsEnabled: true,
+                camera: CameraPosition(
+                  target: LatLng(40.851827, 111.801637),
+                  zoom: 15,
+                ),
+              ),
             ),
           ),
           Flexible(
