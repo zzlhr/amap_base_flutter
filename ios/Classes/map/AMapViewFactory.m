@@ -76,7 +76,9 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
     _mapView.scrollEnabled = _options.scrollGesturesEnabled;
     _mapView.cameraDegree = _options.camera.tilt;
     _mapView.rotateEnabled = _options.rotateGesturesEnabled;
-    _mapView.centerCoordinate = [_options.camera.target toCLLocationCoordinate2D];
+    if (_options.camera.target) {
+        _mapView.centerCoordinate = [_options.camera.target toCLLocationCoordinate2D];
+    }
     _mapView.zoomLevel = _options.camera.zoom;
     // fixme: logo位置设置无效
     CGPoint logoPosition = CGPointMake(0, _mapView.bounds.size.height);
