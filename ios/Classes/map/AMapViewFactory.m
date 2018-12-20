@@ -32,7 +32,6 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
     AMapView *view = [[AMapView alloc] initWithFrame:frame
                                              options:options
                                       viewIdentifier:viewId];
-    [view setup];
     return view;
 }
 
@@ -62,11 +61,12 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
 
 - (UIView *)view {
     _mapView = [[MAMapView alloc] initWithFrame:_frame];
+    [self setup];
     return _mapView;
 }
 
 - (void)setup {
-    //region 初始化地图配置, 跟android一样, 不能在view方法里设置, 不然地图会卡住不动, android端是直接把AMapOptions赋值到MapView就可以了
+    //region 初始化地图配置
     // 尽可能地统一android端的api了, ios这边的配置选项多很多, 后期再观察吧
     // 因为android端的mapType从1开始, 所以这里减去1
     _mapView.mapType = (MAMapType) (_options.mapType - 1);
@@ -76,7 +76,7 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
     _mapView.scrollEnabled = _options.scrollGesturesEnabled;
     _mapView.cameraDegree = _options.camera.tilt;
     _mapView.rotateEnabled = _options.rotateGesturesEnabled;
-    _mapView.centerCoordinate = (CLLocationCoordinate2D) {_options.camera.target.latitude, _options.camera.target.longitude};
+    _mapView.centerCoordinate = [_options.camera.target toCLLocationCoordinate2D];
     _mapView.zoomLevel = _options.camera.zoom;
     // fixme: logo位置设置无效
     CGPoint logoPosition = CGPointMake(0, _mapView.bounds.size.height);
