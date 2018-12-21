@@ -89,6 +89,7 @@ class AMapOptions {
   final bool rotateGesturesEnabled;
 
   /// 是否启动显示定位蓝点, 默认false [Android]
+  @Deprecated('在AMapController.setMyLocationStyle中去设置我的位置相关的配置')
   final bool myLocationEnabled;
 
   Map<String, Object> toJson() {
@@ -104,7 +105,6 @@ class AMapOptions {
       'zoomGesturesEnabled': zoomGesturesEnabled,
       'tiltGesturesEnabled': tiltGesturesEnabled,
       'rotateGesturesEnabled': rotateGesturesEnabled,
-      'myLocationEnabled': myLocationEnabled,
     };
   }
 

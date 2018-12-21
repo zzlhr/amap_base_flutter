@@ -11,43 +11,32 @@ import java.util.*
 
 /**
  * 由于高德的AMapOption被混淆了, 无法通过Gson直接反序列化, 这里用这个类过渡一下
- * [CameraPosition]和[UnifiedLatLng]没有被混淆, 所以可以直接使用
+ * [CameraPosition]和[LatLng]没有被混淆, 所以可以直接使用
  * 另外这个类和ios端的做一个统一
  */
 class UnifiedAMapOptions(
         /// “高德地图”Logo的位置
         private val logoPosition: Int = AMapOptions.LOGO_POSITION_BOTTOM_LEFT,
         private val zOrderOnTop: Boolean = false,
-
         /// 地图模式
         private val mapType: Int = AMap.MAP_TYPE_NORMAL,
-
         /// 地图初始化时的地图状态， 默认地图中心点为北京天安门，缩放级别为 10.0f。
         private val camera: CameraPosition? = null,
-
         /// 比例尺功能是否可用
         private val scaleControlsEnabled: Boolean = false,
-
         /// 地图是否允许缩放
         private val zoomControlsEnabled: Boolean = true,
-
         /// 指南针是否可用。
         private val compassEnabled: Boolean = false,
-
         /// 拖动手势是否可用
         private val scrollGesturesEnabled: Boolean = true,
-
         /// 缩放手势是否可用
         private val zoomGesturesEnabled: Boolean = true,
-
         /// 地图倾斜手势（显示3D效果）是否可用
         private val tiltGesturesEnabled: Boolean = true,
-
         /// 地图旋转手势是否可用
         private val rotateGesturesEnabled: Boolean = true
 ) {
-
-
     fun toAMapOption(): AMapOptions {
         return AMapOptions()
                 .logoPosition(logoPosition)
@@ -68,64 +57,44 @@ class UnifiedAMapOptions(
 class UnifiedMarkerOptions(
         /// Marker覆盖物的图标
         private val icon: String?,
-
         /// Marker覆盖物的动画帧图标列表，动画的描点和大小以第一帧为准，建议图片大小保持一致
         private val icons: List<String>,
-
         /// Marker覆盖物的透明度
         private val alpha: Float,
-
         /// Marker覆盖物锚点在水平范围的比例
         private val anchorU: Float,
-
         /// Marker覆盖物锚点垂直范围的比例
         private val anchorV: Float,
-
         /// Marker覆盖物是否可拖拽
         private val draggable: Boolean,
-
         /// Marker覆盖物的InfoWindow是否允许显示, 可以通过 MarkerOptions.infoWindowEnable(kotlin.Booleanean) 进行设置
         private val infoWindowEnable: Boolean,
-
         /// 设置多少帧刷新一次图片资源，Marker动画的间隔时间，值越小动画越快
         private val period: Int,
-
         /// Marker覆盖物的位置坐标
         private val position: LatLng,
-
         /// Marker覆盖物的图片旋转角度，从正北开始，逆时针计算
         private val rotateAngle: Float,
-
         /// Marker覆盖物是否平贴地图
         private val isFlat: Boolean,
-
         /// Marker覆盖物的坐标是否是Gps，默认为false
         private val isGps: Boolean,
-
         /// Marker覆盖物的水平偏移距离
         private val infoWindowOffsetX: Int,
-
         /// Marker覆盖物的垂直偏移距离
         private val infoWindowOffsetY: Int,
-
         /// 设置 Marker覆盖物的 文字描述
         private val snippet: String,
-
         /// Marker覆盖物 的标题
         private val title: String,
-
         /// Marker覆盖物是否可见
         private val visible: Boolean,
-
         /// todo 缺少文档
         private val autoOverturnInfoWindow: Boolean,
-
         /// Marker覆盖物 zIndex
         private val zIndex: Float,
-
         /// 显示等级 缺少文档
         private val displayLevel: Int,
-
         /// 是否在掩层下 缺少文档
         private val belowMaskLayer: Boolean
 ) {
@@ -217,7 +186,8 @@ class UnifiedMyLocationStyle(
         map.myLocationStyle = MyLocationStyle()
                 .myLocationIcon(null)
                 .anchor(anchorU, anchorV)
-                .radiusFillColor(radiusFillColor.hexStringToColorInt() ?: Color.argb(100, 0, 0, 180))
+                .radiusFillColor(radiusFillColor.hexStringToColorInt()
+                        ?: Color.argb(100, 0, 0, 180))
                 .strokeColor(strokeColor.hexStringToColorInt() ?: Color.argb(255, 0, 0, 220))
                 .strokeWidth(strokeWidth)
                 .myLocationType(myLocationType)
@@ -230,37 +200,26 @@ class UnifiedMyLocationStyle(
 class UnifiedPolylineOptions(
         /// 顶点
         private val latLngList: List<LatLng>,
-
         /// 线段的宽度
         val width: Double,
-
         /// 线段的颜色
         val color: String,
-
         /// 线段的Z轴值
         private val zIndex: Double,
-
         /// 线段的可见属性
         private val isVisible: Boolean,
-
         /// 线段是否画虚线，默认为false，画实线
         private val isDottedLine: Boolean,
-
         /// 线段是否为大地曲线，默认false，不画大地曲线
         private val isGeodesic: Boolean,
-
         /// 虚线形状
         private val dottedLineType: Int,
-
         /// Polyline尾部形状
         private val lineCapType: Int,
-
         /// Polyline连接处形状
         private val lineJoIntype: Int,
-
         /// 线段是否使用渐变色
         private val isUseGradient: Boolean,
-
         /// 线段是否使用纹理贴图
         private val isUseTexture: Boolean
 ) {
@@ -299,31 +258,22 @@ class UnifiedPolylineOptions(
 class UnifiedUiSettings(
         /// 是否允许显示缩放按钮
         private val isZoomControlsEnabled: Boolean,
-
         /// 设置缩放按钮的位置
         private val zoomPosition: Int,
-
         /// 指南针
         private val isCompassEnabled: Boolean,
-
         /// 定位按钮
         private val isMyLocationButtonEnabled: Boolean,
-
         /// 比例尺控件
         private val isScaleControlsEnabled: Boolean,
-
         /// 地图Logo
         private val logoPosition: Int,
-
         /// 缩放手势
         private val isZoomGesturesEnabled: Boolean,
-
         /// 滑动手势
         private val isScrollGesturesEnabled: Boolean,
-
         /// 旋转手势
         private val isRotateGesturesEnabled: Boolean,
-
         /// 倾斜手势
         private val isTiltGesturesEnabled: Boolean
 ) {
