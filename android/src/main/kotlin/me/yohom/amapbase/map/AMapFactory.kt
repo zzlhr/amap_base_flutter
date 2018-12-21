@@ -17,7 +17,7 @@ import io.flutter.plugin.platform.PlatformViewFactory
 import me.yohom.amapbase.*
 import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
 import me.yohom.amapbase.common.checkPermission
-import me.yohom.amapbase.common.toJson
+import me.yohom.amapbase.common.toFieldJson
 import java.util.concurrent.atomic.AtomicInteger
 
 const val mapChannelName = "me.yohom/map"
@@ -99,7 +99,7 @@ class AMapView(context: Context,
             override fun onCancel(p0: Any?) {}
         })
         mapView.map.setOnMarkerClickListener {
-            eventSink?.success(UnifiedMarkerOptions(it.options).toJson())
+            eventSink?.success(UnifiedMarkerOptions(it.options).toFieldJson())
             true
         }
 
