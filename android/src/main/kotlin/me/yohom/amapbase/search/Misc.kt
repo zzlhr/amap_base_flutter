@@ -19,14 +19,14 @@ fun PoiResult.toJson(): String {
             .append("\"pageCount\":\"$pageCount\",")
             .append("\"query\":\"$query\",")
             .append("\"bound\":\"$bound\",")
-            .append("\"pois\":\"${pois.map { it.toJson() }}\",")
+            .append("\"pois\":\"${pois.map { it.toFieldJson() }}\",")
             .append("\"searchSuggestionKeywords\":\"$searchSuggestionKeywords\",")
             .append("\"searchSuggestionCitys\":\"$searchSuggestionCitys\"")
             .append("}")
             .toString()
 }
 
-fun PoiItem.toJson(): String {
+fun PoiItem.toFieldJson(): String {
     return StringBuilder()
             .append("{")
             .append("\"businessArea\":\"$businessArea\",")
