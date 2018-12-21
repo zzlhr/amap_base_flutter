@@ -8,8 +8,8 @@ import io.flutter.plugin.common.MethodChannel
 import me.yohom.amapbase.AMapBasePlugin
 import me.yohom.amapbase.LocationMethodHandler
 import me.yohom.amapbase.common.log
-import me.yohom.amapbase.common.parseJson
-import me.yohom.amapbase.common.toJson
+import me.yohom.amapbase.common.parseFieldJson
+import me.yohom.amapbase.common.toFieldJson
 
 
 object Init : LocationMethodHandler {
@@ -32,7 +32,7 @@ object Init : LocationMethodHandler {
 
         locationClient = AMapLocationClient(AMapBasePlugin.registrar.activity().applicationContext).apply {
             setLocationListener {
-                eventSink?.success(UnifiedAMapLocation(it).toJson())
+                eventSink?.success(UnifiedAMapLocation(it).toFieldJson())
             }
         }
         result.success("初始化成功")
@@ -46,7 +46,7 @@ object StartLocate : LocationMethodHandler {
 
         log("startLocate android端: options.toJsonString() -> $optionJson")
 
-        Init.locationClient.setLocationOption(optionJson.parseJson<UnifiedLocationClientOptions>().toLocationClientOptions())
+        Init.locationClient.setLocationOption(optionJson.parseFieldJson<UnifiedLocationClientOptions>().toLocationClientOptions())
         Init.locationClient.startLocation()
         result.success("开始定位")
     }
