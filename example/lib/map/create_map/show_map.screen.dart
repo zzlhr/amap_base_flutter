@@ -32,8 +32,8 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
               },
               amapOptions: AMapOptions(
                 compassEnabled: false,
-                myLocationEnabled: true,
                 zoomControlsEnabled: true,
+                logoPosition: LOGO_POSITION_BOTTOM_CENTER,
                 camera: CameraPosition(
                   target: LatLng(40.851827, 111.801637),
                   zoom: 15,
