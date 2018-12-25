@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amap_base_search/amap_base.dart';
 
 class DriveRouteResult {
@@ -75,11 +77,7 @@ class DriveRouteResult {
 
   @override
   String toString() {
-    return '''DriveRouteResult{
-		paths: $paths,
-		startPos: $startPos,
-		targetPos: $targetPos,
-		taxiCost: $taxiCost}''';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }
 
