@@ -233,7 +233,6 @@ class UnifiedPolylineOptions(
             visible(this@UnifiedPolylineOptions.isVisible)
             isDottedLine = this@UnifiedPolylineOptions.isDottedLine
             geodesic(this@UnifiedPolylineOptions.isGeodesic)
-            lineCapType
             dottedLineType = this@UnifiedPolylineOptions.dottedLineType
             lineCapType(when (this@UnifiedPolylineOptions.lineCapType) {
                 0 -> PolylineOptions.LineCapType.LineCapButt
@@ -248,7 +247,7 @@ class UnifiedPolylineOptions(
                 2 -> PolylineOptions.LineJoinType.LineJoinRound
                 else -> PolylineOptions.LineJoinType.LineJoinBevel
             })
-            isUseTexture = this@UnifiedPolylineOptions.isUseGradient
+            useGradient(this@UnifiedPolylineOptions.isUseGradient)
             isUseTexture = this@UnifiedPolylineOptions.isUseTexture
         })
     }
