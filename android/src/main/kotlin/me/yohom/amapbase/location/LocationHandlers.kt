@@ -7,6 +7,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.amapbase.AMapBasePlugin
 import me.yohom.amapbase.LocationMethodHandler
+import me.yohom.amapbase.common.checkPermission
 import me.yohom.amapbase.common.log
 import me.yohom.amapbase.common.parseFieldJson
 import me.yohom.amapbase.common.toFieldJson
@@ -42,6 +43,8 @@ object Init : LocationMethodHandler {
 object StartLocate : LocationMethodHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        checkPermission()
+
         val optionJson = call.argument<String>("options")?: "{}"
 
         log("startLocate android端: options.toJsonString() -> $optionJson")
