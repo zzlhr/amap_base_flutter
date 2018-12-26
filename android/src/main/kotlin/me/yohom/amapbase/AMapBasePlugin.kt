@@ -5,7 +5,9 @@ import android.app.Application
 import android.os.Bundle
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import me.yohom.amapbase.common.checkPermission
 import me.yohom.amapbase.map.AMapFactory
+import me.yohom.amapbase.map.success
 import java.util.concurrent.atomic.AtomicInteger
 
 const val CREATED = 1
@@ -28,6 +30,18 @@ class AMapBasePlugin {
 
             // 注册生命周期回调, 保证地图初始化的时候对应的是正确的activity状态
             registrar.activity().application.registerActivityLifecycleCallbacks(this)
+
+            // 设置权限 channel
+            MethodChannel(registrar.messenger(), "me.yohom/permission")
+                    .setMethodCallHandler { methodCall, result ->
+                        when (methodCall.method) {
+                            "requestPermission" -> {
+                                checkPermission()
+                                result.success(success)
+                            }
+                            else -> result.notImplemented()
+                        }
+                    }
 
             // 设置key channel
             MethodChannel(registrar.messenger(), "me.yohom/amap_base")
