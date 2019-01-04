@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:amap_base_location/amap_base.dart';
 import 'package:amap_base_location/src/common/misc.dart';
+import 'package:amap_base_location/src/map/model/latlng.dart';
 import 'package:meta/meta.dart';
 
 class MarkerOptions {

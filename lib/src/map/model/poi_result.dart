@@ -1,4 +1,4 @@
-import 'package:amap_base_location/amap_base.dart';
+import 'package:amap_base_location/src/map/model/latlng.dart';
 import 'package:amap_base_location/src/map/model/search_bound.dart';
 
 class PoiResult {

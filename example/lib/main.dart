@@ -1,5 +1,5 @@
 import 'package:amap_base_example/location/location.screen.dart';
-import 'package:amap_base_location/amap_base.dart';
+import 'package:amap_base_location/amap_base_location.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

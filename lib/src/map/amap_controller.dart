@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:amap_base_location/amap_base.dart';
 import 'package:amap_base_location/src/common/log.dart';
+import 'package:amap_base_location/src/map/model/latlng.dart';
 import 'package:amap_base_location/src/map/model/marker_options.dart';
 import 'package:amap_base_location/src/map/model/my_location_style.dart';
 import 'package:amap_base_location/src/map/model/polyline_options.dart';

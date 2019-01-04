@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:amap_base_location/amap_base.dart';
 import 'package:amap_base_location/src/common/misc.dart';
+import 'package:amap_base_location/src/map/amap_controller.dart';
 import 'package:amap_base_location/src/map/model/amap_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
