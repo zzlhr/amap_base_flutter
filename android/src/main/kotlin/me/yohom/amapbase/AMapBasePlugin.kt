@@ -1,13 +1,14 @@
 package me.yohom.amapbase
 
+import android.Manifest
 import android.app.Activity
 import android.app.Application
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
-import me.yohom.amapbase.common.checkPermission
 import me.yohom.amapbase.map.AMapFactory
-import me.yohom.amapbase.map.success
 import java.util.concurrent.atomic.AtomicInteger
 
 const val CREATED = 1
@@ -36,8 +37,21 @@ class AMapBasePlugin {
                     .setMethodCallHandler { methodCall, result ->
                         when (methodCall.method) {
                             "requestPermission" -> {
-                                checkPermission()
-                                result.success(success)
+                                ActivityCompat.requestPermissions(
+                                        registrar.activity(),
+                                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
+                                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                                Manifest.permission.READ_PHONE_STATE),
+                                        321
+                                )
+                                registrar.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+                                    if (requestCode == 321) {
+                                        result.success(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                                    }
+                                    return@addRequestPermissionsResultListener true
+                                }
                             }
                             else -> result.notImplemented()
                         }
