@@ -1,4 +1,4 @@
-import 'package:amap_base_map/amap_base.dart';
+import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
 
 class CustomMapScreen extends StatefulWidget {

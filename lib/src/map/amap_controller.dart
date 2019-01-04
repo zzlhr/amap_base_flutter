@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:amap_base_map/amap_base.dart';
+import 'package:amap_base_map/amap_base_map.dart';
 import 'package:amap_base_map/src/common/log.dart';
 import 'package:amap_base_map/src/map/model/marker_options.dart';
 import 'package:amap_base_map/src/map/model/my_location_style.dart';

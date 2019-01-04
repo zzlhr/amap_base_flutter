@@ -13,7 +13,7 @@ import 'package:amap_base_example/map/tools/coordinate_transformation_screen.dar
 import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
-import 'package:amap_base_map/amap_base.dart';
+import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
 
 class MapDemo extends StatelessWidget {

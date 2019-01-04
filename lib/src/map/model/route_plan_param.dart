@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amap_base_map/amap_base.dart';
+import 'package:amap_base_map/amap_base_map.dart';
 import 'package:meta/meta.dart';
 
 class RoutePlanParam {

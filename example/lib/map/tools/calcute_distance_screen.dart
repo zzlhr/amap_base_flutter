@@ -1,4 +1,4 @@
-import 'package:amap_base_map/amap_base.dart';
+import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
 
 class CalcuteDistanceScreen extends StatefulWidget {
@@ -72,7 +72,8 @@ class CcalcuteDistanceStateScreen extends State<CalcuteDistanceScreen> {
     if (latlng == null) {
       text = "请先获取坐标值";
     } else {
-      text = "${latlng.latitude.toStringAsFixed(5)},${latlng.longitude.toStringAsFixed(5)}";
+      text =
+          "${latlng.latitude.toStringAsFixed(5)},${latlng.longitude.toStringAsFixed(5)}";
     }
     return Container(
       padding: const EdgeInsets.all(8.0),

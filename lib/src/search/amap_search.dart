@@ -1,8 +1,11 @@
 import 'dart:convert';
 
-import 'package:amap_base_map/amap_base.dart';
 import 'package:amap_base_map/src/common/log.dart';
 import 'package:amap_base_map/src/map/model/poi_result.dart';
+import 'package:amap_base_map/src/map/model/poi_search_query.dart';
+import 'package:amap_base_map/src/map/model/route_plan_param.dart';
+import 'package:amap_base_map/src/map/model/route_poi_result.dart';
+import 'package:amap_base_map/src/map/model/route_poi_search_query.dart';
 import 'package:amap_base_map/src/search/model/drive_route_result.dart';
 import 'package:flutter/services.dart';
 

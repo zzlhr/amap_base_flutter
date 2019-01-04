@@ -1,6 +1,6 @@
-import 'package:amap_base_map/amap_base.dart';
 import 'package:amap_base_example/utils/misc.dart';
 import 'package:amap_base_example/utils/view.dart';
+import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
 
 const polylineList = const [
