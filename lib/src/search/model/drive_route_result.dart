@@ -1,4 +1,4 @@
-import 'package:amap_base_navi/amap_base.dart';
+import 'package:amap_base_navi/amap_base_navi.dart';
 
 class DriveRouteResult {
   List<DrivePath> paths;

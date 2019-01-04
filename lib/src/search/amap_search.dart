@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amap_base_navi/amap_base.dart';
+import 'package:amap_base_navi/amap_base_navi.dart';
 import 'package:amap_base_navi/src/common/log.dart';
 import 'package:amap_base_navi/src/map/model/poi_result.dart';
 import 'package:amap_base_navi/src/search/model/drive_route_result.dart';

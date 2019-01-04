@@ -1,5 +1,5 @@
-import 'package:amap_base_navi/amap_base.dart';
 import 'package:amap_base_example/widgets/setting.widget.dart';
+import 'package:amap_base_navi/amap_base_navi.dart';
 import 'package:flutter/material.dart';
 
 class SwitchMapLayerScreen extends StatefulWidget {
