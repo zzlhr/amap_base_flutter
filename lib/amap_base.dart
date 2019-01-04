@@ -2,9 +2,12 @@ library amap_base;
 
 import 'dart:convert';
 
+import 'package:amap_base/amap_base.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+export 'amap_base.dart';
+export 'src/common/permissions.dart';
 export 'src/location/amap_location.dart';
 export 'src/location/model/location.dart';
 export 'src/location/model/location_client_options.dart';
@@ -17,6 +20,12 @@ export 'src/map/model/latlng.dart';
 export 'src/map/model/marker_options.dart';
 export 'src/map/model/my_location_style.dart';
 export 'src/map/model/polyline_options.dart';
+export 'src/map/model/ui_settings.dart';
+export 'src/map/offline_manager.dart';
+export 'src/navi/amap_navi.dart';
+export 'src/search/amap_search.dart';
+export 'src/search/model/drive_route_result.dart';
+export 'src/search/model/geocode_result.dart';
 export 'src/search/model/poi_search_query.dart';
 export 'src/search/model/regeocode_result.dart';
 export 'src/search/model/route_plan_param.dart';
