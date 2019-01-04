@@ -1,11 +1,11 @@
 # 高德地图Flutter插件 基于AndroidView和UiKitView
 
-| amap_base          | [![pub package](https://img.shields.io/pub/v/amap_base.svg)](https://pub.Flutter-io.cn/packages/amap_base)                   |
-|--------------------|------------------------------------------------------------------------------------------------------------------------------|
-| amap_base_map      | [![pub package](https://img.shields.io/pub/v/amap_base_map.svg)](https://pub.Flutter-io.cn/packages/amap_base_map)           |
+|      amap_base     | [![pub package](https://img.shields.io/pub/v/amap_base.svg)](https://pub.Flutter-io.cn/packages/amap_base)                   |
+|:------------------:|------------------------------------------------------------------------------------------------------------------------------|
+|    amap_base_map   | [![pub package](https://img.shields.io/pub/v/amap_base_map.svg)](https://pub.Flutter-io.cn/packages/amap_base_map)           |
 | amap_base_location | [![pub package](https://img.shields.io/pub/v/amap_base_location.svg)](https://pub.Flutter-io.cn/packages/amap_base_location) |
-| amap_base_search   | [![pub package](https://img.shields.io/pub/v/amap_base_search.svg)](https://pub.Flutter-io.cn/packages/amap_base_search)     |
-| amap_base_navi     | [![pub package](https://img.shields.io/pub/v/amap_base_navi.svg)](https://pub.Flutter-io.cn/packages/amap_base_navi)         |
+|  amap_base_search  | [![pub package](https://img.shields.io/pub/v/amap_base_search.svg)](https://pub.Flutter-io.cn/packages/amap_base_search)     |
+|   amap_base_navi   | [![pub package](https://img.shields.io/pub/v/amap_base_navi.svg)](https://pub.Flutter-io.cn/packages/amap_base_navi)         |
 
 [TOC]
 
