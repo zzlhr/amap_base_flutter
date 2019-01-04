@@ -27,7 +27,7 @@ object SearchReGeocode : SearchMethodHandler {
         val latLonType = call.argument<Int>("latLonType") ?: 0
 
         val query = RegeocodeQuery(
-                point.parseJson<LatLng>().toLatLonPoint(),
+                point.parseFieldJson<LatLng>().toLatLonPoint(),
                 radius.toFloat(),
                 when (latLonType) {
                     0 -> GeocodeSearch.AMAP
@@ -40,7 +40,7 @@ object SearchReGeocode : SearchMethodHandler {
             setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
                 override fun onRegeocodeSearched(reGeocodeResult: RegeocodeResult?, resultID: Int) {
                     if (reGeocodeResult != null) {
-                        result.success(reGeocodeResult.toFastJson())
+                        result.success(reGeocodeResult.toAccessorJson())
                     } else {
                         result.error("搜索不到结果", "搜索不到结果", "搜索不到结果")
                     }
@@ -69,7 +69,7 @@ object SearchGeocode : SearchMethodHandler {
 
                 override fun onGeocodeSearched(geocodeResult: GeocodeResult?, resultID: Int) {
                     if (geocodeResult != null) {
-                        result.success(UnifiedGeocodeResult(geocodeResult).toJson())
+                        result.success(UnifiedGeocodeResult(geocodeResult).toFieldJson())
                     } else {
                         result.error("搜索不到结果", "搜索不到结果", "搜索不到结果")
                     }
@@ -88,7 +88,7 @@ object SearchPoiBound : SearchMethodHandler {
 
         log("方法map#searchPoi android端参数: query -> $query")
 
-        query.parseJson<UnifiedPoiSearchQuery>()
+        query.parseFieldJson<UnifiedPoiSearchQuery>()
                 .toPoiSearchBound(AMapBasePlugin.registrar.context())
                 .apply {
                     setOnPoiSearchListener(object : PoiSearch.OnPoiSearchListener {
@@ -97,7 +97,7 @@ object SearchPoiBound : SearchMethodHandler {
                         override fun onPoiSearched(result: PoiResult?, rCode: Int) {
                             if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                                 if (result != null) {
-                                    methodResult.success(UnifiedPoiResult(result).toJson())
+                                    methodResult.success(UnifiedPoiResult(result).toFieldJson())
                                 } else {
                                     methodResult.error(rCode.toString(), rCode.toAMapError(), rCode.toAMapError())
                                 }
@@ -122,7 +122,7 @@ object SearchPoiId : SearchMethodHandler {
                 override fun onPoiItemSearched(result: PoiItem?, rCode: Int) {
                     if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                         if (result != null) {
-                            methodResult.success(UnifiedPoiItem(result).toJson())
+                            methodResult.success(UnifiedPoiItem(result).toFieldJson())
                         } else {
                             methodResult.error(rCode.toString(), rCode.toAMapError(), rCode.toAMapError())
                         }
@@ -144,7 +144,7 @@ object SearchPoiKeyword : SearchMethodHandler {
 
         log("方法map#searchPoi android端参数: query -> $query")
 
-        query.parseJson<UnifiedPoiSearchQuery>()
+        query.parseFieldJson<UnifiedPoiSearchQuery>()
                 .toPoiSearch(AMapBasePlugin.registrar.context())
                 .apply {
                     setOnPoiSearchListener(object : PoiSearch.OnPoiSearchListener {
@@ -153,7 +153,7 @@ object SearchPoiKeyword : SearchMethodHandler {
                         override fun onPoiSearched(result: PoiResult?, rCode: Int) {
                             if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                                 if (result != null) {
-                                    methodResult.success(UnifiedPoiResult(result).toJson())
+                                    methodResult.success(UnifiedPoiResult(result).toFieldJson())
                                 } else {
                                     methodResult.error(rCode.toString(), rCode.toAMapError(), rCode.toAMapError())
                                 }
@@ -172,7 +172,7 @@ object SearchPoiPolygon : SearchMethodHandler {
 
         log("方法map#searchPoi android端参数: query -> $query")
 
-        query.parseJson<UnifiedPoiSearchQuery>()
+        query.parseFieldJson<UnifiedPoiSearchQuery>()
                 .toPoiSearchPolygon(AMapBasePlugin.registrar.context())
                 .apply {
                     setOnPoiSearchListener(object : PoiSearch.OnPoiSearchListener {
@@ -181,7 +181,7 @@ object SearchPoiPolygon : SearchMethodHandler {
                         override fun onPoiSearched(result: PoiResult?, rCode: Int) {
                             if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                                 if (result != null) {
-                                    methodResult.success(UnifiedPoiResult(result).toJson())
+                                    methodResult.success(UnifiedPoiResult(result).toFieldJson())
                                 } else {
                                     methodResult.error(rCode.toString(), rCode.toAMapError(), rCode.toAMapError())
                                 }
@@ -201,13 +201,13 @@ object SearchRoutePoiLine : SearchMethodHandler {
 
         log("方法map#searchRoutePoiLine android端参数: query -> $query")
 
-        query.parseJson<UnifiedRoutePoiSearchQuery>()
+        query.parseFieldJson<UnifiedRoutePoiSearchQuery>()
                 .toRoutePoiSearchLine(AMapBasePlugin.registrar.context())
                 .apply {
                     setPoiSearchListener { result, rCode ->
                         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                             if (result != null) {
-                                methodResult.success(UnifiedRoutePoiSearchResult(result).toJson())
+                                methodResult.success(UnifiedRoutePoiSearchResult(result).toFieldJson())
                             } else {
                                 methodResult.error(rCode.toString(), rCode.toAMapError(), rCode.toAMapError())
                             }
@@ -226,13 +226,13 @@ object SearchRoutePoiPolygon : SearchMethodHandler {
 
         log("方法map#searchRoutePoiPolygon android端参数: query -> $query")
 
-        query.parseJson<UnifiedRoutePoiSearchQuery>()
+        query.parseFieldJson<UnifiedRoutePoiSearchQuery>()
                 .toRoutePoiSearchPolygon(AMapBasePlugin.registrar.context())
                 .apply {
                     setPoiSearchListener { result, rCode ->
                         if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                             if (result != null) {
-                                methodResult.success(UnifiedRoutePoiSearchResult(result).toJson())
+                                methodResult.success(UnifiedRoutePoiSearchResult(result).toFieldJson())
                             } else {
                                 methodResult.error(rCode.toString(), rCode.toAMapError(), rCode.toAMapError())
                             }
@@ -248,7 +248,7 @@ object CalculateDriveRoute : SearchMethodHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         // 规划参数
-        val param = call.argument<String>("routePlanParam")!!.parseJson<RoutePlanParam>()
+        val param = call.argument<String>("routePlanParam")!!.parseFieldJson<RoutePlanParam>()
 
         log("方法calculateDriveRoute android端参数: routePlanParam -> $param")
 
@@ -267,7 +267,7 @@ object CalculateDriveRoute : SearchMethodHandler {
                     } else if (r.paths.isEmpty()) {
                         result.error("没有规划出合适的路线", null, null)
                     } else {
-                        result.success(UnifiedDriveRouteResult(r).toJson())
+                        result.success(UnifiedDriveRouteResult(r).toFieldJson())
                     }
                 }
 
@@ -336,8 +336,8 @@ object SearchBusStation : SearchMethodHandler {
                                     resultCode.toAMapError()
                             )
                         } else {
-                            print(result.toFastJson())
-                            methodResult.success(result.toFastJson())
+                            print(result.toAccessorJson())
+                            methodResult.success(result.toAccessorJson())
                         }
                     }
 

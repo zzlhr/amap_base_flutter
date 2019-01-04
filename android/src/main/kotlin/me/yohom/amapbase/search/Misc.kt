@@ -3,7 +3,7 @@ package me.yohom.amapbase.search
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.core.PoiItem
 import com.amap.api.services.poisearch.*
-import me.yohom.amapbase.common.toJson
+import me.yohom.amapbase.common.toFieldJson
 
 fun LatLng.toLatLonPoint(): LatLonPoint {
     return LatLonPoint(latitude, longitude)
@@ -19,14 +19,14 @@ fun PoiResult.toJson(): String {
             .append("\"pageCount\":\"$pageCount\",")
             .append("\"query\":\"$query\",")
             .append("\"bound\":\"$bound\",")
-            .append("\"pois\":\"${pois.map { it.toJson() }}\",")
+            .append("\"pois\":\"${pois.map { it.toFieldJson() }}\",")
             .append("\"searchSuggestionKeywords\":\"$searchSuggestionKeywords\",")
             .append("\"searchSuggestionCitys\":\"$searchSuggestionCitys\"")
             .append("}")
             .toString()
 }
 
-fun PoiItem.toJson(): String {
+fun PoiItem.toFieldJson(): String {
     return StringBuilder()
             .append("{")
             .append("\"businessArea\":\"$businessArea\",")
@@ -40,7 +40,7 @@ fun PoiItem.toJson(): String {
             .append("\"distance\":\"$distance\",")
             .append("\"title\":\"$title\",")
             .append("\"snippet\":\"$snippet\",")
-            .append("\"latLonPoint\":${latLonPoint.toLatLng().toJson()},")
+            .append("\"latLonPoint\":${latLonPoint.toLatLng().toFieldJson()},")
             .append("\"cityCode\":\"$cityCode\",")
             .append("\"enter\":\"$enter\",")
             .append("\"exit\":\"$exit\",")
@@ -50,9 +50,9 @@ fun PoiItem.toJson(): String {
             .append("\"isIndoorMap\":\"$isIndoorMap\",")
             .append("\"provinceCode\":\"$provinceCode\",")
             .append("\"parkingType\":\"$parkingType\",")
-            .append("\"subPois\":${subPois.map { it.toJson() }.toJson()},")
+            .append("\"subPois\":${subPois.map { it.toJson() }.toFieldJson()},")
             .append("\"indoorData\":\"${indoorData.toJson()}\",")
-            .append("\"photos\":${photos.map { it.toJson() }.toJson()},")
+            .append("\"photos\":${photos.map { it.toJson() }.toFieldJson()},")
             .append("\"poiExtension\":${poiExtension.toJson()},")
             .append("\"typeCode\":\"$typeCode\",")
             .append("\"shopID\":\"$shopID\"")
@@ -85,7 +85,7 @@ fun SubPoiItem.toJson(): String {
             .append("\"title\":\"$title\",")
             .append("\"subName\":\"$subName\",")
             .append("\"distance\":\"$distance\",")
-            .append("\"latLonPoint\":\"${latLonPoint.toLatLng().toJson()}\",")
+            .append("\"latLonPoint\":\"${latLonPoint.toLatLng().toFieldJson()}\",")
             .append("\"snippet\":\"$snippet\",")
             .append("\"subTypeDes\":\"$subTypeDes\"")
             .append("}")

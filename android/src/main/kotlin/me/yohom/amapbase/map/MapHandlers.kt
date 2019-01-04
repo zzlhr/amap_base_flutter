@@ -16,8 +16,8 @@ import me.yohom.amapbase.AMapBasePlugin
 import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
 import me.yohom.amapbase.MapMethodHandler
 import me.yohom.amapbase.common.log
-import me.yohom.amapbase.common.parseJson
-import me.yohom.amapbase.common.toJson
+import me.yohom.amapbase.common.parseFieldJson
+import me.yohom.amapbase.common.toFieldJson
 import java.io.*
 import java.util.*
 
@@ -138,7 +138,7 @@ object ConvertCoordinate : MapMethodHandler {
                 .coord(LatLng(lat, lon, false))
                 .convert()
 
-        result.success(amapCoordinate.toJson())
+        result.success(amapCoordinate.toFieldJson())
     }
 }
 
@@ -250,7 +250,7 @@ object SetMyLocationStyle : MapMethodHandler {
 
         log("方法setMyLocationEnabled android端参数: styleJson -> $styleJson")
 
-        styleJson.parseJson<UnifiedMyLocationStyle>().applyTo(map)
+        styleJson.parseFieldJson<UnifiedMyLocationStyle>().applyTo(map)
 
         result.success(success)
     }
@@ -270,7 +270,7 @@ object SetUiSettings : MapMethodHandler {
 
         log("方法setUiSettings android端参数: uiSettingsJson -> $uiSettingsJson")
 
-        uiSettingsJson.parseJson<UnifiedUiSettings>().applyTo(map)
+        uiSettingsJson.parseFieldJson<UnifiedUiSettings>().applyTo(map)
 
         result.success(success)
     }
@@ -310,7 +310,7 @@ object AddMarker : MapMethodHandler {
 
         log("方法marker#addMarker android端参数: optionsJson -> $optionsJson")
 
-        optionsJson.parseJson<UnifiedMarkerOptions>().applyTo(map)
+        optionsJson.parseFieldJson<UnifiedMarkerOptions>().applyTo(map)
 
         result.success(success)
     }
@@ -332,7 +332,7 @@ object AddMarkers : MapMethodHandler {
 
         log("方法marker#addMarkers android端参数: optionsListJson -> $optionsListJson")
 
-        val optionsList = ArrayList(optionsListJson.parseJson<List<UnifiedMarkerOptions>>().map { it.toMarkerOption() })
+        val optionsList = ArrayList(optionsListJson.parseFieldJson<List<UnifiedMarkerOptions>>().map { it.toMarkerOption() })
         if (clear) map.mapScreenMarkers.forEach { it.remove() }
         map.addMarkers(optionsList, moveToCenter)
 
@@ -349,7 +349,7 @@ object AddPolyline : MapMethodHandler {
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        val options = call.argument<String>("options")?.parseJson<UnifiedPolylineOptions>()
+        val options = call.argument<String>("options")?.parseFieldJson<UnifiedPolylineOptions>()
 
         log("map#AddPolyline android端参数: options -> $options")
 
@@ -387,7 +387,7 @@ object ChangeLatLng : MapMethodHandler {
     override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
         val targetJson = methodCall.argument<String>("target") ?: "{}"
 
-        map.animateCamera(CameraUpdateFactory.changeLatLng(targetJson.parseJson<LatLng>()))
+        map.animateCamera(CameraUpdateFactory.changeLatLng(targetJson.parseFieldJson<LatLng>()))
 
         methodResult.success(success)
     }
@@ -402,7 +402,7 @@ object GetCenterLnglat : MapMethodHandler {
 
     override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
         val target = map.cameraPosition.target
-        methodResult.success(target.toJson())
+        methodResult.success(target.toFieldJson())
     }
 }
 
@@ -416,8 +416,8 @@ object SetMapStatusLimits : MapMethodHandler {
     }
 
     override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
-        val swLatLng: LatLng? = methodCall.argument<String>("swLatLng")?.parseJson()
-        val neLatLng: LatLng? = methodCall.argument<String>("neLatLng")?.parseJson()
+        val swLatLng: LatLng? = methodCall.argument<String>("swLatLng")?.parseFieldJson()
+        val neLatLng: LatLng? = methodCall.argument<String>("neLatLng")?.parseFieldJson()
 
         map.setMapStatusLimits(LatLngBounds(swLatLng, neLatLng))
 
@@ -435,7 +435,7 @@ object SetPosition : MapMethodHandler {
     }
 
     override fun onMethodCall(methodCall: MethodCall, methodResult: MethodChannel.Result) {
-        val target: LatLng = methodCall.argument<String>("target")?.parseJson()
+        val target: LatLng = methodCall.argument<String>("target")?.parseFieldJson()
                 ?: beijingLatLng
         val zoom: Double = methodCall.argument<Double>("zoom") ?: 10.0
         val tilt: Double = methodCall.argument<Double>("tilt") ?: 0.0
@@ -480,7 +480,7 @@ object ZoomToSpan : MapMethodHandler {
 
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(
                 LatLngBounds.builder().run {
-                    boundJson.parseJson<List<LatLng>>().forEach {
+                    boundJson.parseFieldJson<List<LatLng>>().forEach {
                         include(it)
                     }
                     build()

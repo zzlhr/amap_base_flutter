@@ -52,16 +52,18 @@ class DrivingRoutPlanScreenState extends State<DrivingRoutPlanScreen> {
                   ),
                 ).then((result) {
                   setState(() {
-                    _result = jsonFormat(result.toJson());
+                    _result = result.toString();
                   });
                 }).catchError((e) => showError(context, e.toString()));
               },
             ),
             SPACE_NORMAL,
             Flexible(
-              child: ListView(
-                shrinkWrap: true,
-                children: <Widget>[Text(_result)],
+              child: SingleChildScrollView(
+                child: Text(
+                  _result,
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ],

@@ -1,8 +1,11 @@
 package me.yohom.amapbase
 
+import android.Manifest
 import android.app.Activity
 import android.app.Application
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import me.yohom.amapbase.map.AMapFactory
@@ -28,6 +31,31 @@ class AMapBasePlugin {
 
             // 注册生命周期回调, 保证地图初始化的时候对应的是正确的activity状态
             registrar.activity().application.registerActivityLifecycleCallbacks(this)
+
+            // 设置权限 channel
+            MethodChannel(registrar.messenger(), "me.yohom/permission")
+                    .setMethodCallHandler { methodCall, result ->
+                        when (methodCall.method) {
+                            "requestPermission" -> {
+                                ActivityCompat.requestPermissions(
+                                        registrar.activity(),
+                                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
+                                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                                Manifest.permission.READ_PHONE_STATE),
+                                        321
+                                )
+                                registrar.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
+                                    if (requestCode == 321) {
+                                        result.success(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                                    }
+                                    return@addRequestPermissionsResultListener true
+                                }
+                            }
+                            else -> result.notImplemented()
+                        }
+                    }
 
             // 设置key channel
             MethodChannel(registrar.messenger(), "me.yohom/amap_base")
