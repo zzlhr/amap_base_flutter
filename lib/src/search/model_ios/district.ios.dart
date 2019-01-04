@@ -1,4 +1,4 @@
-import 'package:amap_base_search/amap_base.dart';
+import 'package:amap_base_search/amap_base_search.dart';
 
 // ignore: camel_case_types
 class District_iOS {

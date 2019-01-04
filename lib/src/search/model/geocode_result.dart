@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amap_base_search/amap_base.dart';
+import 'package:amap_base_search/amap_base_search.dart';
 
 class GeocodeResult {
   List<GeocodeAddressList> geocodeAddressList;

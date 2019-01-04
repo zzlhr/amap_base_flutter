@@ -1,5 +1,5 @@
 import 'package:amap_base_example/search/search.screen.dart';
-import 'package:amap_base_search/amap_base.dart';
+import 'package:amap_base_search/amap_base_search.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

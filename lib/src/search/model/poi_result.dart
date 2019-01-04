@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amap_base_search/amap_base.dart';
+import 'package:amap_base_search/amap_base_search.dart';
 import 'package:amap_base_search/src/search/model/poi_item.dart';
 import 'package:amap_base_search/src/search/model/poi_query.dart';
 import 'package:amap_base_search/src/search/model/search_bound.dart';
