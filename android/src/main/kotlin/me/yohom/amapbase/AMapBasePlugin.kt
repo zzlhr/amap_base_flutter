@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import me.yohom.amapbase.map.AMapFactory
 import java.util.concurrent.atomic.AtomicInteger
 
 const val CREATED = 1
