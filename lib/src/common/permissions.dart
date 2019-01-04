@@ -17,7 +17,9 @@ class Permissions {
   }
 
   /// 请求地图相关权限
-  Future requestPermission() {
-    return _permissionChannel.invokeMethod('requestPermission');
+  Future<bool> requestPermission() {
+    return _permissionChannel
+        .invokeMethod('requestPermission')
+        .then((result) => result as bool);
   }
 }

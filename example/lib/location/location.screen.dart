@@ -44,16 +44,21 @@ class _LocationDemoState extends State<LocationDemo>
             children: <Widget>[
               Button(
                 label: '单次定位',
-                onPressed: (context) {
+                onPressed: (context) async {
                   final options = LocationClientOptions(
                     isOnceLocation: true,
                     locatingWithReGeocode: true,
                   );
 
-                  _amapLocation
-                      .startLocate(options)
-                      .map(_result.add)
-                      .listen((_) => setState(() {}));
+                  if (await Permissions().requestPermission()) {
+                    _amapLocation
+                        .startLocate(options)
+                        .map(_result.add)
+                        .listen((_) => setState(() {}));
+                  } else {
+                    Scaffold.of(context)
+                        .showSnackBar(SnackBar(content: Text('权限不足')));
+                  }
                 },
               ),
               Button(
@@ -64,15 +69,20 @@ class _LocationDemoState extends State<LocationDemo>
                     locatingWithReGeocode: true,
                   );
 
-                  _amapLocation
-                      .startLocate(options)
-                      .map(_result.add)
-                      .listen((_) => setState(() {}));
+                  if (await Permissions().requestPermission()) {
+                    _amapLocation
+                        .startLocate(options)
+                        .map(_result.add)
+                        .listen((_) => setState(() {}));
+                  } else {
+                    Scaffold.of(context)
+                        .showSnackBar(SnackBar(content: Text('权限不足')));
+                  }
                 },
               ),
               Button(
                 label: '停止定位',
-                onPressed: (context) async {
+                onPressed: (context) {
                   _amapLocation.stopLocate();
                 },
               ),
