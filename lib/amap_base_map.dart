@@ -1,4 +1,4 @@
-library amap_base;
+library amap_base_map;
 
 import 'dart:convert';
 
