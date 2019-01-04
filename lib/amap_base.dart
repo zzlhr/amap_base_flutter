@@ -1,4 +1,4 @@
-library amap_base_navi;
+library amap_base;
 
 import 'dart:convert';
 
