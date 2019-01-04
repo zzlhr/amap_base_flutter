@@ -1,10 +1,11 @@
-library amap_base;
+library amap_base_location;
 
 import 'dart:convert';
 
-import 'package:amap_base_location/src/location/amap_location.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+
+import 'src/location/amap_location.dart';
 
 export 'src/location/amap_location.dart';
 export 'src/location/model/location.dart';
