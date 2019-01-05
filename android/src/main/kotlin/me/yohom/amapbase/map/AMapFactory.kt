@@ -15,7 +15,6 @@ import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
 import me.yohom.amapbase.*
 import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
-import me.yohom.amapbase.common.checkPermission
 import me.yohom.amapbase.common.parseFieldJson
 import me.yohom.amapbase.common.toFieldJson
 import java.util.concurrent.atomic.AtomicInteger
@@ -28,8 +27,6 @@ class AMapFactory(private val activityState: AtomicInteger)
     : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
 
     override fun create(context: Context, id: Int, params: Any?): PlatformView {
-        checkPermission()
-
         val view = AMapView(
                 context,
                 id,
@@ -83,8 +80,6 @@ class AMapView(context: Context,
         // 地图相关method channel
         val mapChannel = MethodChannel(registrar.messenger(), "$mapChannelName$id")
         mapChannel.setMethodCallHandler { call, result ->
-            checkPermission()
-
             MAP_METHOD_HANDLER[call.method]
                     ?.with(mapView.map)
                     ?.onMethodCall(call, result) ?: result.notImplemented()
