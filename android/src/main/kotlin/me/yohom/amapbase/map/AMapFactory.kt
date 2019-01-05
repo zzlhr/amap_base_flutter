@@ -109,7 +109,7 @@ class AMapView(context: Context,
         registrar.activity().application.registerActivityLifecycleCallbacks(this)
     }
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         if (disposed || activity.hashCode() != registrarActivityHashCode) {
             return
         }
@@ -142,7 +142,7 @@ class AMapView(context: Context,
         }
     }
 
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
         if (disposed || activity.hashCode() != registrarActivityHashCode) {
             return
         }
