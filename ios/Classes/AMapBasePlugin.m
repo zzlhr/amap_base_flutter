@@ -12,10 +12,18 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
     [AMapServices sharedServices].enableHTTPS = YES;
     _registrar = registrar;
 
+    // 设置权限 channel
+    FlutterMethodChannel *permissionChannel = [FlutterMethodChannel
+            methodChannelWithName:@"me.yohom/permission"
+                  binaryMessenger:[registrar messenger]];
+    [permissionChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
+        result(@YES);
+    }];
+
+    // 设置key channel
     FlutterMethodChannel *setKeyChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/amap_base"
                   binaryMessenger:[registrar messenger]];
-
     [setKeyChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         if ([@"setKey" isEqualToString:call.method]) {
             NSString *key = call.arguments[@"key"];
@@ -30,7 +38,6 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
     FlutterMethodChannel *toolChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/tool"
                   binaryMessenger:[registrar messenger]];
-
     [toolChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         NSObject <MapMethodHandler> *handler = [MapFunctionRegistry mapMethodHandler][call.method];
         if (handler) {
@@ -44,7 +51,6 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
     FlutterMethodChannel *searchChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/search"
                   binaryMessenger:[registrar messenger]];
-
     [searchChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         NSObject <SearchMethodHandler> *handler = [SearchFunctionRegistry searchMethodHandler][call.method];
         if (handler) {
@@ -58,7 +64,6 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
     FlutterMethodChannel *offlineChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/offline"
                   binaryMessenger:[registrar messenger]];
-
     [offlineChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         NSObject <MapMethodHandler> *handler = [MapFunctionRegistry mapMethodHandler][call.method];
         if (handler) {
@@ -72,7 +77,6 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
     FlutterMethodChannel *naviChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/navi"
                   binaryMessenger:[registrar messenger]];
-
     [naviChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         NSObject <NaviMethodHandler> *handler = [NaviFunctionRegistry naviMethodHandler][call.method];
         if (handler) {
@@ -86,7 +90,6 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
     FlutterMethodChannel *locationChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/location"
                   binaryMessenger:[registrar messenger]];
-
     [locationChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         NSObject <LocationMethodHandler> *handler = [LocationFunctionRegistry locationMethodHandler][call.method];
         if (handler) {
@@ -96,6 +99,7 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
         }
     }];
 
+    // MapView
     [_registrar registerViewFactory:[[AMapViewFactory alloc] init]
                              withId:@"me.yohom/AMapView"];
 
