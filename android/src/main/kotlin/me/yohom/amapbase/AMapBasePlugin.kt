@@ -23,6 +23,10 @@ class AMapBasePlugin {
         private var registrarActivityHashCode: Int = 0
         private val activityState = AtomicInteger(0)
 
+        // 权限请求的相关变量
+        private var permissionRequestCode = 0
+        private var methodResult: MethodChannel.Result? = null
+
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             // 由于registrar用到的地方比较多, 这里直接放到全局变量里去好了
@@ -37,6 +41,9 @@ class AMapBasePlugin {
                     .setMethodCallHandler { methodCall, result ->
                         when (methodCall.method) {
                             "requestPermission" -> {
+                                permissionRequestCode = methodCall.hashCode()
+                                methodResult = result
+
                                 ActivityCompat.requestPermissions(
                                         registrar.activity(),
                                         arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -44,11 +51,11 @@ class AMapBasePlugin {
                                                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                                 Manifest.permission.READ_EXTERNAL_STORAGE,
                                                 Manifest.permission.READ_PHONE_STATE),
-                                        321
+                                        permissionRequestCode
                                 )
-                                registrar.addRequestPermissionsResultListener { requestCode, permissions, grantResults ->
-                                    if (requestCode == 321) {
-                                        result.success(grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                                registrar.addRequestPermissionsResultListener { code, _, grantResults ->
+                                    if (code == permissionRequestCode) {
+                                        methodResult?.success(grantResults.all { it == PackageManager.PERMISSION_GRANTED })
                                     }
                                     return@addRequestPermissionsResultListener true
                                 }
