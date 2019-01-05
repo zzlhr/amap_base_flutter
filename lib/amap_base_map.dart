@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+export 'src/common/permissions.dart';
 export 'src/map/amap_controller.dart';
 export 'src/map/amap_view.dart';
 export 'src/map/calculate_tool.dart';
