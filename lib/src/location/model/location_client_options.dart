@@ -168,7 +168,7 @@ class LocationClientOptions {
 
   @override
   String toString() {
-    return 'LocationClientOptions{isMockEnable: $isMockEnable, interval: $interval, isOnceLocation: $isOnceLocation, isNeedAddress: $isNeedAddress, isWifiScan: $isWifiScan, locationMode: $locationMode, locationProtocol: $locationProtocol, isKillProcess: $isKillProcess, isGpsFirst: $isGpsFirst, httpTimeOut: $httpTimeOut, isOffset: $isOffset, isLocationCacheEnable: $isLocationCacheEnable, isOnceLocationLatest: $isOnceLocationLatest, isSensorEnable: $isSensorEnable, lastLocationLifeCycle: $lastLocationLifeCycle, geoLanguage: $geoLanguage, isDownloadCoordinateConvertLibrary: $isDownloadCoordinateConvertLibrary, deviceModeDistanceFilter: $deviceModeDistanceFilter, locationPurpose: $locationPurpose, isOpenAlwaysScanWifi: $isOpenAlwaysScanWifi, scanWifiInterval: $scanWifiInterval, distanceFilter: $distanceFilter, pausesLocationUpdatesAutomatically: $pausesLocationUpdatesAutomatically, allowsBackgroundLocationUpdates: $allowsBackgroundLocationUpdates, locationTimeout: $locationTimeout, reGeocodeTimeout: $reGeocodeTimeout, locatingWithReGeocode: $locatingWithReGeocode, monitoredRegions: $monitoredRegions, detectRiskOfFakeLocation: $detectRiskOfFakeLocation}';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }
 
