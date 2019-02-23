@@ -1,3 +1,6 @@
+## 0.2.12
+* 使用androidx代替support库
+
 ## 0.2.11
 * Android端的activity回调的Bundle类型都换成可空类型
 * 优化权限请求接口
