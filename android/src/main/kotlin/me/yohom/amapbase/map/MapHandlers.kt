@@ -151,15 +151,15 @@ object CalcDistance : MapMethodHandler {
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        val p1 = call.argument<Map<String, Object>>("p1")
-        val p2 = call.argument<Map<String, Object>>("p2")
+        val p1 = call.argument<Map<String, Any>>("p1")
+        val p2 = call.argument<Map<String, Any>>("p2")
         val latlng1 = p1!!.getLntlng()
         val latlng2 = p2!!.getLntlng()
         val dis = AMapUtils.calculateLineDistance(latlng1, latlng2)
         result.success(dis)
     }
 
-    private fun Map<String, Object>.getLntlng(): LatLng {
+    private fun Map<String, Any>.getLntlng(): LatLng {
         val lat = get("latitude") as Double
         val lng = get("longitude") as Double
         return LatLng(lat, lng)
