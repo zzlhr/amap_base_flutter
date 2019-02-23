@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Location {
   num accuracy;
   String adCode;
@@ -289,39 +291,7 @@ class Location {
 
   @override
   String toString() {
-    return '''AMapLocation{
-		accuracy: $accuracy,
-		adCode: $adCode,
-		address: $address,
-		altitude: $altitude,
-		aoiName: $aoiName,
-		bearing: $bearing,
-		buildingId: $buildingId,
-		city: $city,
-		cityCode: $cityCode,
-		coordType: $coordType,
-		country: $country,
-		district: $district,
-		errorCode: $errorCode,
-		errorInfo: $errorInfo,
-		floor: $floor,
-		gpsAccuracyStatus: $gpsAccuracyStatus,
-		isFixLastLocation: $isFixLastLocation,
-		isMock: $isMock,
-		isOffset: $isOffset,
-		latitude: $latitude,
-		locationDetail: $locationDetail,
-		locationQualityReport: $locationQualityReport,
-		locationType: $locationType,
-		longitude: $longitude,
-		poiName: $poiName,
-		provider: $provider,
-		province: $province,
-		satellites: $satellites,
-		speed: $speed,
-		street: $street,
-		streetNum: $streetNum,
-		trustedLevel: $trustedLevel}''';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }
 
@@ -403,12 +373,6 @@ class LocationQualityReport {
 
   @override
   String toString() {
-    return '''LocationQualityReport{
-		adviseMessage: $adviseMessage,
-		gpsSatellites: $gpsSatellites,
-		gpsStatus: $gpsStatus,
-		isWifiAble: $isWifiAble,
-		netUseTime: $netUseTime,
-		networkType: $networkType}''';
+    return JsonEncoder.withIndent('  ').convert(toJson());
   }
 }
