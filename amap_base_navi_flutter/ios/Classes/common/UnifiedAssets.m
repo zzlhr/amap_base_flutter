@@ -3,18 +3,18 @@
 //
 
 #import "UnifiedAssets.h"
-#import "AMapBasePlugin.h"
+#import "AMapBaseNaviPlugin.h"
 
 @implementation UnifiedAssets {
 
 }
 + (NSString *)getAssetPath:(NSString *)asset {
-    NSString *key = [AMapBasePlugin.registrar lookupKeyForAsset:asset];
+    NSString *key = [AMapBaseNaviPlugin.registrar lookupKeyForAsset:asset];
     return [[NSBundle mainBundle] pathForResource:key ofType:nil];
 }
 
 + (NSString *)getDefaultAssetPath:(NSString *)asset {
-    NSString *key = [AMapBasePlugin.registrar lookupKeyForAsset:asset fromPackage:@"amap_base"];
+    NSString *key = [AMapBaseNaviPlugin.registrar lookupKeyForAsset:asset fromPackage:@"amap_base"];
     return [[NSBundle mainBundle] pathForResource:key ofType:nil];
 }
 

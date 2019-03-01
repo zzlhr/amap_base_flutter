@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="me.yohom.amapbase">
+  package="me.yohom.amapbasenavi">
 
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>

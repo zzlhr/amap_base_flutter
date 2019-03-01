@@ -1,4 +1,4 @@
-package me.yohom.amapbase.common
+package me.yohom.amapbasenavi.common
 
 import android.graphics.Color
 

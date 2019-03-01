@@ -1,7 +1,7 @@
-package me.yohom.amapbase
+package me.yohom.amapbasenavi
 
-import me.yohom.amapbase.map.*
-import me.yohom.amapbase.navi.handler.StartNavi
+import me.yohom.amapbasenavi.map.*
+import me.yohom.amapbasenavi.navi.handler.StartNavi
 
 /**
  * 地图功能集合

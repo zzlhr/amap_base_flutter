@@ -1,4 +1,4 @@
-package me.yohom.amapbase.map
+package me.yohom.amapbasenavi.map
 
 import android.content.Intent
 import com.amap.api.maps.AMap
@@ -10,11 +10,11 @@ import com.amap.api.maps.model.LatLngBounds
 import com.amap.api.maps.offlinemap.OfflineMapActivity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.amapbase.AMapBasePlugin
-import me.yohom.amapbase.MapMethodHandler
-import me.yohom.amapbase.common.log
-import me.yohom.amapbase.common.parseFieldJson
-import me.yohom.amapbase.common.toFieldJson
+import me.yohom.amapbasenavi.AMapBaseNaviPlugin
+import me.yohom.amapbasenavi.MapMethodHandler
+import me.yohom.amapbasenavi.common.log
+import me.yohom.amapbasenavi.common.parseFieldJson
+import me.yohom.amapbasenavi.common.toFieldJson
 import java.util.*
 
 
@@ -43,7 +43,7 @@ object ConvertCoordinate : MapMethodHandler {
         val lat = call.argument<Double>("lat")!!
         val lon = call.argument<Double>("lon")!!
         val typeIndex = call.argument<Int>("type")!!
-        val amapCoordinate = CoordinateConverter(AMapBasePlugin.registrar.context())
+        val amapCoordinate = CoordinateConverter(AMapBaseNaviPlugin.registrar.context())
                 .from(types[typeIndex])
                 .coord(LatLng(lat, lon, false))
                 .convert()
@@ -75,8 +75,8 @@ object OpenOfflineManager: MapMethodHandler {
     }
 
     override fun onMethodCall(p0: MethodCall?, p1: MethodChannel.Result?) {
-        AMapBasePlugin.registrar.activity().startActivity(
-                Intent(AMapBasePlugin.registrar.activity(),
+        AMapBaseNaviPlugin.registrar.activity().startActivity(
+                Intent(AMapBaseNaviPlugin.registrar.activity(),
                         OfflineMapActivity::class.java)
         )
     }

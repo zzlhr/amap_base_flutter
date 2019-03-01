@@ -1,7 +1,7 @@
-package me.yohom.amapbase.common
+package me.yohom.amapbasenavi.common
 
 import android.util.Log
-import me.yohom.amapbase.BuildConfig
+import me.yohom.amapbasenavi.BuildConfig
 
 fun Any.log(content: String) {
     if (BuildConfig.DEBUG) {

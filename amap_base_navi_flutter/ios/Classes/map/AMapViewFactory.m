@@ -3,7 +3,7 @@
 //
 
 #import "AMapViewFactory.h"
-#import "AMapBasePlugin.h"
+#import "AMapBaseNaviPlugin.h"
 #import "UnifiedAssets.h"
 #import "MJExtension.h"
 #import "NSString+Color.h"
@@ -89,7 +89,7 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
     //endregion
 
     _methodChannel = [FlutterMethodChannel methodChannelWithName:[NSString stringWithFormat:@"%@%lld", mapChannelName, _viewId]
-                                                 binaryMessenger:[AMapBasePlugin registrar].messenger];
+                                                 binaryMessenger:[AMapBaseNaviPlugin registrar].messenger];
     [_methodChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
         // 设置delegate, 渲染overlay和annotation的时候需要
         self->_mapView.delegate = self;
@@ -103,7 +103,7 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
     }];
 
     _markerClickedEventChannel = [FlutterEventChannel eventChannelWithName:[NSString stringWithFormat:@"%@%lld", markerClickedChannelName, _viewId]
-                                                           binaryMessenger:[AMapBasePlugin registrar].messenger];
+                                                           binaryMessenger:[AMapBaseNaviPlugin registrar].messenger];
     [_markerClickedEventChannel setStreamHandler:self];
 }
 

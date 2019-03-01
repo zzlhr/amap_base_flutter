@@ -1,4 +1,4 @@
-package me.yohom.amapbase.common
+package me.yohom.amapbasenavi.common
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.TypeReference

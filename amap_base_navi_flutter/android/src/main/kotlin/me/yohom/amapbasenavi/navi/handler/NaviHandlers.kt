@@ -1,4 +1,4 @@
-package me.yohom.amapbase.navi.handler
+package me.yohom.amapbasenavi.navi.handler
 
 import com.amap.api.maps.model.LatLng
 import com.amap.api.maps.model.Poi
@@ -7,9 +7,9 @@ import com.amap.api.navi.AmapNaviParams
 import com.amap.api.navi.AmapNaviType
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.amapbase.AMapBasePlugin
-import me.yohom.amapbase.NaviMethodHandler
-import me.yohom.amapbase.map.success
+import me.yohom.amapbasenavi.AMapBaseNaviPlugin
+import me.yohom.amapbasenavi.NaviMethodHandler
+import me.yohom.amapbasenavi.map.success
 
 object StartNavi: NaviMethodHandler {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -19,7 +19,7 @@ object StartNavi: NaviMethodHandler {
 
         val end = Poi(null, LatLng(lat, lon), "")
         AmapNaviPage.getInstance().showRouteActivity(
-                AMapBasePlugin.registrar.activity(),
+                AMapBaseNaviPlugin.registrar.activity(),
                 AmapNaviParams(null, null, end, when (naviType) {
                     0 -> AmapNaviType.DRIVER
                     1 -> AmapNaviType.WALK

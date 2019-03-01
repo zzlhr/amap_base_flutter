@@ -1,4 +1,4 @@
-package me.yohom.amapbase.map
+package me.yohom.amapbasenavi.map
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -14,10 +14,10 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
-import me.yohom.amapbase.*
-import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
-import me.yohom.amapbase.common.checkPermission
-import me.yohom.amapbase.common.toFieldJson
+import me.yohom.amapbasenavi.*
+import me.yohom.amapbasenavi.AMapBaseNaviPlugin.Companion.registrar
+import me.yohom.amapbasenavi.common.checkPermission
+import me.yohom.amapbasenavi.common.toFieldJson
 import java.util.concurrent.atomic.AtomicInteger
 
 const val mapChannelName = "me.yohom/map"
@@ -47,7 +47,7 @@ class AMapView(context: Context,
 
     private val mapView = TextureMapView(context, amapOptions)
     private var disposed = false
-    private val registrarActivityHashCode: Int = AMapBasePlugin.registrar.activity().hashCode()
+    private val registrarActivityHashCode: Int = AMapBaseNaviPlugin.registrar.activity().hashCode()
 
     override fun getView(): View = mapView
 

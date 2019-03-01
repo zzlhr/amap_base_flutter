@@ -1,11 +1,11 @@
-package me.yohom.amapbase.map
+package me.yohom.amapbasenavi.map
 
 import android.graphics.Color
 import com.amap.api.maps.AMap
 import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.*
-import me.yohom.amapbase.common.hexStringToColorInt
+import me.yohom.amapbasenavi.common.hexStringToColorInt
 import java.util.*
 
 

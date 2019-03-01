@@ -17,8 +17,8 @@ dependencies:
 # The following section is specific to Flutter.
 flutter:
   plugin:
-    androidPackage: me.yohom.amapbase
-    pluginClass: AMapBasePlugin
+    androidPackage: me.yohom.amapbasenavi
+    pluginClass: AMapBaseNaviPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   assets:
