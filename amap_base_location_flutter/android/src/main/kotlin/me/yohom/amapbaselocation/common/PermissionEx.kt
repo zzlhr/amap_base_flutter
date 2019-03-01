@@ -1,12 +1,12 @@
-package me.yohom.amapbase.common
+package me.yohom.amapbaselocation.common
 
 import android.Manifest
 import androidx.core.app.ActivityCompat
-import me.yohom.amapbase.AMapBasePlugin
+import me.yohom.amapbaselocation.AMapBaseLocationPlugin
 
 fun Any.checkPermission() {
     ActivityCompat.requestPermissions(
-            AMapBasePlugin.registrar.activity(),
+            AMapBaseLocationPlugin.registrar.activity(),
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,

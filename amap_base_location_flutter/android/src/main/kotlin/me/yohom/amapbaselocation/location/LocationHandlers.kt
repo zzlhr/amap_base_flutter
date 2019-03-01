@@ -1,22 +1,22 @@
-package me.yohom.amapbase.location
+package me.yohom.amapbaselocation.location
 
 import android.annotation.SuppressLint
 import com.amap.api.location.AMapLocationClient
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.amapbase.AMapBasePlugin
-import me.yohom.amapbase.LocationMethodHandler
-import me.yohom.amapbase.common.log
-import me.yohom.amapbase.common.parseFieldJson
-import me.yohom.amapbase.common.toFieldJson
+import me.yohom.amapbaselocation.AMapBaseLocationPlugin
+import me.yohom.amapbaselocation.LocationMethodHandler
+import me.yohom.amapbaselocation.common.log
+import me.yohom.amapbaselocation.common.parseFieldJson
+import me.yohom.amapbaselocation.common.toFieldJson
 
 
 object Init : LocationMethodHandler {
     @SuppressLint("StaticFieldLeak")
     lateinit var locationClient: AMapLocationClient
 
-    private val locationEventChannel = EventChannel(AMapBasePlugin.registrar.messenger(), "me.yohom/location_event")
+    private val locationEventChannel = EventChannel(AMapBaseLocationPlugin.registrar.messenger(), "me.yohom/location_event")
     private var eventSink: EventChannel.EventSink? = null
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -30,7 +30,7 @@ object Init : LocationMethodHandler {
             }
         })
 
-        locationClient = AMapLocationClient(AMapBasePlugin.registrar.activity().applicationContext).apply {
+        locationClient = AMapLocationClient(AMapBaseLocationPlugin.registrar.activity().applicationContext).apply {
             setLocationListener {
                 eventSink?.success(UnifiedAMapLocation(it).toFieldJson())
             }

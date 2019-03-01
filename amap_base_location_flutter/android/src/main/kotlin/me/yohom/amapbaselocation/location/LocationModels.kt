@@ -1,4 +1,4 @@
-package me.yohom.amapbase.location
+package me.yohom.amapbaselocation.location
 
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClientOption

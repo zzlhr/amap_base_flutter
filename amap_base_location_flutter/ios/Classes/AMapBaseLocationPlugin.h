@@ -1,6 +1,6 @@
 #import <Flutter/Flutter.h>
 
-@interface AMapBasePlugin : NSObject <FlutterPlugin>
+@interface AMapBaseLocationPlugin : NSObject <FlutterPlugin>
 
 + (NSObject <FlutterPluginRegistrar> *)registrar;
 

@@ -1,4 +1,4 @@
-package me.yohom.amapbase
+package me.yohom.amapbaselocation
 
 import io.flutter.plugin.common.MethodChannel
 

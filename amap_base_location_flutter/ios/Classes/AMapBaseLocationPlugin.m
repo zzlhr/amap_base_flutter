@@ -1,11 +1,11 @@
 #import "AMapServices.h"
-#import "AMapBasePlugin.h"
+#import "AMapBaseLocationPlugin.h"
 #import "IMethodHandler.h"
 #import "FunctionRegistry.h"
 
 static NSObject <FlutterPluginRegistrar> *_registrar;
 
-@implementation AMapBasePlugin
+@implementation AMapBaseLocationPlugin
 
 + (void)registerWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {
     [AMapServices sharedServices].enableHTTPS = YES;

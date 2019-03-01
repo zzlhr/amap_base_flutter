@@ -1,4 +1,4 @@
-package me.yohom.amapbase
+package me.yohom.amapbaselocation
 
 import android.Manifest
 import android.app.Activity
@@ -15,7 +15,7 @@ const val RESUMED = 3
 const val STOPPED = 5
 const val DESTROYED = 6
 
-class AMapBasePlugin {
+class AMapBaseLocationPlugin {
     companion object : Application.ActivityLifecycleCallbacks {
 
         lateinit var registrar: Registrar
@@ -29,7 +29,7 @@ class AMapBasePlugin {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             // 由于registrar用到的地方比较多, 这里直接放到全局变量里去好了
-            AMapBasePlugin.registrar = registrar
+            AMapBaseLocationPlugin.registrar = registrar
             registrarActivityHashCode = registrar.activity().hashCode()
 
             // 注册生命周期回调, 保证地图初始化的时候对应的是正确的activity状态

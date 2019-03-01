@@ -4,7 +4,7 @@
 
 #import "LocationHandlers.h"
 #import "MJExtension.h"
-#import "AMapBasePlugin.h"
+#import "AMapBaseLocationPlugin.h"
 #import "LocationModels.h"
 
 static AMapLocationManager *_locationManager;
@@ -40,7 +40,7 @@ static AMapLocationManager *_locationManager;
     self = [super init];
     if (self) {
         _locationEventChannel = [FlutterEventChannel eventChannelWithName:@"me.yohom/location_event"
-                                                          binaryMessenger:[[AMapBasePlugin registrar] messenger]];
+                                                          binaryMessenger:[[AMapBaseLocationPlugin registrar] messenger]];
         [_locationEventChannel setStreamHandler:self];
     }
 
