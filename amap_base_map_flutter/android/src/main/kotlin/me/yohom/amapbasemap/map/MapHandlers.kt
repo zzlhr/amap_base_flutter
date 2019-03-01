@@ -1,4 +1,4 @@
-package me.yohom.amapbase.map
+package me.yohom.amapbasemap.map
 
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,12 +12,12 @@ import com.amap.api.maps.model.LatLngBounds
 import com.amap.api.maps.offlinemap.OfflineMapActivity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.amapbase.AMapBasePlugin
-import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
-import me.yohom.amapbase.MapMethodHandler
-import me.yohom.amapbase.common.log
-import me.yohom.amapbase.common.parseFieldJson
-import me.yohom.amapbase.common.toFieldJson
+import me.yohom.amapbasemap.AMapBaseMapPlugin
+import me.yohom.amapbasemap.AMapBaseMapPlugin.Companion.registrar
+import me.yohom.amapbasemap.MapMethodHandler
+import me.yohom.amapbasemap.common.log
+import me.yohom.amapbasemap.common.parseFieldJson
+import me.yohom.amapbasemap.common.toFieldJson
 import java.io.*
 import java.util.*
 
@@ -133,7 +133,7 @@ object ConvertCoordinate : MapMethodHandler {
         val lat = call.argument<Double>("lat")!!
         val lon = call.argument<Double>("lon")!!
         val typeIndex = call.argument<Int>("type")!!
-        val amapCoordinate = CoordinateConverter(AMapBasePlugin.registrar.context())
+        val amapCoordinate = CoordinateConverter(AMapBaseMapPlugin.registrar.context())
                 .from(types[typeIndex])
                 .coord(LatLng(lat, lon, false))
                 .convert()
@@ -189,8 +189,8 @@ object OpenOfflineManager : MapMethodHandler {
     }
 
     override fun onMethodCall(p0: MethodCall?, p1: MethodChannel.Result?) {
-        AMapBasePlugin.registrar.activity().startActivity(
-                Intent(AMapBasePlugin.registrar.activity(),
+        AMapBaseMapPlugin.registrar.activity().startActivity(
+                Intent(AMapBaseMapPlugin.registrar.activity(),
                         OfflineMapActivity::class.java)
         )
     }

@@ -1,9 +1,9 @@
-package me.yohom.amapbase.map
+package me.yohom.amapbasemap.map
 
 import android.graphics.BitmapFactory
 import com.amap.api.maps.model.BitmapDescriptor
 import com.amap.api.maps.model.BitmapDescriptorFactory
-import me.yohom.amapbase.AMapBasePlugin.Companion.registrar
+import me.yohom.amapbasemap.AMapBaseMapPlugin.Companion.registrar
 
 object UnifiedAssets {
     private val assetManager = registrar.context().assets

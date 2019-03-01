@@ -1,6 +1,6 @@
-package me.yohom.amapbase
+package me.yohom.amapbasemap
 
-import me.yohom.amapbase.map.*
+import me.yohom.amapbasemap.map.*
 
 /**
  * 地图功能集合
