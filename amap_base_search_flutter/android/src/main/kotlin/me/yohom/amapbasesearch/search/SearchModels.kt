@@ -1,4 +1,4 @@
-package me.yohom.amapbase.search
+package me.yohom.amapbasesearch.search
 
 import android.content.Context
 import com.amap.api.services.core.PoiItem

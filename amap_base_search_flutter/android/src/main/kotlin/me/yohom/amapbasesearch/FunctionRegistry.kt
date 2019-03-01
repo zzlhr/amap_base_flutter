@@ -1,6 +1,6 @@
-package me.yohom.amapbase
+package me.yohom.amapbasesearch
 
-import me.yohom.amapbase.search.*
+import me.yohom.amapbasesearch.search.*
 
 /**
  * 地图功能集合

@@ -1,9 +1,9 @@
-package me.yohom.amapbase.search
+package me.yohom.amapbasesearch.search
 
 import com.amap.api.services.core.LatLonPoint
 import com.amap.api.services.core.PoiItem
 import com.amap.api.services.poisearch.*
-import me.yohom.amapbase.common.toFieldJson
+import me.yohom.amapbasesearch.common.toFieldJson
 
 fun LatLng.toLatLonPoint(): LatLonPoint {
     return LatLonPoint(latitude, longitude)
