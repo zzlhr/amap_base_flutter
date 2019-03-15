@@ -134,7 +134,7 @@
     NSDictionary *p1 = [params valueForKey:@"p1"];
     NSDictionary *p2 = [params valueForKey:@"p2"];
     CLLocationDistance distance = MAMetersBetweenMapPoints([self getPointFromDict:p1],[self getPointFromDict:p2]);
-    result([NSNumber numberWithDouble:distance]);
+    result(@(distance));
 }
 
 -(MAMapPoint) getPointFromDict:(NSDictionary *) dict {
