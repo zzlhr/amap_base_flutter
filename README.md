@@ -1,6 +1,11 @@
 # 高德地图Flutter插件 基于AndroidView和UiKitView
 
-[![pub package](https://img.shields.io/pub/v/amap_base.svg)](https://pub.Flutter-io.cn/packages/amap_base)
+|      amap_base     | [![pub package](https://img.shields.io/pub/v/amap_base.svg)](https://pub.Flutter-io.cn/packages/amap_base)                   |
+|:------------------:|:----------------------------------------------------------------------------------------------------------------------------:|
+|    amap_base_map   | [![pub package](https://img.shields.io/pub/v/amap_base_map.svg)](https://pub.Flutter-io.cn/packages/amap_base_map)           |
+| amap_base_location | [![pub package](https://img.shields.io/pub/v/amap_base_location.svg)](https://pub.Flutter-io.cn/packages/amap_base_location) |
+|  amap_base_search  | [![pub package](https://img.shields.io/pub/v/amap_base_search.svg)](https://pub.Flutter-io.cn/packages/amap_base_search)     |
+|   amap_base_navi   | [![pub package](https://img.shields.io/pub/v/amap_base_navi.svg)](https://pub.Flutter-io.cn/packages/amap_base_navi)         |
 
 [TOC]
 
@@ -11,7 +16,7 @@ amap_base: x.x.x
 amap_base_map: x.x.x # 仅地图
 amap_base_navi: x.x.x # 仅导航(高德导航SDK已包含地图, 不要跟amap_base_map重复引用)
 amap_base_search: x.x.x # 仅搜索
-amap_base_location: x.x.x # 仅定位(暂未实现)
+amap_base_location: x.x.x # 仅定位
 ```
 如果你想要指定某个版本/分支/提交, 那么:
 ```
@@ -65,7 +70,7 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
             |-- MapHandlers
             |-- MapModels: 数据模型
             |-- `AMapFactory`: AMapView工厂, Flutter的platform view需要
-        |-- navi: 导航功能模块(未实现)
+        |-- navi: 导航功能模块
             |-- NaviHandlers
             |-- NaviModels: 数据模型
         |-- search: 搜索功能模块
@@ -80,18 +85,18 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
 - 实际上是定位在了经纬度(0, 0)的位置了, 那个位置大致在非洲西部的几内亚湾, 原因是key
 设置错了, 建议检查一下key的设置.
 2. 为什么Android端用Flutter运行后奔溃, 但是直接用Android SDK运行成功?
-- 指定项目的编译选项`Additional arguments`增加`--target-platform android-arm`.从![screen shot 2018-12-06 at 09 36 20](https://user-images.githubusercontent.com/10418364/49555454-e9c19f00-f93a-11e8-928b-6c3780b81f20.png)这里打开选项对话框.
+- 指定项目的编译选项`Additional arguments`增加`--target-platform android-arm`.从![screen shot 2018-12-06 at 09 36 20](https://user-images.githubusercontent.com/10418364/49555454-e9c19f00-f93a-11e8-928b-6c3780b81f20.png)这里打开选项对话框. `VS Code`[配置方式](https://github.com/yohom/amap_base_flutter/issues/34#issuecomment-447830264).
 
 ## TODO LIST:
 * 地图
-    * [ ] 创建地图
+    * [x] 创建地图
         * [x] 显示地图
         * [x] 显示定位蓝点
         * [x] 显示室内地图
         * [x] 切换地图图层
         * [x] 使用离线地图
         * [x] 显示英文地图
-        * [ ] 自定义地图
+        * [x] 自定义地图
     * [x] 与地图交互
         * [x] 控件交互
         * [x] 手势交互
@@ -104,10 +109,10 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
         * [ ] 轨迹纠偏
         * [ ] 点平滑移动
         * [ ] 绘制海量点图层
-    * [ ] 地图计算工具
+    * [x] 地图计算工具
         * [x] 坐标转换
-        * [ ] 距离/面积计算
-        * [ ] 距离测量
+        * [x] 距离/面积计算
+        * [x] 距离测量
 * 搜索
     * [ ] 获取地图数据
         * [x] 获取POI数据
