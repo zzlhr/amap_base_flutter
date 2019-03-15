@@ -14,7 +14,7 @@
 }
 
 + (NSString *)getDefaultAssetPath:(NSString *)asset {
-    NSString *key = [AMapBaseMapPlugin.registrar lookupKeyForAsset:asset fromPackage:@"amap_base"];
+    NSString *key = [AMapBaseMapPlugin.registrar lookupKeyForAsset:asset fromPackage:@"amap_base_map"];
     return [[NSBundle mainBundle] pathForResource:key ofType:nil];
 }
 
