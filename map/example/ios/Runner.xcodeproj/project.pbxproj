@@ -95,6 +95,7 @@
 				97C146EF1CF9000F007C117D /* Products */,
 				F36F564E58FE3FE6EA4BA58E /* Pods */,
 				EDDC6D17636A1CD13C386171 /* Frameworks */,
+				6DD25984B8349EB178B074AE /* MarkerEventHandler.m */,
 			);
 			sourceTree = "<group>";
 		};
