@@ -20,6 +20,6 @@ object UnifiedAssets {
      * 获取plugin自带的图片
      */
     fun getDefaultBitmapDescriptor(asset: String): BitmapDescriptor {
-        return BitmapDescriptorFactory.fromAsset(AMapBaseNaviPlugin.registrar.lookupKeyForAsset(asset, "amap_base"))
+        return BitmapDescriptorFactory.fromAsset(AMapBaseNaviPlugin.registrar.lookupKeyForAsset(asset, "amap_base_navi"))
     }
 }
