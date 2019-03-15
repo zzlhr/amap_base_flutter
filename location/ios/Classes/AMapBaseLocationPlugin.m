@@ -25,6 +25,19 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
         }
     }];
 
+    // 假的权限channel, 只返回true
+    FlutterMethodChannel *permissionChannel = [FlutterMethodChannel
+            methodChannelWithName:@"me.yohom/permission"
+                  binaryMessenger:[registrar messenger]];
+
+    [permissionChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
+        if ([@"requestPermission" isEqualToString:call.method]) {
+            result(@YES);
+        } else {
+            result(FlutterMethodNotImplemented);
+        }
+    }];
+
     // 工具channel
     FlutterMethodChannel *toolChannel = [FlutterMethodChannel
             methodChannelWithName:@"me.yohom/tool"
