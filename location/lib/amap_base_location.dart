@@ -1,5 +1,6 @@
 library amap_base_location;
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -18,7 +19,7 @@ class AMap {
   static Map<String, List<String>> assetManifest;
 
   static Future init(String key) async {
-    _channel.invokeMethod('setKey', {'key': key});
+    await _channel.invokeMethod('setKey', {'key': key});
 
     // 加载asset相关信息, 供区分图片分辨率用, 因为native端的加载asset方法无法区分分辨率, 这是一个变通方法
     assetManifest =
