@@ -3,6 +3,7 @@ import 'package:amap_base_location/amap_base_location.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  debugPrint('main方法运行');
   await AMap.init('27d67839721288be2ddd87b4fd868822');
   runApp(MaterialApp(
     home: LauncherScreen(),

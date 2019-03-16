@@ -52,9 +52,9 @@ class _LocationDemoState extends State<LocationDemo>
 
                   if (await Permissions().requestPermission()) {
                     _amapLocation
-                        .startLocate(options)
-                        .map(_result.add)
-                        .listen((_) => setState(() {}));
+                        .getLocation(options)
+                        .then(_result.add)
+                        .then((_) => setState(() {}));
                   } else {
                     Scaffold.of(context)
                         .showSnackBar(SnackBar(content: Text('权限不足')));

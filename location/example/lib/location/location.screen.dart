@@ -19,13 +19,6 @@ class _LocationDemoState extends State<LocationDemo>
   bool get wantKeepAlive => true;
 
   @override
-  void initState() {
-    super.initState();
-
-    _amapLocation.init();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       color: Theme.of(context).primaryColor,
@@ -52,9 +45,9 @@ class _LocationDemoState extends State<LocationDemo>
 
                   if (await Permissions().requestPermission()) {
                     _amapLocation
-                        .startLocate(options)
-                        .map(_result.add)
-                        .listen((_) => setState(() {}));
+                        .getLocation(options)
+                        .then(_result.add)
+                        .then((_) => setState(() {}));
                   } else {
                     Scaffold.of(context)
                         .showSnackBar(SnackBar(content: Text('权限不足')));
