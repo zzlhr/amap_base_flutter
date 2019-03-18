@@ -1,7 +1,7 @@
 package me.yohom.amapbasesearch.common
 
 import android.Manifest
-import androidx.core.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import me.yohom.amapbasesearch.AMapBaseSearchPlugin
 
 fun Any.checkPermission() {
