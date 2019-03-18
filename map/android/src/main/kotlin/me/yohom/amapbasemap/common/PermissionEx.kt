@@ -1,7 +1,7 @@
 package me.yohom.amapbasemap.common
 
 import android.Manifest
-import androidx.core.app.ActivityCompat
+import android.support.v4.app.ActivityCompat
 import me.yohom.amapbasemap.AMapBaseMapPlugin
 
 fun Any.checkPermission() {
