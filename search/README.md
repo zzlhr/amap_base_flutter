@@ -25,6 +25,15 @@ amap_base:
     url: https://github.com/yohom/amap_base_flutter.git
     ref: 0.0.1/branch/commit
 ```
+**Android项目默认集成了androidx, 如果要使用android-support库的话, 使用android-support-library分支!**
+使用方法:
+```
+amap_base:
+    git:
+      url: https://github.com/yohom/amap_base_flutter.git
+      ref: android-support-library
+      path: base(/map/location/search/navi)
+```
 导入:
 ```
 import 'package:amap_base/amap_base.dart';
