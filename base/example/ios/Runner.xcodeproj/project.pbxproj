@@ -199,6 +199,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -413,7 +414,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample11;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -540,7 +541,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample11;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -565,7 +566,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample11;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample13;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
