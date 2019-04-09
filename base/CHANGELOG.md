@@ -1,3 +1,9 @@
+## 0.3.4
+* 减少不必要的权限申请
+
+## 0.3.3
+* 增加android-support的兼容支持
+
 ## 0.3.2
 * android端退出app之后重新进来再次定位报MissingPlugin错误的bug
 
