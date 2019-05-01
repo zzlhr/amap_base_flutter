@@ -184,7 +184,7 @@ class UnifiedMyLocationStyle(
     fun applyTo(map: AMap) {
         map.isMyLocationEnabled = showMyLocation
         map.myLocationStyle = MyLocationStyle()
-                .myLocationIcon(null)
+//                .myLocationIcon(BitmapDescriptorFactory.fromAsset(myLocationIcon))
                 .anchor(anchorU, anchorV)
                 .radiusFillColor(radiusFillColor.hexStringToColorInt() ?: Color.argb(100, 0, 0, 180))
                 .strokeColor(strokeColor.hexStringToColorInt() ?: Color.argb(255, 0, 0, 220))

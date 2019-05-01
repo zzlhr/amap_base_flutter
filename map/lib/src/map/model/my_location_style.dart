@@ -68,17 +68,14 @@ class MyLocationStyle {
   final Color locationDotFillColor;
 
   /// 内部蓝色圆点是否使用律动效果, 默认YES [iOS]
-  final bool enablePulseAnnimation;
-
-  /// 定位图标, 与蓝色原点互斥 [iOS暂不支持]
-  final String image;
+  final bool enablePulseAnimation;
 
   MyLocationStyle({
     this.myLocationIcon,
     this.anchorU = 0.5,
     this.anchorV = 0.5,
-    this.radiusFillColor = const Color(0xff0000dc),
-    this.strokeColor = const Color(0x640000b4),
+    this.radiusFillColor = Colors.transparent,
+    this.strokeColor = Colors.transparent,
     this.strokeWidth = 1,
     this.myLocationType = LOCATION_TYPE_LOCATION_ROTATE,
     this.interval = 2000,
@@ -87,8 +84,7 @@ class MyLocationStyle {
     this.showsHeadingIndicator = false,
     this.locationDotBgColor = Colors.white,
     this.locationDotFillColor = Colors.blue,
-    this.enablePulseAnnimation = true,
-    this.image,
+    this.enablePulseAnimation = true,
   });
 
   Map<String, Object> toJson() {
@@ -106,8 +102,7 @@ class MyLocationStyle {
       'showsHeadingIndicator': showsHeadingIndicator,
       'locationDotBgColor': locationDotBgColor.value.toRadixString(16),
       'locationDotFillColor': locationDotFillColor.value.toRadixString(16),
-      'enablePulseAnnimation': enablePulseAnnimation,
-      'image': image,
+      'enablePulseAnnimation': enablePulseAnimation,
     };
   }
 
@@ -127,8 +122,7 @@ class MyLocationStyle {
     bool showsHeadingIndicator,
     Color locationDotBgColor,
     Color locationDotFillColor,
-    bool enablePulseAnnimation,
-    String image,
+    bool enablePulseAnimation,
   }) {
     return MyLocationStyle(
       myLocationIcon: myLocationIcon ?? this.myLocationIcon,
@@ -145,9 +139,7 @@ class MyLocationStyle {
           showsHeadingIndicator ?? this.showsHeadingIndicator,
       locationDotBgColor: locationDotBgColor ?? this.locationDotBgColor,
       locationDotFillColor: locationDotFillColor ?? this.locationDotFillColor,
-      enablePulseAnnimation:
-          enablePulseAnnimation ?? this.enablePulseAnnimation,
-      image: image ?? this.image,
+      enablePulseAnimation: enablePulseAnimation ?? this.enablePulseAnimation,
     );
   }
 
@@ -169,8 +161,7 @@ class MyLocationStyle {
           showsHeadingIndicator == other.showsHeadingIndicator &&
           locationDotBgColor == other.locationDotBgColor &&
           locationDotFillColor == other.locationDotFillColor &&
-          enablePulseAnnimation == other.enablePulseAnnimation &&
-          image == other.image;
+          enablePulseAnimation == other.enablePulseAnimation;
 
   @override
   int get hashCode =>
@@ -187,11 +178,10 @@ class MyLocationStyle {
       showsHeadingIndicator.hashCode ^
       locationDotBgColor.hashCode ^
       locationDotFillColor.hashCode ^
-      enablePulseAnnimation.hashCode ^
-      image.hashCode;
+      enablePulseAnimation.hashCode;
 
   @override
   String toString() {
-    return 'MyLocationStyle{myLocationIcon: $myLocationIcon, anchorU: $anchorU, anchorV: $anchorV, radiusFillColor: $radiusFillColor, strokeColor: $strokeColor, strokeWidth: $strokeWidth, myLocationType: $myLocationType, interval: $interval, showMyLocation: $showMyLocation, showsAccuracyRing: $showsAccuracyRing, showsHeadingIndicator: $showsHeadingIndicator, locationDotBgColor: $locationDotBgColor, locationDotFillColor: $locationDotFillColor, enablePulseAnnimation: $enablePulseAnnimation, image: $image}';
+    return 'MyLocationStyle{myLocationIcon: $myLocationIcon, anchorU: $anchorU, anchorV: $anchorV, radiusFillColor: $radiusFillColor, strokeColor: $strokeColor, strokeWidth: $strokeWidth, myLocationType: $myLocationType, interval: $interval, showMyLocation: $showMyLocation, showsAccuracyRing: $showsAccuracyRing, showsHeadingIndicator: $showsHeadingIndicator, locationDotBgColor: $locationDotBgColor, locationDotFillColor: $locationDotFillColor, enablePulseAnimation: $enablePulseAnimation}';
   }
 }

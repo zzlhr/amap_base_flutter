@@ -100,7 +100,15 @@ class AMapController {
     return _mapChannel.invokeMethod('map#clear');
   }
 
+  Future showMyLocation(bool show) {
+    L.p('showMyLocation dart端参数: show -> $show');
+
+    return _mapChannel.invokeMethod('map#showMyLocation', {'show': show});
+  }
+
   /// 设置缩放等级
+  ///
+  /// 地图的缩放级别一共分为 17 级，从 3 到 19。数字越大，展示的图面信息越精细
   Future setZoomLevel(int level) {
     L.p('setZoomLevel dart端参数: level -> $level');
 

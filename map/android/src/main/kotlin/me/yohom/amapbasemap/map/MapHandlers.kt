@@ -316,6 +316,26 @@ object AddMarker : MapMethodHandler {
     }
 }
 
+object ShowMyLocation : MapMethodHandler {
+
+    lateinit var map: AMap
+
+    override fun with(map: AMap): ShowMyLocation {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val show = call.argument<Boolean>("show") ?: false
+
+        log("方法map#showMyLocation android端参数: show -> $show")
+
+        map.isMyLocationEnabled = show
+
+        result.success(success)
+    }
+}
+
 object AddMarkers : MapMethodHandler {
 
     lateinit var map: AMap
