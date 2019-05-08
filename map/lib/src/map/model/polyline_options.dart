@@ -5,19 +5,19 @@ import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+const DOTTED_LINE_TYPE_CIRCLE = 1;
+const DOTTED_LINE_TYPE_SQUARE = 0;
+
+const LINE_CAP_TYPE_BUTT = 0;
+const LINE_CAP_TYPE_SQUARE = 1;
+const LINE_CAP_TYPE_ARROW = 2;
+const LINE_CAP_TYPE_ROUND = 3;
+
+const LINE_JOIN_BEVEL = 0;
+const LINE_JOIN_MITER = 1;
+const LINE_JOIN_ROUND = 2;
+
 class PolylineOptions {
-  static const DOTTED_LINE_TYPE_CIRCLE = 1;
-  static const DOTTED_LINE_TYPE_SQUARE = 0;
-
-  static const LINE_CAP_TYPE_BUTT = 0;
-  static const LINE_CAP_TYPE_SQUARE = 1;
-  static const LINE_CAP_TYPE_ARROW = 2;
-  static const LINE_CAP_TYPE_ROUND = 3;
-
-  static const LINE_JOIN_BEVEL = 0;
-  static const LINE_JOIN_MITER = 1;
-  static const LINE_JOIN_ROUND = 2;
-
   /// 顶点 [Android, iOS]
   final List<LatLng> latLngList;
 

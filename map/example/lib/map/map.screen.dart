@@ -16,6 +16,8 @@ import 'package:amap_base_example/widgets/function_item.widget.dart';
 import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
 
+import 'draw_on_map/draw_polygon.screen.dart';
+
 class MapDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -96,6 +98,11 @@ class MapDemo extends StatelessWidget {
               label: '绘制线',
               sublabel: 'DrawPolylineScreen',
               target: DrawPolylineScreen(),
+            ),
+            FunctionItem(
+              label: '绘制多边形',
+              sublabel: 'DrawPolygonScreen',
+              target: DrawPolygonScreen(),
             ),
           ],
         ),

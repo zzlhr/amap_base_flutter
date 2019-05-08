@@ -595,3 +595,34 @@
     }];
 }
 @end
+
+@implementation AddPolygon {
+    MAMapView *_mapView;
+}
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+    _mapView = mapView;
+    return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSDictionary *paramDic = call.arguments;
+
+  NSString *optionsJson = (NSString *) paramDic[@"options"];
+
+  NSLog(@"方法map#addPolygon iOS: optionsJson -> %@", optionsJson);
+
+  UnifiedPolygonOptions *options = [UnifiedPolygonOptions initWithJson:optionsJson];
+
+  NSUInteger length = options.points.count;
+  CLLocationCoordinate2D points[length];
+  for (NSUInteger i = 0; i < length; ++i) {
+    points[i] = CLLocationCoordinate2DMake(options.points[i].latitude, options.points[i].longitude);
+  }
+
+  PolygonOverlay * overlay = [PolygonOverlay polygonWithCoordinates:points count:length];
+  overlay.polygonOptions = options;
+  [_mapView addOverlay:overlay];
+
+  result(success);
+}
+@end

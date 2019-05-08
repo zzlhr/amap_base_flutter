@@ -175,7 +175,7 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
                     ),
                     BooleanSetting(
                       head: '内部蓝色圆点是否使用律动效果, 默认YES [iOS]',
-                      selected: _myLocationStyle.enablePulseAnnimation,
+                      selected: _myLocationStyle.enablePulseAnimation,
                       onSelected: (value) {
                         _updateMyLocationStyle(context,
                             enablePulseAnnimation: value);
@@ -224,8 +224,7 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
         showsHeadingIndicator: showsHeadingIndicator,
         locationDotBgColor: locationDotBgColor,
         locationDotFillColor: locationDotFillColor,
-        enablePulseAnnimation: enablePulseAnnimation,
-        image: image,
+        enablePulseAnimation: enablePulseAnnimation,
       );
       _controller.setMyLocationStyle(_myLocationStyle);
     } else {

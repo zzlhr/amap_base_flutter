@@ -6,6 +6,7 @@ import 'package:amap_base_map/amap_base_map.dart';
 import 'package:amap_base_map/src/common/log.dart';
 import 'package:amap_base_map/src/map/model/marker_options.dart';
 import 'package:amap_base_map/src/map/model/my_location_style.dart';
+import 'package:amap_base_map/src/map/model/polygon_options.dart';
 import 'package:amap_base_map/src/map/model/polyline_options.dart';
 import 'package:amap_base_map/src/map/model/ui_settings.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class AMapController {
 
   void dispose() {}
 
-  //region dart -> native
+  /// 设置我的位置
   Future setMyLocationStyle(MyLocationStyle style) {
     final _styleJson =
         jsonEncode(style?.toJson() ?? MyLocationStyle().toJson());
@@ -34,6 +35,7 @@ class AMapController {
     );
   }
 
+  /// 设置控件参数
   Future setUiSettings(UiSettings uiSettings) {
     final _uiSettings = jsonEncode(uiSettings.toJson());
 
@@ -44,6 +46,7 @@ class AMapController {
     );
   }
 
+  /// 添加单个个Marker
   Future addMarker(MarkerOptions options) {
     final _optionsJson = options.toJsonString();
     L.p('方法addMarker dart端参数: _optionsJson -> $_optionsJson');
@@ -53,6 +56,7 @@ class AMapController {
     );
   }
 
+  /// 添加多个Marker
   Future addMarkers(
     List<MarkerOptions> optionsList, {
     bool moveToCenter = true,
@@ -71,6 +75,7 @@ class AMapController {
     );
   }
 
+  /// 是否使能室内地图
   Future showIndoorMap(bool enable) {
     return _mapChannel.invokeMethod(
       'map#showIndoorMap',
@@ -78,6 +83,10 @@ class AMapController {
     );
   }
 
+  /// 设置地图类型
+  ///
+  /// [mapType]可以为[MAP_TYPE_NORMAL], [MAP_TYPE_SATELLITE], [MAP_TYPE_NIGHT],
+  /// [MAP_TYPE_NAVI], [MAP_TYPE_BUS]
   Future setMapType(int mapType) {
     return _mapChannel.invokeMethod(
       'map#setMapType',
@@ -85,6 +94,7 @@ class AMapController {
     );
   }
 
+  /// 设置语言为[language]
   Future setLanguage(int language) {
     return _mapChannel.invokeMethod(
       'map#setLanguage',
@@ -92,15 +102,26 @@ class AMapController {
     );
   }
 
+  /// 清除marker
   Future clearMarkers() {
     return _mapChannel.invokeMethod('marker#clear');
   }
 
+  /// 清除地图
   Future clearMap() {
     return _mapChannel.invokeMethod('map#clear');
   }
 
+  /// 显示我的位置
+  Future showMyLocation(bool show) {
+    L.p('showMyLocation dart端参数: show -> $show');
+
+    return _mapChannel.invokeMethod('map#showMyLocation', {'show': show});
+  }
+
   /// 设置缩放等级
+  ///
+  /// 地图的缩放级别一共分为 17 级，从 3 到 19。数字越大，展示的图面信息越精细
   Future setZoomLevel(int level) {
     L.p('setZoomLevel dart端参数: level -> $level');
 
@@ -257,7 +278,14 @@ class AMapController {
     );
   }
 
-  //endregion
+  Future addPolygon(PolygonOptions options) {
+    L.p('addPolygon dart端参数: options -> ${options.toJsonString()}');
+
+    return _mapChannel.invokeMethod(
+      'map#addPolygon',
+      {'options': options.toJsonString()},
+    );
+  }
 
   /// marker点击事件流
   Stream<MarkerOptions> get markerClickedEvent => _markerClickedEventChannel

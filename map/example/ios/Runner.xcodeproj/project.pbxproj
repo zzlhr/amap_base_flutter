@@ -95,7 +95,6 @@
 				97C146EF1CF9000F007C117D /* Products */,
 				F36F564E58FE3FE6EA4BA58E /* Pods */,
 				EDDC6D17636A1CD13C386171 /* Frameworks */,
-				6DD25984B8349EB178B074AE /* MarkerEventHandler.m */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,6 +194,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -407,7 +407,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample11;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -534,7 +534,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample11;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -559,7 +559,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample11;
+				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample14;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";

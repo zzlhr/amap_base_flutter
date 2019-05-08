@@ -23,6 +23,25 @@ import java.util.*
 
 val beijingLatLng = LatLng(39.941711, 116.382248)
 
+object AddPolygon : MapMethodHandler {
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val optionsJson = call.argument<String>("options") ?: "{}"
+
+        log("方法map#addPolygon android端参数: polygonOptions -> $optionsJson")
+
+        optionsJson.parseFieldJson<UnifiedPolygonOptions>().applyTo(map)
+
+        result.success(success)
+    }
+}
+
 object SetCustomMapStyleID : MapMethodHandler {
     private lateinit var map: AMap
 
@@ -311,6 +330,26 @@ object AddMarker : MapMethodHandler {
         log("方法marker#addMarker android端参数: optionsJson -> $optionsJson")
 
         optionsJson.parseFieldJson<UnifiedMarkerOptions>().applyTo(map)
+
+        result.success(success)
+    }
+}
+
+object ShowMyLocation : MapMethodHandler {
+
+    lateinit var map: AMap
+
+    override fun with(map: AMap): ShowMyLocation {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val show = call.argument<Boolean>("show") ?: false
+
+        log("方法map#showMyLocation android端参数: show -> $show")
+
+        map.isMyLocationEnabled = show
 
         result.success(success)
     }
