@@ -29,6 +29,7 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#setCustomMapStyleID" to SetCustomMapStyleID,
         "map#getCenterPoint" to GetCenterLnglat,
         "map#showMyLocation" to ShowMyLocation,
+        "map#addPolygon" to AddPolygon,
         "map#changeLatLng" to ChangeLatLng
 )
 

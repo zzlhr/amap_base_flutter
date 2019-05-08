@@ -101,7 +101,7 @@ class UnifiedMarkerOptions(
     constructor(options: MarkerOptions) : this(
             icon = options.icon.toString(),
             icons = options.icons.map { it.toString() },
-            alpha =  options.alpha,
+            alpha = options.alpha,
             anchorU = options.anchorU,
             anchorV = options.anchorV,
             draggable = options.isDraggable,
@@ -186,7 +186,8 @@ class UnifiedMyLocationStyle(
         map.myLocationStyle = MyLocationStyle()
 //                .myLocationIcon(BitmapDescriptorFactory.fromAsset(myLocationIcon))
                 .anchor(anchorU, anchorV)
-                .radiusFillColor(radiusFillColor.hexStringToColorInt() ?: Color.argb(100, 0, 0, 180))
+                .radiusFillColor(radiusFillColor.hexStringToColorInt()
+                        ?: Color.argb(100, 0, 0, 180))
                 .strokeColor(strokeColor.hexStringToColorInt() ?: Color.argb(255, 0, 0, 220))
                 .strokeWidth(strokeWidth)
                 .myLocationType(myLocationType)
@@ -200,9 +201,9 @@ class UnifiedPolylineOptions(
         /// 顶点
         private val latLngList: List<LatLng>,
         /// 线段的宽度
-        val width: Double,
+        private val width: Double,
         /// 线段的颜色
-        val color: String,
+        private val color: String,
         /// 线段的Z轴值
         private val zIndex: Double,
         /// 线段的可见属性
@@ -290,5 +291,27 @@ class UnifiedUiSettings(
             isRotateGesturesEnabled = this@UnifiedUiSettings.isRotateGesturesEnabled
             isTiltGesturesEnabled = this@UnifiedUiSettings.isTiltGesturesEnabled
         }
+    }
+}
+
+class UnifiedPolygonOptions(
+        private val points: List<LatLng>,
+        private val strokeWidth: Float,
+        private val strokeColor: String,
+        private val fillColor: String,
+        private val zIndex: Float,
+        private val visible: Boolean,
+        private val holeOptions: List<BaseHoleOptions>
+) {
+    fun applyTo(map: AMap) {
+        val options = PolygonOptions()
+        options.addAll(points)
+        options.addHoles(holeOptions)
+        options.strokeWidth(strokeWidth)
+        options.fillColor(fillColor.hexStringToColorInt()!!)
+        options.zIndex(zIndex)
+        options.strokeColor(strokeColor.hexStringToColorInt()!!)
+        options.visible(visible)
+        map.addPolygon(options)
     }
 }

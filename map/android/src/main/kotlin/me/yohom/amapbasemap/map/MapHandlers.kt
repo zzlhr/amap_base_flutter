@@ -23,6 +23,25 @@ import java.util.*
 
 val beijingLatLng = LatLng(39.941711, 116.382248)
 
+object AddPolygon : MapMethodHandler {
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val optionsJson = call.argument<String>("options") ?: "{}"
+
+        log("方法map#addPolygon android端参数: polygonOptions -> $optionsJson")
+
+        optionsJson.parseFieldJson<UnifiedPolygonOptions>().applyTo(map)
+
+        result.success(success)
+    }
+}
+
 object SetCustomMapStyleID : MapMethodHandler {
     private lateinit var map: AMap
 
