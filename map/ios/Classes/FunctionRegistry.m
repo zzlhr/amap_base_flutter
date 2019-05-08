@@ -35,7 +35,7 @@ static NSDictionary<NSString *, NSObject <MapMethodHandler> *> *_mapDictionary;
                 @"map#setCustomMapStylePath":[SetCustomMapStylePath alloc],
                 @"map#setCustomMapStyleID":[SetCustomMapStyleID alloc],
                 @"map#setMapCustomEnable":[SetMapCustomEnable alloc],
-                
+                @"map#addPolygon":[AddPolygon alloc],
                 @"tool#calcDistance":[CalcDistance alloc],
                 @"map#getCenterPoint":[GetCenterPoint alloc],
         };

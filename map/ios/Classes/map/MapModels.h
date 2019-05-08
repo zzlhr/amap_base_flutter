@@ -5,23 +5,26 @@
 #import <Foundation/Foundation.h>
 #import "MAPointAnnotation.h"
 #import "MAPolyline.h"
+#import "MAPolygon.h"
 
 @class UnifiedMarkerOptions;
 @class LatLng;
 @class CameraPosition;
 @class UnifiedPolylineOptions;
 @class MAMapView;
-
+@class UnifiedPolygonOptions;
 
 @interface MarkerAnnotation : MAPointAnnotation
 @property(nonatomic) UnifiedMarkerOptions *markerOptions;
 @end
 
+@interface PolygonOverlay : MAPolygon
+@property(nonatomic) UnifiedPolygonOptions *polygonOptions;
+@end
 
 @interface PolylineOverlay : MAPolyline
 @property(nonatomic) UnifiedPolylineOptions *options;
 @end
-
 
 @interface UnifiedAMapOptions : NSObject
 /// “高德地图”Logo的位置
@@ -86,7 +89,6 @@
 
 @end
 
-
 @interface UnifiedMarkerOptions : NSObject
 /// Marker覆盖物的图标
 @property(nonatomic) NSString *icon;
@@ -131,7 +133,6 @@
 
 @end
 
-
 @interface UnifiedMyLocationStyle : NSObject
 /// 圆形区域（以定位位置为圆心，定位半径的圆形区域）的填充颜色值
 @property(nonatomic) NSString *radiusFillColor;
@@ -159,7 +160,6 @@
 - (void)applyTo:(MAMapView *)mapView;
 
 @end
-
 
 @interface UnifiedPolylineOptions : NSObject
 
@@ -192,8 +192,7 @@
 
 @end
 
-
-@interface UnifiedUiSettings: NSObject
+@interface UnifiedUiSettings : NSObject
 /// 设置缩放按钮的位置
 @property(nonatomic) NSInteger zoomPosition;
 /// 指南针
@@ -212,5 +211,20 @@
 @property(nonatomic) BOOL isTiltGesturesEnabled;
 
 - (void)applyTo:(MAMapView *)map;
+
+@end
+
+@interface UnifiedPolygonOptions : NSObject
+
++ (instancetype)initWithJson:(NSString *)json;
+
+@property(nonatomic) NSArray<LatLng *> *points;
+@property(nonatomic) CGFloat strokeWidth;
+@property(nonatomic) NSString *strokeColor;
+@property(nonatomic) NSString *fillColor;
+@property(nonatomic) NSUInteger lineJoinType;
+@property(nonatomic) NSUInteger lineCapType;
+@property(nonatomic) CGFloat miterLimit;
+@property(nonatomic) NSUInteger lineDashType;
 
 @end

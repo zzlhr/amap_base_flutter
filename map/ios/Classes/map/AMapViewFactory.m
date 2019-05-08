@@ -146,21 +146,38 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
   if ([overlay isKindOfClass:[PolylineOverlay class]]) {
     PolylineOverlay *polyline = (PolylineOverlay *) overlay;
 
-    MAPolylineRenderer *polylineRenderer = [[MAPolylineRenderer alloc] initWithPolyline:polyline];
+    MAPolylineRenderer *renderer = [[MAPolylineRenderer alloc] initWithPolyline:polyline];
 
     UnifiedPolylineOptions *options = [polyline options];
 
-    polylineRenderer.lineWidth = (CGFloat) (options.width * 0.5); // 相同的值, Android的线比iOS的粗
-    polylineRenderer.strokeColor = [options.color hexStringToColor];
-    polylineRenderer.lineJoinType = (MALineJoinType) options.lineJoinType;
-    polylineRenderer.lineCapType = (MALineCapType) options.lineCapType;
+    renderer.lineWidth = (CGFloat) (options.width * 0.5); // 相同的值, Android的线比iOS的粗
+    renderer.strokeColor = [options.color hexStringToColor];
+    renderer.lineJoinType = (MALineJoinType) options.lineJoinType;
+    renderer.lineCapType = (MALineCapType) options.lineCapType;
     if (options.isDottedLine) {
-      polylineRenderer.lineDashType = (MALineDashType) ((MALineCapType) options.dottedLineType + 1);
+      renderer.lineDashType = (MALineDashType) ((MALineCapType) options.dottedLineType + 1);
     } else {
-      polylineRenderer.lineDashType = kMALineDashTypeNone;
+      renderer.lineDashType = kMALineDashTypeNone;
     }
 
-    return polylineRenderer;
+    return renderer;
+  }
+
+  if ([overlay isKindOfClass:[PolygonOverlay class]]) {
+    PolygonOverlay *polygon = (PolygonOverlay *) overlay;
+
+    MAPolygonRenderer *renderer = [[MAPolygonRenderer alloc] initWithPolygon:polygon];
+
+    UnifiedPolygonOptions *options = polygon.polygonOptions;
+
+    renderer.lineWidth = options.strokeWidth;
+    renderer.strokeColor = [options.strokeColor hexStringToColor];
+    renderer.fillColor = [options.fillColor hexStringToColor];
+    renderer.lineJoinType = (MALineJoinType) options.lineJoinType;
+    renderer.lineCapType = (MALineCapType) options.lineCapType;
+    renderer.miterLimit = options.miterLimit;
+    renderer.lineDashType = (MALineDashType) options.lineDashType;
+    return renderer;
   }
 
   return nil;
