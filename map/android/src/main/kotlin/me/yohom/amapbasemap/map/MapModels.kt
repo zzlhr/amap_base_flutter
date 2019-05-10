@@ -3,7 +3,6 @@ package me.yohom.amapbasemap.map
 import android.graphics.Color
 import com.amap.api.maps.AMap
 import com.amap.api.maps.AMapOptions
-import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.model.*
 import me.yohom.amapbasemap.common.hexStringToColorInt
 import java.util.*
@@ -56,7 +55,7 @@ class UnifiedAMapOptions(
 
 class UnifiedMarkerOptions(
         /// Marker覆盖物的图标
-        private val icon: String?,
+        private val icon: String? = null,
         /// Marker覆盖物的动画帧图标列表，动画的描点和大小以第一帧为准，建议图片大小保持一致
         private val icons: List<String>,
         /// Marker覆盖物的透明度
@@ -78,11 +77,11 @@ class UnifiedMarkerOptions(
         /// Marker覆盖物是否平贴地图
         private val isFlat: Boolean,
         /// Marker覆盖物的坐标是否是Gps，默认为false
-        private val isGps: Boolean,
+        private val isGps: Boolean = false,
         /// Marker覆盖物的水平偏移距离
-        private val infoWindowOffsetX: Int,
+        private val infoWindowOffsetX: Int = 0,
         /// Marker覆盖物的垂直偏移距离
-        private val infoWindowOffsetY: Int,
+        private val infoWindowOffsetY: Int = 0,
         /// 设置 Marker覆盖物的 文字描述
         private val snippet: String,
         /// Marker覆盖物 的标题
@@ -96,37 +95,33 @@ class UnifiedMarkerOptions(
         /// 显示等级 缺少文档
         private val displayLevel: Int,
         /// 是否在掩层下 缺少文档
-        private val belowMaskLayer: Boolean
+        private val belowMaskLayer: Boolean = false,
+        /// 自定义数据
+        val `object`: Any?,
+        /// id 由sdk生成
+        val id: String?
 ) {
-    constructor(options: MarkerOptions) : this(
-            icon = options.icon.toString(),
-            icons = options.icons.map { it.toString() },
-            alpha = options.alpha,
-            anchorU = options.anchorU,
-            anchorV = options.anchorV,
-            draggable = options.isDraggable,
-            infoWindowEnable = options.isInfoWindowEnable,
-            period = options.period,
-            position = options.position,
-            rotateAngle = options.rotateAngle,
-            isFlat = options.isFlat,
-            isGps = options.isGps,
-            infoWindowOffsetX = options.infoWindowOffsetX,
-            infoWindowOffsetY = options.infoWindowOffsetY,
-            snippet = options.snippet,
-            title = options.title,
-            visible = options.isVisible,
-            autoOverturnInfoWindow = options.isInfoWindowAutoOverturn,
-            zIndex = options.zIndex,
-            displayLevel = options.displayLevel,
-            belowMaskLayer = options.isBelowMaskLayer
+    constructor(marker: Marker) : this(
+            icons = marker.icons.map { it.toString() },
+            alpha = marker.alpha,
+            anchorU = marker.anchorU,
+            anchorV = marker.anchorV,
+            draggable = marker.isDraggable,
+            infoWindowEnable = marker.isInfoWindowEnable,
+            period = marker.period,
+            position = marker.position,
+            rotateAngle = marker.rotateAngle,
+            isFlat = marker.isFlat,
+            snippet = marker.snippet,
+            title = marker.title,
+            visible = marker.isVisible,
+            autoOverturnInfoWindow = marker.isInfoWindowAutoOverturn,
+            zIndex = marker.zIndex,
+            displayLevel = marker.displayLevel,
+            `object` = marker.`object`,
+            id = marker.id
     )
 
-    fun applyTo(map: AMap) {
-        map.addMarker(toMarkerOption())
-
-        map.animateCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds.builder().include(position).build(), 100))
-    }
 
     fun toMarkerOption(): MarkerOptions = MarkerOptions()
             .alpha(alpha)
@@ -158,7 +153,6 @@ class UnifiedMarkerOptions(
                 }
             }
 }
-
 
 class UnifiedMyLocationStyle(
         // todo 实现自定义的图标

@@ -131,7 +131,7 @@ object SetMapCustomEnable : MapMethodHandler {
 
 object ConvertCoordinate : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     private val types = arrayListOf(
             CoordinateConverter.CoordType.GPS,
@@ -162,7 +162,7 @@ object ConvertCoordinate : MapMethodHandler {
 }
 
 object CalcDistance : MapMethodHandler {
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): CalcDistance {
         this.map = map
@@ -187,7 +187,7 @@ object CalcDistance : MapMethodHandler {
 
 object ClearMap : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): ClearMap {
         this.map = map
@@ -217,7 +217,7 @@ object OpenOfflineManager : MapMethodHandler {
 
 object SetLanguage : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetLanguage {
         this.map = map
@@ -237,7 +237,7 @@ object SetLanguage : MapMethodHandler {
 
 object SetMapType : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetMapType {
         this.map = map
@@ -257,7 +257,7 @@ object SetMapType : MapMethodHandler {
 
 object SetMyLocationStyle : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetMyLocationStyle {
         this.map = map
@@ -277,7 +277,7 @@ object SetMyLocationStyle : MapMethodHandler {
 
 object SetUiSettings : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetUiSettings {
         this.map = map
@@ -297,7 +297,7 @@ object SetUiSettings : MapMethodHandler {
 
 object ShowIndoorMap : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): ShowIndoorMap {
         this.map = map
@@ -317,7 +317,7 @@ object ShowIndoorMap : MapMethodHandler {
 
 object AddMarker : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): AddMarker {
         this.map = map
@@ -329,7 +329,10 @@ object AddMarker : MapMethodHandler {
 
         log("方法marker#addMarker android端参数: optionsJson -> $optionsJson")
 
-        optionsJson.parseFieldJson<UnifiedMarkerOptions>().applyTo(map)
+        val markerOptions = optionsJson.parseFieldJson<UnifiedMarkerOptions>()
+
+        val marker = map.addMarker(markerOptions.toMarkerOption())
+        marker.`object` = markerOptions.`object`
 
         result.success(success)
     }
@@ -337,7 +340,7 @@ object AddMarker : MapMethodHandler {
 
 object ShowMyLocation : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): ShowMyLocation {
         this.map = map
@@ -357,7 +360,7 @@ object ShowMyLocation : MapMethodHandler {
 
 object AddMarkers : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): AddMarkers {
         this.map = map
@@ -371,16 +374,19 @@ object AddMarkers : MapMethodHandler {
 
         log("方法marker#addMarkers android端参数: optionsListJson -> $optionsListJson")
 
-        val optionsList = ArrayList(optionsListJson.parseFieldJson<List<UnifiedMarkerOptions>>().map { it.toMarkerOption() })
+        val unifiedMarkerOptions = optionsListJson.parseFieldJson<List<UnifiedMarkerOptions>>()
+        val optionsList = ArrayList(unifiedMarkerOptions.map { it.toMarkerOption() })
         if (clear) map.mapScreenMarkers.forEach { it.remove() }
-        map.addMarkers(optionsList, moveToCenter)
+        val markers = map.addMarkers(optionsList, moveToCenter)
+
+        markers.forEachIndexed {index, marker -> marker.`object` = unifiedMarkerOptions[index].`object` }
 
         result.success(success)
     }
 }
 
 object AddPolyline : MapMethodHandler {
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): MapMethodHandler {
         this.map = map
@@ -400,7 +406,7 @@ object AddPolyline : MapMethodHandler {
 
 object ClearMarker : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): ClearMarker {
         this.map = map
@@ -416,7 +422,7 @@ object ClearMarker : MapMethodHandler {
 
 object ChangeLatLng : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): ChangeLatLng {
         this.map = map
@@ -433,7 +439,7 @@ object ChangeLatLng : MapMethodHandler {
 }
 
 object GetCenterLnglat : MapMethodHandler {
-    lateinit var map: AMap
+    private lateinit var map: AMap
     override fun with(map: AMap): MapMethodHandler {
         this.map = map
         return this
@@ -447,7 +453,7 @@ object GetCenterLnglat : MapMethodHandler {
 
 object SetMapStatusLimits : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetMapStatusLimits {
         this.map = map
@@ -466,7 +472,7 @@ object SetMapStatusLimits : MapMethodHandler {
 
 object SetPosition : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetPosition {
         this.map = map
@@ -488,7 +494,7 @@ object SetPosition : MapMethodHandler {
 
 object SetZoomLevel : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): SetZoomLevel {
         this.map = map
@@ -506,7 +512,7 @@ object SetZoomLevel : MapMethodHandler {
 
 object ZoomToSpan : MapMethodHandler {
 
-    lateinit var map: AMap
+    private lateinit var map: AMap
 
     override fun with(map: AMap): ZoomToSpan {
         this.map = map
@@ -532,7 +538,7 @@ object ZoomToSpan : MapMethodHandler {
 }
 
 object ScreenShot : MapMethodHandler {
-    lateinit var map: AMap
+    private lateinit var map: AMap
     override fun with(map: AMap): MapMethodHandler {
         this.map = map
         return this

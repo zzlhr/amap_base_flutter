@@ -40,16 +40,19 @@ class DrawPointScreenState extends State<DrawPointScreen> {
                 Scaffold.of(context)
                     .showSnackBar(SnackBar(content: Text(marker.toString())));
               });
-              controller.addMarkers(
-                markerList
-                    .map((latLng) => MarkerOptions(
-                          icon: 'images/home_map_icon_positioning_nor.png',
-                          position: latLng,
-                          title: '哈哈',
-                          snippet: '呵呵',
-                        ))
-                    .toList(),
-              );
+              controller
+                ..addMarkers(
+                  markerList
+                      .map((latLng) => MarkerOptions(
+                            icon: 'images/home_map_icon_positioning_nor.png',
+                            position: latLng,
+                            title: '哈哈',
+                            snippet: '呵呵',
+                            object: '测试数据$latLng',
+                          ))
+                      .toList(),
+                )
+                ..setZoomLevel(10);
             },
             amapOptions: AMapOptions(),
           );
@@ -60,7 +63,10 @@ class DrawPointScreenState extends State<DrawPointScreen> {
         child: Icon(Icons.add),
         onPressed: () async {
           final nextLatLng = _nextLatLng();
-          await _controller.addMarker(MarkerOptions(position: nextLatLng));
+          await _controller.addMarker(MarkerOptions(
+            position: nextLatLng,
+            object: 'abc',
+          ));
           await _controller.changeLatLng(nextLatLng);
         },
       ),

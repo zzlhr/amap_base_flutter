@@ -96,7 +96,7 @@ class AMapView(context: Context,
             override fun onCancel(p0: Any?) {}
         })
         mapView.map.setOnMarkerClickListener {
-            eventSink?.success(UnifiedMarkerOptions(it.options).toFieldJson())
+            eventSink?.success(UnifiedMarkerOptions(it).toFieldJson())
             true
         }
 
