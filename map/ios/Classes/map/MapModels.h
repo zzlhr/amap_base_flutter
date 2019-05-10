@@ -128,6 +128,10 @@
 @property(nonatomic) NSString *leftCalloutAccessoryView;
 /// 显示在默认弹出框右侧的view [暂未实现]
 @property(nonatomic) NSString *rightCalloutAccessoryView;
+/// 自定义信息
+@property(nonatomic) id object;
+/// 自定义信息
+@property(nonatomic) NSString *id;
 
 - (NSString *)description;
 
