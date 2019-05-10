@@ -1,3 +1,6 @@
+## 0.4.2
+* `Marker`增加自定义数据字段`object`
+
 ## 0.4.1
 * `绘制多边形`
 * `ShowMyLocation`
