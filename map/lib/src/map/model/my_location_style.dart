@@ -49,7 +49,7 @@ class MyLocationStyle {
   /// 我的位置展示模式
   final int myLocationType;
 
-  /// 定位请求时间间隔 [Android]
+  /// 设置发起定位请求的时间间隔，单位：毫秒，默认值：1000毫秒，如果传小于1000的任何值将执行单次定位。 [Android]
   final int interval;
 
   /// 是否显示定位小蓝点 [Android]
@@ -77,8 +77,8 @@ class MyLocationStyle {
     this.radiusFillColor = Colors.transparent,
     this.strokeColor = Colors.transparent,
     this.strokeWidth = 1,
-    this.myLocationType = LOCATION_TYPE_LOCATION_ROTATE,
-    this.interval = 2000,
+    this.myLocationType = LOCATION_TYPE_LOCATE,
+    this.interval = 0,
     this.showMyLocation = true,
     this.showsAccuracyRing = true,
     this.showsHeadingIndicator = false,

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.amap.api.maps.AMapOptions
 import com.amap.api.maps.TextureMapView
@@ -21,6 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 const val mapChannelName = "me.yohom/map"
 const val markerClickedChannelName = "me.yohom/marker_clicked"
+const val mapClickedEventChannel = "me.yohom/map_clicked"
 const val success = "调用成功"
 
 class AMapFactory(private val activityState: AtomicInteger)
@@ -85,19 +87,39 @@ class AMapView(context: Context,
                     ?.onMethodCall(call, result) ?: result.notImplemented()
         }
 
-        // marker click event channel
-        var eventSink: EventChannel.EventSink? = null
+        // click event channel
+        var markerEventSink: EventChannel.EventSink? = null
+        var mapEventSink: EventChannel.EventSink? = null
+        // marker点击事件channel
         val markerClickedEventChannel = EventChannel(registrar.messenger(), "$markerClickedChannelName$id")
+        // 地图点击事件channel
+        val mapClickedEventChannel = EventChannel(registrar.messenger(), "$mapClickedEventChannel$id")
+
         markerClickedEventChannel.setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(p0: Any?, sink: EventChannel.EventSink?) {
-                eventSink = sink
+                markerEventSink = sink
             }
 
-            override fun onCancel(p0: Any?) {}
+            override fun onCancel(p0: Any?) {
+                Log.d("AMapView", "markerEventSink取消")
+            }
+        })
+        mapClickedEventChannel.setStreamHandler(object : EventChannel.StreamHandler {
+            override fun onListen(p0: Any?, sink: EventChannel.EventSink?) {
+                mapEventSink = sink
+            }
+
+            override fun onCancel(p0: Any?) {
+                Log.d("AMapView", "mapEventSink取消")
+            }
         })
         mapView.map.setOnMarkerClickListener {
-            eventSink?.success(UnifiedMarkerOptions(it).toFieldJson())
+            it.showInfoWindow()
+            markerEventSink?.success(UnifiedMarkerOptions(it).toFieldJson())
             true
+        }
+        mapView.map.setOnMapClickListener {
+            mapEventSink?.success(it.toFieldJson())
         }
 
         // 注册生命周期

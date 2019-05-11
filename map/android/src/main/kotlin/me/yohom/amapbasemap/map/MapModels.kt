@@ -176,7 +176,6 @@ class UnifiedMyLocationStyle(
         private val showMyLocation: Boolean
 ) {
     fun applyTo(map: AMap) {
-        map.isMyLocationEnabled = showMyLocation
         map.myLocationStyle = MyLocationStyle()
 //                .myLocationIcon(BitmapDescriptorFactory.fromAsset(myLocationIcon))
                 .anchor(anchorU, anchorV)

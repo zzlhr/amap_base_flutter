@@ -76,3 +76,6 @@
 
 @interface AddPolygon : NSObject<MapMethodHandler>
 @end
+
+@interface ShowMyLocation : NSObject<MapMethodHandler>
+@end

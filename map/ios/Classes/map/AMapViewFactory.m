@@ -14,12 +14,31 @@
 
 static NSString *mapChannelName = @"me.yohom/map";
 static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
+static NSString *mapClickedChannelName = @"me.yohom/map_clicked";
 
 @interface MarkerEventHandler : NSObject <FlutterStreamHandler>
 @property(nonatomic) FlutterEventSink sink;
 @end
 
+@interface MapEventHandler : NSObject <FlutterStreamHandler>
+@property(nonatomic) FlutterEventSink sink;
+@end
+
 @implementation MarkerEventHandler {
+}
+
+- (FlutterError *_Nullable)onListenWithArguments:(id _Nullable)arguments
+                                       eventSink:(FlutterEventSink)events {
+  _sink = events;
+  return nil;
+}
+
+- (FlutterError *_Nullable)onCancelWithArguments:(id _Nullable)arguments {
+  return nil;
+}
+@end
+
+@implementation MapEventHandler {
 }
 
 - (FlutterError *_Nullable)onListenWithArguments:(id _Nullable)arguments
@@ -59,8 +78,10 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
   UnifiedAMapOptions *_options;
   FlutterMethodChannel *_methodChannel;
   FlutterEventChannel *_markerClickedEventChannel;
+  FlutterEventChannel *_mapClickedEventChannel;
   MAMapView *_mapView;
-  MarkerEventHandler *_eventHandler;
+  MarkerEventHandler *_markerClickedEventHandler;
+  MapEventHandler *_mapClickedEventHandler;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -124,10 +145,16 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
   }];
   _mapView.delegate = weakSelf;
 
-  _eventHandler = [[MarkerEventHandler alloc] init];
+  //region 点击事件处理
+  _markerClickedEventHandler = [[MarkerEventHandler alloc] init];
   _markerClickedEventChannel = [FlutterEventChannel eventChannelWithName:[NSString stringWithFormat:@"%@%lld", markerClickedChannelName, _viewId]
                                                          binaryMessenger:[AMapBaseMapPlugin registrar].messenger];
-  [_markerClickedEventChannel setStreamHandler:_eventHandler];
+  _mapClickedEventHandler = [[MapEventHandler alloc] init];
+  _mapClickedEventChannel = [FlutterEventChannel eventChannelWithName:[NSString stringWithFormat:@"%@%lld", mapClickedChannelName, _viewId]
+                                                         binaryMessenger:[AMapBaseMapPlugin registrar].messenger];
+  [_markerClickedEventChannel setStreamHandler:_markerClickedEventHandler];
+  [_mapClickedEventChannel setStreamHandler:_mapClickedEventHandler];
+  //endregion
 }
 
 #pragma MAMapViewDelegate
@@ -136,8 +163,12 @@ static NSString *markerClickedChannelName = @"me.yohom/marker_clicked";
 - (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view {
   if ([view.annotation isKindOfClass:[MarkerAnnotation class]]) {
     MarkerAnnotation *annotation = (MarkerAnnotation *) view.annotation;
-    _eventHandler.sink([annotation.markerOptions mj_JSONString]);
+    _markerClickedEventHandler.sink([annotation.markerOptions mj_JSONString]);
   }
+}
+
+- (void)mapView:(MAMapView *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate {
+  _mapClickedEventHandler.sink([[LatLng initWithCLLocationCoordinate2D:coordinate] mj_JSONString]);
 }
 
 /// 渲染overlay回调
