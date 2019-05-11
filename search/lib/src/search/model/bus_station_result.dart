@@ -1,9 +1,8 @@
 import 'dart:convert';
 
+import 'package:amap_base_core/amap_base_core.dart';
 import 'package:amap_base_search/src/search/model/suggestion_city.dart';
 import 'package:amap_base_search/src/search/model_ios/bus_station_result.ios.dart';
-
-import '../../../amap_base_search.dart';
 
 class BusStationResult {
   List<BusStation> busStations;

@@ -4,6 +4,7 @@ import 'package:amap_base_example/utils/utils.export.dart';
 import 'package:amap_base_example/widgets/setting.widget.dart';
 import 'package:amap_base_map/amap_base_map.dart';
 import 'package:flutter/material.dart';
+import 'package:amap_base_core/amap_base_core.dart';
 
 class ShowMapScreen extends StatefulWidget {
   ShowMapScreen();

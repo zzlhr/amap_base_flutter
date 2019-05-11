@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 
 import 'src/location/amap_location.dart';
 
+export 'package:amap_base_core/amap_base_core.dart';
+
 export 'src/common/permissions.dart';
 export 'src/location/amap_location.dart';
 export 'src/location/model/location.dart';

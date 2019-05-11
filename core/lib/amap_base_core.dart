@@ -1,3 +1,5 @@
+library amap_base_core;
+
 import 'dart:convert';
 
 class LatLng {
