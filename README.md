@@ -165,8 +165,7 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
         * [ ] 坐标转换与位置判断
         
 ## 捐赠
-![](other/1557492318.jpg)p
-![](other/WechatIMG111.jpeg)
+<img src="./other/1557492318.jpg" height="300">  <img src="./other/WechatIMG111.jpeg" height="300">
 
 ## LICENSE
 > Copyright 2018 yohom
