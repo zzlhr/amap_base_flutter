@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:amap_base_navi/amap_base_navi.dart';
-import 'package:amap_base_navi/src/common/misc.dart';
 import 'package:meta/meta.dart';
 
 class MarkerOptions {

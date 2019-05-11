@@ -9,10 +9,10 @@ import 'package:amap_base_example/search/fetch_data/search_bus_station.screen.da
 import 'package:amap_base_example/search/route_plan/driving_route_plan.screen.dart';
 import 'package:amap_base_example/search/route_plan/walking_route_plan.screen.dart';
 import 'package:amap_base_example/search/tools/distance_search_screen.dart';
-import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_example/widgets/function_group.widget.dart';
 import 'package:amap_base_example/widgets/function_item.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:decorated_flutter/decorated_flutter.dart';
 
 class SearchDemo extends StatelessWidget {
   @override

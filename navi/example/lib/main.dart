@@ -1,7 +1,7 @@
 import 'package:amap_base_example/map/map.screen.dart';
 import 'package:amap_base_example/navi/navi.screen.dart';
-import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_navi/amap_base_navi.dart';
+import 'package:decorated_flutter/decorated_flutter.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

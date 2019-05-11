@@ -6,6 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 export 'model/lat_lng.dart';
+export 'util/log.dart';
+export 'util/misc.dart';
+export 'util/permissions.dart';
 
 class AMap {
   static final _channel = MethodChannel('me.yohom/amap_base');

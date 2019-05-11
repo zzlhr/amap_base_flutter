@@ -1,8 +1,12 @@
-import 'package:amap_base_example/utils/log.dart';
-import 'package:amap_base_example/utils/misc.dart';
+import 'package:amap_base_core/amap_base_core.dart';
 import 'package:amap_base_search/amap_base_search.dart';
+import 'package:decorated_flutter/decorated_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+const beijing = LatLng(39.90960, 116.397228);
+const shanghai = LatLng(31.22, 121.48);
+const guangzhou = LatLng(23.16, 113.23);
 
 class DistanceSearchScreen extends StatefulWidget {
   @override
