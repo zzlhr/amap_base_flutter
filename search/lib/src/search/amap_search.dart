@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -10,6 +11,8 @@ import 'package:amap_base_search/src/search/model/poi_result.dart';
 import 'package:amap_base_search/src/search/model/regeocode_result.dart';
 import 'package:amap_base_search/src/search/model_ios/bus_station_result.ios.dart';
 import 'package:flutter/services.dart';
+
+import 'model/walk_route_result.dart';
 
 class AMapSearch {
   static AMapSearch _instance;
@@ -100,8 +103,20 @@ class AMapSearch {
           {'routePlanParam': _routePlanParam},
         )
         .then((result) => result as String)
-        .then(
-            (jsonResult) => DriveRouteResult.fromJson(jsonDecode(jsonResult)));
+        .then((json) => DriveRouteResult.fromJson(jsonDecode(json)));
+  }
+
+  /// 计算驾驶路线
+  Future<WalkRouteResult> calculateWalkRoute(RoutePlanParam param) {
+    final _routePlanParam = param.toJsonString();
+    L.p('方法calculateWalkRoute dart端参数: _routePlanParam -> $_routePlanParam');
+    return _searchChannel
+        .invokeMethod(
+          'search#calculateWalkRoute',
+          {'routePlanParam': _routePlanParam},
+        )
+        .then((result) => result as String)
+        .then((json) => WalkRouteResult.fromJson(jsonDecode(json)));
   }
 
   /// 地址转坐标 [name]表示地址，第二个参数表示查询城市，中文或者中文全拼，citycode、adcode
