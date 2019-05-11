@@ -7,6 +7,7 @@ import 'package:amap_base_example/search/fetch_data/regeocode.screen.dart';
 import 'package:amap_base_example/search/fetch_data/route_poi_search.screen.dart';
 import 'package:amap_base_example/search/fetch_data/search_bus_station.screen.dart';
 import 'package:amap_base_example/search/route_plan/driving_route_plan.screen.dart';
+import 'package:amap_base_example/search/route_plan/walking_route_plan.screen.dart';
 import 'package:amap_base_example/search/tools/distance_search_screen.dart';
 import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_example/widgets/function_group.widget.dart';
@@ -23,8 +24,14 @@ class SearchDemo extends StatelessWidget {
           children: <Widget>[
             FunctionItem(
               label: '驾车出行路线规划',
-              sublabel: 'DrivingRoutPlanScreen',
+              sublabel: 'DrivingRoutePlanScreen',
               target: DrivingRoutPlanScreen(),
+              isLast: true,
+            ),
+            FunctionItem(
+              label: '步行出行路线规划',
+              sublabel: 'WalkingRoutePlanScreen',
+              target: WalkingRoutPlanScreen(),
               isLast: true,
             ),
           ],

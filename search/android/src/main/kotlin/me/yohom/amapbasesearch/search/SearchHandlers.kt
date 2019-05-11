@@ -36,7 +36,7 @@ object SearchReGeocode : SearchMethodHandler {
                 }
         )
 
-        GeocodeSearch(AMapBaseSearchPlugin.registrar.activity()).run {
+        GeocodeSearch(registrar.activity()).run {
             setOnGeocodeSearchListener(object : GeocodeSearch.OnGeocodeSearchListener {
                 override fun onRegeocodeSearched(reGeocodeResult: RegeocodeResult?, resultID: Int) {
                     if (reGeocodeResult != null) {
@@ -259,7 +259,7 @@ object CalculateDriveRoute : SearchMethodHandler {
                 param.avoidPolygons?.map { list -> list.map { it.toLatLonPoint() } },
                 param.avoidRoad
         )
-        RouteSearch(AMapBaseSearchPlugin.registrar.context()).run {
+        RouteSearch(registrar.context()).run {
             setRouteSearchListener(object : RouteSearch.OnRouteSearchListener {
                 override fun onDriveRouteSearched(r: DriveRouteResult?, errorCode: Int) {
                     if (errorCode != AMapException.CODE_AMAP_SUCCESS || r == null) {
@@ -279,6 +279,46 @@ object CalculateDriveRoute : SearchMethodHandler {
             })
 
             calculateDriveRouteAsyn(routeQuery)
+        }
+    }
+}
+
+/**
+ * 步行出行路线规划
+ */
+object CalculateWalkRoute : SearchMethodHandler {
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        // 规划参数
+        val param = call.argument<String>("routePlanParam")!!.parseFieldJson<RoutePlanParam>()
+
+        log("方法calculateWalkRoute android端参数: routePlanParam -> $param")
+
+        val routeQuery = RouteSearch.WalkRouteQuery(
+                RouteSearch.FromAndTo(param.from.toLatLonPoint(), param.to.toLatLonPoint()),
+                param.mode
+        )
+        RouteSearch(registrar.context()).run {
+            setRouteSearchListener(object : RouteSearch.OnRouteSearchListener {
+                override fun onDriveRouteSearched(r: DriveRouteResult?, errorCode: Int) {
+                }
+
+                override fun onBusRouteSearched(result: BusRouteResult?, errorCode: Int) {}
+
+                override fun onRideRouteSearched(result: RideRouteResult?, errorCode: Int) {}
+
+                override fun onWalkRouteSearched(r: WalkRouteResult?, errorCode: Int) {
+                    if (errorCode != AMapException.CODE_AMAP_SUCCESS || r == null) {
+                        result.error("路线规划失败, 错误码: $errorCode", null, null)
+                    } else if (r.paths.isEmpty()) {
+                        result.error("没有规划出合适的路线", null, null)
+                    } else {
+                        result.success(UnifiedWalkRouteResult(r).toFieldJson())
+                    }
+                }
+            })
+
+            calculateWalkRouteAsyn(routeQuery)
         }
     }
 }

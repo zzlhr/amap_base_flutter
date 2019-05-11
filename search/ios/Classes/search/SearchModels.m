@@ -42,7 +42,7 @@
         _targetPos = response.route.destination;
         _taxiCost = response.route.taxiCost;
         _paths = [response.route.paths map:^(AMapPath *path) {
-            return [[UnifiedDrivePathResult alloc] initWithAMapPath:path];
+            return [[UnifiedDrivePath alloc] initWithAMapPath:path];
         }];
     }
     return self;
@@ -50,7 +50,7 @@
 
 @end
 
-@implementation UnifiedDrivePathResult {
+@implementation UnifiedDrivePath {
 }
 
 - (instancetype)initWithAMapPath:(AMapPath *)path {
@@ -60,7 +60,7 @@
         _tollDistance = path.tollDistance;
         _totalTrafficlights = path.totalTrafficLights;
         _steps = [path.steps map:^(AMapStep *step) {
-            return [[UnifiedDriveStepResult alloc] initWithAMapStep:step];
+            return [[UnifiedDriveStep alloc] initWithAMapStep:step];
         }];
         _restriction = path.restriction;
     }
@@ -69,7 +69,7 @@
 
 @end
 
-@implementation UnifiedDriveStepResult {
+@implementation UnifiedDriveStep {
 
 }
 - (instancetype)initWithAMapStep:(AMapStep *)step {
@@ -91,6 +91,56 @@
         _TMCs = [step.tmcs map:^(AMapTMC *tmc) {
             return [[UnifiedTMCResult alloc] initWithAMapTMC:tmc];
         }];
+    }
+    return self;
+}
+
+@end
+
+@implementation UnifiedWalkRouteResult {
+
+}
+- (instancetype)initWithAMapRouteSearchResponse:(AMapRouteSearchResponse *)response {
+    if ([self init]) {
+        _startPos = response.route.origin;
+        _targetPos = response.route.destination;
+        _paths = [response.route.paths map:^(AMapPath *path) {
+            return [[UnifiedWalkPath alloc] initWithAMapPath:path];
+        }];
+    }
+    return self;
+}
+
+@end
+
+@implementation UnifiedWalkPath {
+}
+
+- (instancetype)initWithAMapPath:(AMapPath *)path {
+    if ([self init]) {
+        _steps = [path.steps map:^(AMapStep *step) {
+            return [[UnifiedWalkStep alloc] initWithAMapStep:step];
+        }];
+    }
+    return self;
+}
+
+@end
+
+@implementation UnifiedWalkStep {
+
+}
+- (instancetype)initWithAMapStep:(AMapStep *)step {
+    if ([self init]) {
+        _instruction = step.instruction;
+        _orientation = step.orientation;
+        _road = step.road;
+        _distance = step.distance;
+        _duration = step.duration;
+        _polyline = [step.polyline stringToAMapGeoPoint];
+        _action = step.action;
+        _assistantAction = step.assistantAction;
+        _tollRoad = step.tollRoad;
     }
     return self;
 }

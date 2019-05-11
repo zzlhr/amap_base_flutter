@@ -12,8 +12,8 @@
 @class AMapCity;
 @class AMapDistrict;
 @class AMapTMC;
-@class UnifiedDrivePathResult;
-@class UnifiedDriveStepResult;
+@class UnifiedDrivePath;
+@class UnifiedDriveStep;
 @class UnifiedRouteSearchCityResult;
 @class UnifiedTMCResult;
 @class UnifiedDistrictResult;
@@ -57,6 +57,8 @@
 @class BusLineItem;
 @class Query;
 @class BusStation;
+@class UnifiedWalkPath;
+@class UnifiedWalkStep;
 
 //region RoutePlanParam
 @interface RoutePlanParam : NSObject
@@ -85,21 +87,21 @@
 @property(nonatomic) AMapGeoPoint *startPos;
 @property(nonatomic) AMapGeoPoint *targetPos;
 @property(nonatomic) CGFloat taxiCost;
-@property(nonatomic) NSArray <UnifiedDrivePathResult *> *paths;
+@property(nonatomic) NSArray <UnifiedDrivePath *> *paths;
 @end
 
-@interface UnifiedDrivePathResult : NSObject
+@interface UnifiedDrivePath : NSObject
 - (instancetype)initWithAMapPath:(AMapPath *)path;
 
 @property(nonatomic) NSString *strategy;
 @property(nonatomic) CGFloat tolls;
 @property(nonatomic) CGFloat tollDistance;
 @property(nonatomic) NSInteger totalTrafficlights;
-@property(nonatomic) NSArray <UnifiedDriveStepResult *> *steps;
+@property(nonatomic) NSArray <UnifiedDriveStep *> *steps;
 @property(nonatomic) NSInteger restriction;
 @end
 
-@interface UnifiedDriveStepResult : NSObject
+@interface UnifiedDriveStep : NSObject
 - (instancetype)initWithAMapStep:(AMapStep *)step;
 
 @property(nonatomic) NSString *instruction;
@@ -115,6 +117,33 @@
 @property(nonatomic) NSString *assistantAction;
 @property(nonatomic) NSArray<UnifiedRouteSearchCityResult *> *routeSearchCityList;
 @property(nonatomic) NSArray <UnifiedTMCResult *> *TMCs;
+@end
+
+@interface UnifiedWalkRouteResult : NSObject
+- (instancetype)initWithAMapRouteSearchResponse:(AMapRouteSearchResponse *)response;
+
+@property(nonatomic) AMapGeoPoint *startPos;
+@property(nonatomic) AMapGeoPoint *targetPos;
+@property(nonatomic) NSArray <UnifiedWalkPath *> *paths;
+@end
+
+@interface UnifiedWalkPath : NSObject
+- (instancetype)initWithAMapPath:(AMapPath *)path;
+@property(nonatomic) NSArray <UnifiedWalkStep *> *steps;
+@end
+
+@interface UnifiedWalkStep : NSObject
+- (instancetype)initWithAMapStep:(AMapStep *)step;
+
+@property(nonatomic) NSString *instruction;
+@property(nonatomic) NSString *orientation;
+@property(nonatomic) NSString *road;
+@property(nonatomic) CGFloat distance;
+@property(nonatomic) NSString *tollRoad;
+@property(nonatomic) CGFloat duration;
+@property(nonatomic) NSArray <AMapGeoPoint *> *polyline;
+@property(nonatomic) NSString *action;
+@property(nonatomic) NSString *assistantAction;
 @end
 
 @interface UnifiedRouteSearchCityResult : NSObject

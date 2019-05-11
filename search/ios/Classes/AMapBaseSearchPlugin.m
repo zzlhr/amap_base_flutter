@@ -52,48 +52,6 @@ static NSObject <FlutterPluginRegistrar> *_registrar;
             result(FlutterMethodNotImplemented);
         }
     }];
-
-    // 离线地图 channel
-    FlutterMethodChannel *offlineChannel = [FlutterMethodChannel
-            methodChannelWithName:@"me.yohom/offline"
-                  binaryMessenger:[registrar messenger]];
-
-    [offlineChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
-        NSObject <MapMethodHandler> *handler = [MapFunctionRegistry mapMethodHandler][call.method];
-        if (handler) {
-            [[handler init] onMethodCall:call :result];
-        } else {
-            result(FlutterMethodNotImplemented);
-        }
-    }];
-
-    // 导航 channel
-    FlutterMethodChannel *naviChannel = [FlutterMethodChannel
-            methodChannelWithName:@"me.yohom/navi"
-                  binaryMessenger:[registrar messenger]];
-
-    [naviChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
-        NSObject <NaviMethodHandler> *handler = [NaviFunctionRegistry naviMethodHandler][call.method];
-        if (handler) {
-            [[handler init] onMethodCall:call :result];
-        } else {
-            result(FlutterMethodNotImplemented);
-        }
-    }];
-
-    // 定位 channel
-    FlutterMethodChannel *locationChannel = [FlutterMethodChannel
-            methodChannelWithName:@"me.yohom/location"
-                  binaryMessenger:[registrar messenger]];
-
-    [locationChannel setMethodCallHandler:^(FlutterMethodCall *call, FlutterResult result) {
-        NSObject <LocationMethodHandler> *handler = [LocationFunctionRegistry locationMethodHandler][call.method];
-        if (handler) {
-            [[handler init] onMethodCall:call :result];
-        } else {
-            result(FlutterMethodNotImplemented);
-        }
-    }];
 }
 
 + (NSObject <FlutterPluginRegistrar> *)registrar {
