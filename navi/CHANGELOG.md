@@ -1,5 +1,6 @@
 ## 0.4.0
 * 升级kotlin到1.3.x
+* 加入amap_base_core
 
 ## 0.3.5
 * ios端导航卡住的问题
