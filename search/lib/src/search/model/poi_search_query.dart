@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amap_base_core/amap_base_core.dart';
 import 'package:amap_base_search/amap_base_search.dart';
 import 'package:amap_base_search/src/search/model/search_bound.dart';
 

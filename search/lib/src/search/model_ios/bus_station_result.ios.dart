@@ -1,8 +1,7 @@
 import 'dart:convert';
 
+import 'package:amap_base_core/amap_base_core.dart';
 import 'package:amap_base_search/src/search/model_ios/city.ios.dart';
-
-import '../../../amap_base_search.dart';
 
 // ignore: camel_case_types
 class BusStationResult_iOS {

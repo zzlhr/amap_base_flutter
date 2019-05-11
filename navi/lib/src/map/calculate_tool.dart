@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
 
-import '../map/model/latlng.dart';
+import 'package:amap_base_core/amap_base_core.dart';
 
 class CalculateTools {
   static const _channel = MethodChannel('me.yohom/tool');

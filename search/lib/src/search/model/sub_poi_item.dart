@@ -1,4 +1,4 @@
-import '../../../amap_base_search.dart';
+import 'package:amap_base_core/amap_base_core.dart';
 
 class SubPoiItem {
   /// POI全局唯一ID [Android, iOS]
