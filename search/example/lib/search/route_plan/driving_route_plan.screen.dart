@@ -1,9 +1,7 @@
-import 'package:amap_base_example/utils/misc.dart';
-import 'package:amap_base_example/utils/view.dart';
 import 'package:amap_base_example/widgets/button.widget.dart';
-import 'package:amap_base_example/widgets/dimens.dart';
 import 'package:amap_base_search/amap_base_search.dart';
 import 'package:flutter/material.dart';
+import 'package:decorated_flutter/decorated_flutter.dart';
 
 class DrivingRoutPlanScreen extends StatefulWidget {
   DrivingRoutPlanScreen();

@@ -1,7 +1,10 @@
-import 'package:amap_base_example/utils/misc.dart';
 import 'package:amap_base_example/widgets/setting.widget.dart';
 import 'package:amap_base_navi/amap_base_navi.dart';
 import 'package:flutter/material.dart';
+
+const beijing = LatLng(39.90960, 116.397228);
+const shanghai = LatLng(31.22, 121.48);
+const guangzhou = LatLng(23.16, 113.23);
 
 class CodeInteractionScreen extends StatefulWidget {
   CodeInteractionScreen();

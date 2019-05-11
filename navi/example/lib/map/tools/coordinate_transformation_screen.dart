@@ -1,6 +1,6 @@
-import 'package:amap_base_example/utils/log.dart';
-import 'package:amap_base_example/widgets/dimens.dart';
+import 'package:amap_base_core/amap_base_core.dart';
 import 'package:amap_base_navi/amap_base_navi.dart';
+import 'package:decorated_flutter/decorated_flutter.dart';
 import 'package:flutter/material.dart';
 
 class CoordinateTransformationScreen extends StatefulWidget {
