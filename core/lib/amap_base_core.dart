@@ -2,48 +2,35 @@ library amap_base_core;
 
 import 'dart:convert';
 
-class LatLng {
-  final double latitude;
-  final double longitude;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 
-  const LatLng(this.latitude, this.longitude);
+export 'model/lat_lng.dart';
 
-  Map<String, Object> toJson() {
-    return {
-      'latitude': latitude,
-      'longitude': longitude,
-    };
-  }
+class AMap {
+  static final _channel = MethodChannel('me.yohom/amap_base');
 
-  String toJsonString() => jsonEncode(toJson());
+  static Map<String, List<String>> assetManifest;
 
-  LatLng.fromJson(Map<String, dynamic> json)
-      : latitude = json['latitude'] as double,
-        longitude = json['longitude'] as double;
+  static Future init(String key) async {
+    _channel.invokeMethod('setKey', {'key': key});
 
-  LatLng copyWith({
-    double latitude,
-    double longitude,
-  }) {
-    return LatLng(
-      latitude ?? this.latitude,
-      longitude ?? this.longitude,
+    // 加载asset相关信息, 供区分图片分辨率用, 因为native端的加载asset方法无法区分分辨率, 这是一个变通方法
+    assetManifest =
+        await rootBundle.loadStructuredData<Map<String, List<String>>>(
+      'AssetManifest.json',
+      (String jsonData) {
+        if (jsonData == null)
+          return SynchronousFuture<Map<String, List<String>>>(null);
+
+        final Map<String, dynamic> parsedJson = jsonDecode(jsonData);
+        final Iterable<String> keys = parsedJson.keys;
+        final Map parsedManifest = Map<String, List<String>>.fromIterables(
+          keys,
+          keys.map<List<String>>((key) => List<String>.from(parsedJson[key])),
+        );
+        return SynchronousFuture<Map<String, List<String>>>(parsedManifest);
+      },
     );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LatLng &&
-          runtimeType == other.runtimeType &&
-          latitude == other.latitude &&
-          longitude == other.longitude;
-
-  @override
-  int get hashCode => latitude.hashCode ^ longitude.hashCode;
-
-  @override
-  String toString() {
-    return 'LatLng{lat: $latitude, lng: $longitude}';
   }
 }
