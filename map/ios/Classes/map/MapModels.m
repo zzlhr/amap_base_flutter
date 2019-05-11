@@ -83,6 +83,13 @@
 @implementation LatLng {
 }
 
++ (instancetype)initWithCLLocationCoordinate2D:(CLLocationCoordinate2D)coordinate {
+  LatLng *instance = [[LatLng alloc] init];
+  instance.latitude = coordinate.latitude;
+  instance.longitude = coordinate.longitude;
+  return instance;
+}
+
 - (CLLocationCoordinate2D)toCLLocationCoordinate2D {
   return CLLocationCoordinate2DMake(self.latitude, self.longitude);
 }

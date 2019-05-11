@@ -11,11 +11,9 @@
 #import "MJExtension.h"
 #import "UnifiedAssets.h"
 
-
-@implementation SetCustomMapStyleID {
+@implementation AddMarker {
   MAMapView *_mapView;
 }
-
 - (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
   _mapView = mapView;
   return self;
@@ -23,20 +21,28 @@
 
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
   NSDictionary *paramDic = call.arguments;
-  NSString *styleId = (NSString *) paramDic[@"styleId"];
 
-  NSLog(@"方法map#setCustomMapStyleID iOS: styleId -> %@", styleId);
+  NSString *optionsJson = (NSString *) paramDic[@"markerOptions"];
 
-  [_mapView setCustomMapStyleID:styleId];
+  NSLog(@"方法marker#addMarker ios端参数: optionsJson -> %@", optionsJson);
+  UnifiedMarkerOptions *markerOptions = [UnifiedMarkerOptions mj_objectWithKeyValues:optionsJson];
+
+  MarkerAnnotation *annotation = [[MarkerAnnotation alloc] init];
+  annotation.coordinate = [markerOptions.position toCLLocationCoordinate2D];
+  annotation.title = markerOptions.title;
+  annotation.subtitle = markerOptions.snippet;
+  annotation.markerOptions = markerOptions;
+
+  [_mapView addAnnotation:annotation];
+
   result(success);
 }
 
 @end
 
-@implementation SetCustomMapStylePath {
+@implementation AddMarkers {
   MAMapView *_mapView;
 }
-
 - (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
   _mapView = mapView;
   return self;
@@ -44,21 +50,74 @@
 
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
   NSDictionary *paramDic = call.arguments;
-  NSString *path = (NSString *) paramDic[@"path"];
 
-  NSLog(@"方法map#setCustomMapStylePath iOS: path -> %@", path);
+  NSString *moveToCenter = (NSString *) paramDic[@"moveToCenter"];
+  NSString *optionsListJson = (NSString *) paramDic[@"markerOptionsList"];
+  BOOL clear = (BOOL) paramDic[@"clear"];
 
-  NSData *data = [NSData dataWithContentsOfFile:[UnifiedAssets getAssetPath:path]];
-  [_mapView setCustomMapStyleWithWebData:data];
+  NSLog(@"方法marker#addMarkers ios端参数: optionsListJson -> %@", optionsListJson);
+  if (clear) [_mapView removeAnnotations:_mapView.annotations];
+
+  NSArray *rawOptionsList = [NSJSONSerialization JSONObjectWithData:[optionsListJson dataUsingEncoding:NSUTF8StringEncoding]
+                                                            options:kNilOptions
+                                                              error:nil];
+  NSMutableArray<MarkerAnnotation *> *optionList = [NSMutableArray array];
+
+  for (NSUInteger i = 0; i < rawOptionsList.count; ++i) {
+    UnifiedMarkerOptions *options = [UnifiedMarkerOptions mj_objectWithKeyValues:rawOptionsList[i]];
+    MarkerAnnotation *annotation = [[MarkerAnnotation alloc] init];
+    annotation.coordinate = [options.position toCLLocationCoordinate2D];
+    annotation.title = options.title;
+    annotation.subtitle = options.snippet;
+    annotation.markerOptions = options;
+
+    [optionList addObject:annotation];
+  }
+
+  [_mapView addAnnotations:optionList];
+  if (moveToCenter) {
+    [_mapView showAnnotations:optionList animated:YES];
+  }
+
   result(success);
 }
 
 @end
 
-@implementation SetMapCustomEnable {
+@implementation AddPolyline {
   MAMapView *_mapView;
 }
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
 
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSString *optionsJson = (NSString *) call.arguments[@"options"];
+
+  NSLog(@"map#addPolyline ios端参数: optionsJson -> %@", optionsJson);
+
+  UnifiedPolylineOptions *options = [UnifiedPolylineOptions initWithJson:optionsJson];
+
+  NSUInteger count = options.latLngList.count;
+
+  CLLocationCoordinate2D commonPolylineCoords[count];
+  for (NSUInteger i = 0; i < count; ++i) {
+    commonPolylineCoords[i] = [options.latLngList[i] toCLLocationCoordinate2D];
+  }
+
+  PolylineOverlay *polyline = [PolylineOverlay polylineWithCoordinates:commonPolylineCoords count:options.latLngList.count];
+  polyline.options = options;
+  [_mapView addOverlay:polyline];
+
+  result(success);
+}
+
+@end
+
+@implementation AddPolygon {
+  MAMapView *_mapView;
+}
 - (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
   _mapView = mapView;
   return self;
@@ -66,15 +125,25 @@
 
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
   NSDictionary *paramDic = call.arguments;
-  BOOL enabled = [paramDic[@"enabled"] boolValue];
 
-  NSLog(@"方法map#setMapCustomEnable iOS: enabled -> %d", enabled);
+  NSString *optionsJson = (NSString *) paramDic[@"options"];
 
-  [_mapView setCustomMapStyleEnabled:enabled];
+  NSLog(@"方法map#addPolygon iOS: optionsJson -> %@", optionsJson);
+
+  UnifiedPolygonOptions *options = [UnifiedPolygonOptions initWithJson:optionsJson];
+
+  NSUInteger length = options.points.count;
+  CLLocationCoordinate2D points[length];
+  for (NSUInteger i = 0; i < length; ++i) {
+    points[i] = CLLocationCoordinate2DMake(options.points[i].latitude, options.points[i].longitude);
+  }
+
+  PolygonOverlay *overlay = [PolygonOverlay polygonWithCoordinates:points count:length];
+  overlay.polygonOptions = options;
+  [_mapView addOverlay:overlay];
 
   result(success);
 }
-
 @end
 
 @implementation ConvertCoordinate {
@@ -145,6 +214,61 @@
 
 @end
 
+@implementation ClearMap {
+  MAMapView *_mapView;
+}
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  [_mapView removeOverlays:_mapView.overlays];
+  [_mapView removeAnnotations:_mapView.annotations];
+
+  result(success);
+}
+
+@end
+
+@implementation ClearMarker {
+  MAMapView *_mapView;
+}
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  [_mapView removeAnnotations:_mapView.annotations];
+
+  result(success);
+}
+
+@end
+
+@implementation ChangeLatLng {
+  MAMapView *_mapView;
+}
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSDictionary *paramDic = call.arguments;
+
+  NSString *targetJson = (NSString *) paramDic[@"target"];
+
+  LatLng *target = [LatLng mj_objectWithKeyValues:targetJson];
+
+  [_mapView setCenterCoordinate:[target toCLLocationCoordinate2D] animated:YES];
+
+  result(success);
+}
+
+@end
+
 @implementation GetCenterPoint {
   MAMapView *_mapView;
 }
@@ -160,23 +284,6 @@
   latlng.latitude = coor.latitude;
   latlng.longitude = coor.longitude;
   result([latlng mj_JSONString]);
-}
-
-@end
-
-@implementation ClearMap {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  [_mapView removeOverlays:_mapView.overlays];
-  [_mapView removeAnnotations:_mapView.annotations];
-
-  result(success);
 }
 
 @end
@@ -205,6 +312,93 @@
   if ([ctl navigationController]) {
     [[ctl navigationController] dismissViewControllerAnimated:true completion:nil];
   }
+}
+
+@end
+
+@implementation SetCustomMapStyleID {
+  MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSDictionary *paramDic = call.arguments;
+  NSString *styleId = (NSString *) paramDic[@"styleId"];
+
+  NSLog(@"方法map#setCustomMapStyleID iOS: styleId -> %@", styleId);
+
+  [_mapView setCustomMapStyleID:styleId];
+  result(success);
+}
+
+@end
+
+@implementation SetCustomMapStylePath {
+  MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSDictionary *paramDic = call.arguments;
+  NSString *path = (NSString *) paramDic[@"path"];
+
+  NSLog(@"方法map#setCustomMapStylePath iOS: path -> %@", path);
+
+  NSData *data = [NSData dataWithContentsOfFile:[UnifiedAssets getAssetPath:path]];
+  [_mapView setCustomMapStyleWithWebData:data];
+  result(success);
+}
+
+@end
+
+@implementation ShowMyLocation {
+  MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSDictionary *paramDic = call.arguments;
+
+  BOOL show = (BOOL) paramDic[@"show"];
+
+  NSLog(@"ShowMyLocation ios端参数: show -> %@", show);
+//  [[UnifiedMyLocationStyle mj_objectWithKeyValues:styleJson] applyTo:_mapView];
+
+  result(FlutterMethodNotImplemented);
+}
+
+@end
+
+@implementation SetMapCustomEnable {
+  MAMapView *_mapView;
+}
+
+- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
+  _mapView = mapView;
+  return self;
+}
+
+- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
+  NSDictionary *paramDic = call.arguments;
+  BOOL enabled = [paramDic[@"enabled"] boolValue];
+
+  NSLog(@"方法map#setMapCustomEnable iOS: enabled -> %d", enabled);
+
+  [_mapView setCustomMapStyleEnabled:enabled];
+
+  result(success);
 }
 
 @end
@@ -321,148 +515,6 @@
 
 @end
 
-@implementation AddMarker {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSDictionary *paramDic = call.arguments;
-
-  NSString *optionsJson = (NSString *) paramDic[@"markerOptions"];
-
-  NSLog(@"方法marker#addMarker ios端参数: optionsJson -> %@", optionsJson);
-  UnifiedMarkerOptions *markerOptions = [UnifiedMarkerOptions mj_objectWithKeyValues:optionsJson];
-
-  MarkerAnnotation *annotation = [[MarkerAnnotation alloc] init];
-  annotation.coordinate = [markerOptions.position toCLLocationCoordinate2D];
-  annotation.title = markerOptions.title;
-  annotation.subtitle = markerOptions.snippet;
-  annotation.markerOptions = markerOptions;
-
-  [_mapView addAnnotation:annotation];
-
-  result(success);
-}
-
-@end
-
-@implementation AddMarkers {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSDictionary *paramDic = call.arguments;
-
-  NSString *moveToCenter = (NSString *) paramDic[@"moveToCenter"];
-  NSString *optionsListJson = (NSString *) paramDic[@"markerOptionsList"];
-  BOOL clear = (BOOL) paramDic[@"clear"];
-
-  NSLog(@"方法marker#addMarkers ios端参数: optionsListJson -> %@", optionsListJson);
-  if (clear) [_mapView removeAnnotations:_mapView.annotations];
-
-  NSArray *rawOptionsList = [NSJSONSerialization JSONObjectWithData:[optionsListJson dataUsingEncoding:NSUTF8StringEncoding]
-                                                            options:kNilOptions
-                                                              error:nil];
-  NSMutableArray<MarkerAnnotation *> *optionList = [NSMutableArray array];
-
-  for (NSUInteger i = 0; i < rawOptionsList.count; ++i) {
-    UnifiedMarkerOptions *options = [UnifiedMarkerOptions mj_objectWithKeyValues:rawOptionsList[i]];
-    MarkerAnnotation *annotation = [[MarkerAnnotation alloc] init];
-    annotation.coordinate = [options.position toCLLocationCoordinate2D];
-    annotation.title = options.title;
-    annotation.subtitle = options.snippet;
-    annotation.markerOptions = options;
-
-    [optionList addObject:annotation];
-  }
-
-  [_mapView addAnnotations:optionList];
-  if (moveToCenter) {
-    [_mapView showAnnotations:optionList animated:YES];
-  }
-
-  result(success);
-}
-
-@end
-
-@implementation AddPolyline {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSString *optionsJson = (NSString *) call.arguments[@"options"];
-
-  NSLog(@"map#addPolyline ios端参数: optionsJson -> %@", optionsJson);
-
-  UnifiedPolylineOptions *options = [UnifiedPolylineOptions initWithJson:optionsJson];
-
-  NSUInteger count = options.latLngList.count;
-
-  CLLocationCoordinate2D commonPolylineCoords[count];
-  for (NSUInteger i = 0; i < count; ++i) {
-    commonPolylineCoords[i] = [options.latLngList[i] toCLLocationCoordinate2D];
-  }
-
-  PolylineOverlay *polyline = [PolylineOverlay polylineWithCoordinates:commonPolylineCoords count:options.latLngList.count];
-  polyline.options = options;
-  [_mapView addOverlay:polyline];
-
-  result(success);
-}
-
-@end
-
-@implementation ClearMarker {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  [_mapView removeAnnotations:_mapView.annotations];
-
-  result(success);
-}
-
-@end
-
-@implementation ChangeLatLng {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSDictionary *paramDic = call.arguments;
-
-  NSString *targetJson = (NSString *) paramDic[@"target"];
-
-  LatLng *target = [LatLng mj_objectWithKeyValues:targetJson];
-
-  [_mapView setCenterCoordinate:[target toCLLocationCoordinate2D] animated:YES];
-
-  result(success);
-}
-
-@end
-
 @implementation SetMapStatusLimits {
   MAMapView *_mapView;
 }
@@ -539,35 +591,6 @@
 
 @end
 
-@implementation ZoomToSpan {
-  MAMapView *_mapView;
-}
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSDictionary *paramDic = call.arguments;
-
-  NSString *boundJson = (NSString *) paramDic[@"bound"];
-  NSInteger padding = [paramDic[@"padding"] integerValue] / 2;
-
-  NSArray <LatLng *> *latLngArray = [LatLng mj_objectArrayWithKeyValuesArray:boundJson];
-
-  NSUInteger count = latLngArray.count;
-
-  CLLocationCoordinate2D commonPolylineCoords[count];
-  for (NSUInteger i = 0; i < count; ++i) {
-    commonPolylineCoords[i] = [latLngArray[i] toCLLocationCoordinate2D];
-  }
-
-  MAPolyline *polyline = [MAPolyline polylineWithCoordinates:commonPolylineCoords count:count];
-  [_mapView showOverlays:@[polyline] edgePadding:UIEdgeInsetsMake(padding, padding, padding, padding) animated:YES];
-}
-
-@end
-
 @implementation ScreenShot {
   MAMapView *_mapView;
 }
@@ -596,7 +619,7 @@
 }
 @end
 
-@implementation AddPolygon {
+@implementation ZoomToSpan {
   MAMapView *_mapView;
 }
 - (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
@@ -607,44 +630,20 @@
 - (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
   NSDictionary *paramDic = call.arguments;
 
-  NSString *optionsJson = (NSString *) paramDic[@"options"];
+  NSString *boundJson = (NSString *) paramDic[@"bound"];
+  NSInteger padding = [paramDic[@"padding"] integerValue] / 2;
 
-  NSLog(@"方法map#addPolygon iOS: optionsJson -> %@", optionsJson);
+  NSArray <LatLng *> *latLngArray = [LatLng mj_objectArrayWithKeyValuesArray:boundJson];
 
-  UnifiedPolygonOptions *options = [UnifiedPolygonOptions initWithJson:optionsJson];
+  NSUInteger count = latLngArray.count;
 
-  NSUInteger length = options.points.count;
-  CLLocationCoordinate2D points[length];
-  for (NSUInteger i = 0; i < length; ++i) {
-    points[i] = CLLocationCoordinate2DMake(options.points[i].latitude, options.points[i].longitude);
+  CLLocationCoordinate2D commonPolylineCoords[count];
+  for (NSUInteger i = 0; i < count; ++i) {
+    commonPolylineCoords[i] = [latLngArray[i] toCLLocationCoordinate2D];
   }
 
-  PolygonOverlay *overlay = [PolygonOverlay polygonWithCoordinates:points count:length];
-  overlay.polygonOptions = options;
-  [_mapView addOverlay:overlay];
-
-  result(success);
-}
-@end
-
-@implementation ShowMyLocation {
-  MAMapView *_mapView;
-}
-
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSDictionary *paramDic = call.arguments;
-
-  BOOL show = (BOOL) paramDic[@"show"];
-
-  NSLog(@"ShowMyLocation ios端参数: show -> %@", show);
-//  [[UnifiedMyLocationStyle mj_objectWithKeyValues:styleJson] applyTo:_mapView];
-
-  result(FlutterMethodNotImplemented);
+  MAPolyline *polyline = [MAPolyline polylineWithCoordinates:commonPolylineCoords count:count];
+  [_mapView showOverlays:@[polyline] edgePadding:UIEdgeInsetsMake(padding, padding, padding, padding) animated:YES];
 }
 
 @end

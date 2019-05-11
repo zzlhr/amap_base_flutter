@@ -83,6 +83,8 @@
 @property(nonatomic) CGFloat latitude;
 @property(nonatomic) CGFloat longitude;
 
++ (instancetype)initWithCLLocationCoordinate2D:(CLLocationCoordinate2D)coordinate;
+
 - (CLLocationCoordinate2D)toCLLocationCoordinate2D;
 
 - (NSString *)description;
