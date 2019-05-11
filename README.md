@@ -58,11 +58,11 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
 端又没有去抄Google Map的设计, 导致需要额外的工作去兼容两个平台的功能. 这个库的目标是尽可能的统一双端的api设置, 采用取各自平台api的**并集**, 然后在文档中指出针对哪个平台有效的策略来实现api统一.
 
 ## 关于包的大小
-- 目前已经按照高德提供的各个子包, 分出了4个分支(2d地图没有支持计划).
-    - `feature/map`分支依赖了高德3DMap库.
-    - `feature/location`分支依赖了高德Location库.
-    - `feature/navi`分支依赖了高德Navi库(Navi库包含了3DMap库, 不要重复引用Navi库和3DMap库!).
-    - `feature/search`分支依赖了高德Search库.
+- 目前已经按照高德提供的各个子包, 分出了4个子工程(2d地图没有支持计划).
+    - `map`工程依赖了高德3DMap库.
+    - `location`工程依赖了高德Location库.
+    - `navi`工程依赖了高德Navi库(Navi库包含了3DMap库, 不要重复引用Navi库和3DMap库!).
+    - `search`工程依赖了高德Search库.
 
 ## 关于Swift项目
 - Swift项目需要注释掉Podfile中的`use_framework!`. 尝试了在podspec中添加`s.static_framework = true`, 但是会造成找不到pod里的头文件. 如果有更好的解决方案, 请告知我.
@@ -133,7 +133,7 @@ iOS端的`UiKitView`目前还只是preview状态, 默认是不支持的, 需要�
         * [ ] 获取交通态势信息
     * [ ] 出行线路规划
         * [x] 驾车出行路线规划
-        * [ ] 步行出行路线规划
+        * [x] 步行出行路线规划
         * [ ] 公交出行路线规划
         * [ ] 骑行出行路线规划
         * [ ] 货车出行路线规划
