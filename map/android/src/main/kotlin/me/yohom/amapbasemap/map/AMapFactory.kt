@@ -114,7 +114,6 @@ class AMapView(context: Context,
             }
         })
         mapView.map.setOnMarkerClickListener {
-            it.showInfoWindow()
             markerEventSink?.success(UnifiedMarkerOptions(it).toFieldJson())
             true
         }

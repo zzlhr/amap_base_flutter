@@ -1,4 +1,4 @@
-group 'me.yohom.amapbase'
+group 'me.yohom.amapbaselocation'
 version '1.0-SNAPSHOT'
 
 buildscript {

@@ -11,6 +11,7 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "marker#addMarker" to AddMarker,
         "marker#addMarkers" to AddMarkers,
         "marker#clear" to ClearMarker,
+        "marker#removeMarkers" to RemoveMarkers,
         "map#showIndoorMap" to ShowIndoorMap,
         "map#setMapType" to SetMapType,
         "map#setLanguage" to SetLanguage,

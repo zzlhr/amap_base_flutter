@@ -43,7 +43,7 @@ object AddMarker : MapMethodHandler {
         val marker = map.addMarker(markerOptions.toMarkerOption())
         marker.`object` = markerOptions.`object`
 
-        result.success(success)
+        result.success(marker.id)
     }
 }
 
@@ -72,6 +72,26 @@ object AddMarkers : MapMethodHandler {
         val markers = map.addMarkers(optionsList, moveToCenter)
 
         markers.forEachIndexed {index, marker -> marker.`object` = unifiedMarkerOptions[index].`object` }
+
+        result.success(markers.map { it.id })
+    }
+}
+
+object RemoveMarkers : MapMethodHandler {
+
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): RemoveMarkers {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val ids = call.argument<List<String>>("ids") ?: listOf()
+
+        log("方法marker#removeMarkers android端参数: ids -> $ids")
+
+        map.mapScreenMarkers.filter { ids.contains(it.id) }.forEach { it.remove() }
 
         result.success(success)
     }

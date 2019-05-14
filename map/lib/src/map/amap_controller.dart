@@ -47,21 +47,21 @@ class AMapController {
     );
   }
 
-  /// 添加单个个Marker
-  Future addMarker(MarkerOptions options) {
+  /// 添加单个个Marker 返回marker的id
+  Future<String> addMarker(MarkerOptions options) {
     final _optionsJson = options.toJsonString();
     L.p('方法addMarker dart端参数: _optionsJson -> $_optionsJson');
     return _mapChannel.invokeMethod(
       'marker#addMarker',
       {'markerOptions': _optionsJson},
-    );
+    ).then((data) => data as String);
   }
 
-  /// 添加多个Marker
-  Future addMarkers(
+  /// 添加多个Marker 返回添加的marker的id
+  Future<List<String>> addMarkers(
     List<MarkerOptions> optionsList, {
-    bool moveToCenter = true,
-    bool clear = true,
+    bool moveToCenter = false,
+    bool clear = false,
   }) {
     final _optionsListJson =
         jsonEncode(optionsList.map((it) => it.toJson()).toList());
@@ -73,7 +73,13 @@ class AMapController {
         'markerOptionsList': _optionsListJson,
         'clear': clear,
       },
-    );
+    ).then((data) => (data as List).cast<String>());
+  }
+
+  /// 添加多个Marker 返回添加的marker的id
+  Future removeMarkers(List<String> ids) {
+    L.p('方法removeMarkers dart端参数: ids -> $ids');
+    return _mapChannel.invokeMethod('marker#removeMarkers', {'ids': ids});
   }
 
   /// 是否使能室内地图

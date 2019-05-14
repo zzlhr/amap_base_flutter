@@ -9,13 +9,15 @@ import 'package:flutter/services.dart';
 class AMapLocation {
   static AMapLocation _instance;
 
-  static const _locationChannel = MethodChannel('me.yohom/location');
-  static const _locationEventChannel = EventChannel('me.yohom/location_event');
+  static MethodChannel _locationChannel;
+  static EventChannel _locationEventChannel;
 
   AMapLocation._();
 
   factory AMapLocation() {
     if (_instance == null) {
+      _locationChannel = MethodChannel('me.yohom/location');
+      _locationEventChannel = EventChannel('me.yohom/location_event');
       _instance = AMapLocation._();
       return _instance;
     } else {

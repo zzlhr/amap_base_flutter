@@ -73,38 +73,10 @@ class AMapBaseMapPlugin {
                         }
                     }
 
-            // 地图计算工具相关method channel
-            MethodChannel(registrar.messenger(), "me.yohom/tool")
-                    .setMethodCallHandler { call, result ->
-                        MAP_METHOD_HANDLER[call.method]
-                                ?.onMethodCall(call, result) ?: result.notImplemented()
-                    }
-
             // 离线地图 channel
             MethodChannel(registrar.messenger(), "me.yohom/offline")
                     .setMethodCallHandler { call, result ->
                         MAP_METHOD_HANDLER[call.method]
-                                ?.onMethodCall(call, result) ?: result.notImplemented()
-                    }
-
-            // 搜索 channel
-            MethodChannel(registrar.messenger(), "me.yohom/search")
-                    .setMethodCallHandler { call, result ->
-                        SEARCH_METHOD_HANDLER[call.method]
-                                ?.onMethodCall(call, result) ?: result.notImplemented()
-                    }
-
-            // 导航 channel
-            MethodChannel(registrar.messenger(), "me.yohom/navi")
-                    .setMethodCallHandler { call, result ->
-                        NAVI_METHOD_HANDLER[call.method]
-                                ?.onMethodCall(call, result) ?: result.notImplemented()
-                    }
-
-            // 定位 channel
-            MethodChannel(registrar.messenger(), "me.yohom/location")
-                    .setMethodCallHandler { call, result ->
-                        LOCATION_METHOD_HANDLER[call.method]
                                 ?.onMethodCall(call, result) ?: result.notImplemented()
                     }
 
