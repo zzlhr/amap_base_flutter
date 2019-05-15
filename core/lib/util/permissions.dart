@@ -1,25 +1,18 @@
-import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Permissions {
-  static Permissions _instance;
-
-  static const _permissionChannel = MethodChannel('me.yohom/permission');
-
-  Permissions._();
-
-  factory Permissions() {
-    if (_instance == null) {
-      _instance = Permissions._();
-      return _instance;
-    } else {
-      return _instance;
-    }
-  }
-
   /// 请求地图相关权限
-  Future<bool> requestPermission() {
-    return _permissionChannel
-        .invokeMethod('requestPermission')
-        .then((result) => result as bool);
+  static Future<bool> requestMapPermission() async {
+    final permissions = await PermissionHandler().requestPermissions([
+      PermissionGroup.location,
+      PermissionGroup.storage,
+      PermissionGroup.phone,
+    ]);
+
+    if (permissions.values.any((status) => status == PermissionStatus.denied)) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

@@ -1,3 +1,6 @@
+## 0.0.4
+* 权限管理使用`permission_handler`处理
+
 ## 0.0.3
 * 加入log, misc, permissions
 
