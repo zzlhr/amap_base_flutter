@@ -215,7 +215,7 @@ class _ShowMapScreenState extends State<ShowMapScreen> {
     bool enablePulseAnnimation,
     String image,
   }) async {
-    if (await Permissions().requestPermission()) {
+    if (await Permissions.requestMapPermission()) {
       _myLocationStyle = _myLocationStyle.copyWith(
         myLocationIcon: myLocationIcon,
         anchorU: anchorU,

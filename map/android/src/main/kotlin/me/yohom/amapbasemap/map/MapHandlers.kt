@@ -6,10 +6,7 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.AMapUtils
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.CoordinateConverter
-import com.amap.api.maps.model.CameraPosition
-import com.amap.api.maps.model.LatLng
-import com.amap.api.maps.model.LatLngBounds
-import com.amap.api.maps.model.MyLocationStyle
+import com.amap.api.maps.model.*
 import com.amap.api.maps.offlinemap.OfflineMapActivity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -71,29 +68,9 @@ object AddMarkers : MapMethodHandler {
 
         val markers = map.addMarkers(optionsList, moveToCenter)
 
-        markers.forEachIndexed {index, marker -> marker.`object` = unifiedMarkerOptions[index].`object` }
+        markers.forEachIndexed { index, marker -> marker.`object` = unifiedMarkerOptions[index].`object` }
 
         result.success(markers.map { it.id })
-    }
-}
-
-object RemoveMarkers : MapMethodHandler {
-
-    private lateinit var map: AMap
-
-    override fun with(map: AMap): RemoveMarkers {
-        this.map = map
-        return this
-    }
-
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        val ids = call.argument<List<String>>("ids") ?: listOf()
-
-        log("方法marker#removeMarkers android端参数: ids -> $ids")
-
-        map.mapScreenMarkers.filter { ids.contains(it.id) }.forEach { it.remove() }
-
-        result.success(success)
     }
 }
 
@@ -110,14 +87,15 @@ object AddPolygon : MapMethodHandler {
 
         log("方法map#addPolygon android端参数: polygonOptions -> $optionsJson")
 
-        optionsJson.parseFieldJson<UnifiedPolygonOptions>().applyTo(map)
+        val polygonId = optionsJson.parseFieldJson<UnifiedPolygonOptions>().applyTo(map)
 
-        result.success(success)
+        result.success(polygonId)
     }
 }
 
 object AddPolyline : MapMethodHandler {
     private lateinit var map: AMap
+    val polylines = mutableListOf<Polyline>()
 
     override fun with(map: AMap): MapMethodHandler {
         this.map = map
@@ -129,9 +107,12 @@ object AddPolyline : MapMethodHandler {
 
         log("map#AddPolyline android端参数: options -> $options")
 
-        options?.applyTo(map)
+        val polyline = options!!.applyTo(map)
 
-        result.success(success)
+        // 加入polyline列表, 供[RemovePolyline]使用
+        polylines.add(polyline)
+
+        result.success(polyline.id)
     }
 }
 
@@ -265,6 +246,64 @@ object OpenOfflineManager : MapMethodHandler {
                 Intent(AMapBaseMapPlugin.registrar.activity(),
                         OfflineMapActivity::class.java)
         )
+    }
+}
+
+object RemoveMarkers : MapMethodHandler {
+
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): RemoveMarkers {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val ids = call.argument<List<String>>("ids") ?: listOf()
+
+        log("方法marker#removeMarkers android端参数: ids -> $ids")
+
+        map.mapScreenMarkers.filter { ids.contains(it.id) }.forEach { it.remove() }
+
+        result.success(success)
+    }
+}
+
+object RemovePolyline : MapMethodHandler {
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val polylineId = call.argument<String>("id") ?: ""
+
+        log("方法map#addPolygon android端参数: polygonId -> $polylineId")
+
+        AddPolyline.polylines.first { it.id == polylineId }.remove()
+
+        result.success(success)
+    }
+}
+
+object RemovePolylines : MapMethodHandler {
+    private lateinit var map: AMap
+
+    override fun with(map: AMap): MapMethodHandler {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val polylineId = call.argument<String>("id") ?: ""
+
+        log("方法map#addPolygon android端参数: polygonId -> $polylineId")
+
+        AddPolyline.polylines.forEach { it.remove() }
+
+        result.success(success)
     }
 }
 
@@ -470,7 +509,10 @@ object ShowMyLocation : MapMethodHandler {
         log("方法map#showMyLocation android端参数: show -> $show")
 
         map.isMyLocationEnabled = show
-        map.myLocationStyle = MyLocationStyle().apply { showMyLocation(show) }
+        map.myLocationStyle = MyLocationStyle().apply {
+            showMyLocation(show)
+            myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
+        }
 
         result.success(success)
     }

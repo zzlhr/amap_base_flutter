@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amap_base_core: ^0.0.3
+  amap_base_core: ^0.0.4
 #  amap_base_core:
 #    path: ../core
 

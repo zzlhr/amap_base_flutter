@@ -155,7 +155,6 @@ class UnifiedMarkerOptions(
 }
 
 class UnifiedMyLocationStyle(
-        // todo 实现自定义的图标
         /// 当前位置的图标
         private val myLocationIcon: String,
         /// 锚点横坐标方向的偏移量
@@ -178,7 +177,7 @@ class UnifiedMyLocationStyle(
     fun applyTo(map: AMap) {
         map.isMyLocationEnabled = showMyLocation
         map.myLocationStyle = MyLocationStyle()
-//                .myLocationIcon(BitmapDescriptorFactory.fromAsset(myLocationIcon))
+                .myLocationIcon(UnifiedAssets.getBitmapDescriptor(myLocationIcon))
                 .anchor(anchorU, anchorV)
                 .radiusFillColor(radiusFillColor.hexStringToColorInt()
                         ?: Color.argb(100, 0, 0, 180))
@@ -218,8 +217,8 @@ class UnifiedPolylineOptions(
         private val isUseTexture: Boolean
 ) {
 
-    fun applyTo(map: AMap) {
-        map.addPolyline(PolylineOptions().apply {
+    fun applyTo(map: AMap): Polyline {
+        return map.addPolyline(PolylineOptions().apply {
             addAll(this@UnifiedPolylineOptions.latLngList)
             width(this@UnifiedPolylineOptions.width.toFloat())
             color(this@UnifiedPolylineOptions.color.hexStringToColorInt() ?: Color.BLACK)
@@ -297,7 +296,7 @@ class UnifiedPolygonOptions(
         private val visible: Boolean,
         private val holeOptions: List<BaseHoleOptions>
 ) {
-    fun applyTo(map: AMap) {
+    fun applyTo(map: AMap): String {
         val options = PolygonOptions()
         options.addAll(points)
         options.addHoles(holeOptions)
@@ -306,6 +305,6 @@ class UnifiedPolygonOptions(
         options.zIndex(zIndex)
         options.strokeColor(strokeColor.hexStringToColorInt()!!)
         options.visible(visible)
-        map.addPolygon(options)
+        return map.addPolygon(options).id
     }
 }

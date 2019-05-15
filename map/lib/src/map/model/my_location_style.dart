@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:amap_base_core/util/misc.dart';
 import 'package:flutter/material.dart';
 
 /// 定位、且将视角移动到地图中心点，定位点跟随设备移动
@@ -89,7 +90,7 @@ class MyLocationStyle {
 
   Map<String, Object> toJson() {
     return {
-      'myLocationIcon': myLocationIcon,
+      'myLocationIcon': toResolutionAware(myLocationIcon),
       'anchorU': anchorU,
       'anchorV': anchorV,
       'radiusFillColor': radiusFillColor.value.toRadixString(16),

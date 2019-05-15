@@ -189,8 +189,8 @@ class AMapController {
     );
   }
 
-  /// 添加线
-  Future addPolyline(PolylineOptions options) {
+  /// 添加线 返回id
+  Future<String> addPolyline(PolylineOptions options) {
     L.p('addPolyline dart端参数: options -> $options');
 
     return _mapChannel.invokeMethod(
@@ -285,13 +285,28 @@ class AMapController {
     );
   }
 
-  Future addPolygon(PolygonOptions options) {
+  /// 添加多边形 返回多边形id
+  Future<String> addPolygon(PolygonOptions options) {
     L.p('addPolygon dart端参数: options -> ${options.toJsonString()}');
 
     return _mapChannel.invokeMethod(
       'map#addPolygon',
       {'options': options.toJsonString()},
     );
+  }
+
+  /// 删除一个polyline
+  Future<String> removePolyline(String id) {
+    L.p('removePolyline dart端参数: id -> $id');
+
+    return _mapChannel.invokeMethod('map#removePolyline', {'id': id});
+  }
+
+  /// 删除一组polyline
+  Future<String> removePolylines(List<String> ids) {
+    L.p('removePolylines dart端参数: ids -> $ids');
+
+    return _mapChannel.invokeMethod('map#removePolylines', {'ids': ids});
   }
 
   /// marker点击事件流

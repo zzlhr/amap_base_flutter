@@ -1,11 +1,8 @@
 package me.yohom.amapbasemap
 
-import android.Manifest
 import android.app.Activity
 import android.app.Application
-import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import me.yohom.amapbasemap.map.AMapFactory
@@ -23,10 +20,6 @@ class AMapBaseMapPlugin {
         private var registrarActivityHashCode: Int = 0
         private val activityState = AtomicInteger(0)
 
-        // 权限请求的相关变量
-        private var permissionRequestCode = 0
-        private var methodResult: MethodChannel.Result? = null
-
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             // 由于registrar用到的地方比较多, 这里直接放到全局变量里去好了
@@ -35,34 +28,6 @@ class AMapBaseMapPlugin {
 
             // 注册生命周期回调, 保证地图初始化的时候对应的是正确的activity状态
             registrar.activity().application.registerActivityLifecycleCallbacks(this)
-
-            // 设置权限 channel
-            MethodChannel(registrar.messenger(), "me.yohom/permission")
-                    .setMethodCallHandler { methodCall, result ->
-                        when (methodCall.method) {
-                            "requestPermission" -> {
-                                permissionRequestCode = methodCall.hashCode()
-                                methodResult = result
-
-                                ActivityCompat.requestPermissions(
-                                        registrar.activity(),
-                                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
-                                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                                Manifest.permission.READ_EXTERNAL_STORAGE,
-                                                Manifest.permission.READ_PHONE_STATE),
-                                        permissionRequestCode
-                                )
-                                registrar.addRequestPermissionsResultListener { code, _, grantResults ->
-                                    if (code == permissionRequestCode) {
-                                        methodResult?.success(grantResults.all { it == PackageManager.PERMISSION_GRANTED })
-                                    }
-                                    return@addRequestPermissionsResultListener true
-                                }
-                            }
-                            else -> result.notImplemented()
-                        }
-                    }
 
             // 设置key channel
             MethodChannel(registrar.messenger(), "me.yohom/amap_base")
