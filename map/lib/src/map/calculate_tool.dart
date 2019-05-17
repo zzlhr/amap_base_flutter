@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:amap_base_core/amap_base_core.dart';
@@ -47,6 +48,33 @@ class CalculateTools {
     }
 
     return LatLng.fromJson(jsonDecode(result));
+  }
+
+  /// 批量转换坐标系
+  ///
+  /// [lat] 纬度
+  /// [lon] 经度
+  ///
+  /// [type] 原坐标类型, 这部分请查阅高德地图官方文档
+  Future<List<LatLng>> convertCoordinates({
+    @required List<LatLng> points,
+    @required LatLngType type,
+  }) async {
+    int intType = LatLngType.values.indexOf(type);
+
+    String result = await _channel.invokeMethod(
+      'tool#convertCoordinates',
+      {
+        'points': points.map((it) => it.toJsonString()).toList(),
+        'type': intType,
+      },
+    );
+
+    if (result == null) {
+      return null;
+    }
+    final jsonResult = jsonDecode(result) as List;
+    return jsonResult.map((json) => LatLng.fromJson(json)).toList();
   }
 
   Future<double> calcDistance(LatLng latLng1, LatLng latLng2) async {

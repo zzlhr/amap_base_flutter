@@ -222,6 +222,33 @@ object ConvertCoordinate : MapMethodHandler {
     }
 }
 
+object ConvertCoordinates : MapMethodHandler {
+
+    private lateinit var map: AMap
+
+    private val types = arrayListOf(
+            CoordinateConverter.CoordType.GPS,
+            CoordinateConverter.CoordType.BAIDU,
+            CoordinateConverter.CoordType.MAPBAR,
+            CoordinateConverter.CoordType.MAPABC,
+            CoordinateConverter.CoordType.SOSOMAP,
+            CoordinateConverter.CoordType.ALIYUN,
+            CoordinateConverter.CoordType.GOOGLE
+    )
+
+    override fun with(map: AMap): ConvertCoordinates {
+        this.map = map
+        return this
+    }
+
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        val points = call.argument<List<String>>("points")!!.map { it.parseFieldJson<LatLng>() }
+        val typeIndex = call.argument<Int>("type")!!
+        val converter = CoordinateConverter(registrar.context()).from(types[typeIndex])
+        result.success(points.map { converter.coord(it).convert() }.toFieldJson())
+    }
+}
+
 object GetCenterLnglat : MapMethodHandler {
     private lateinit var map: AMap
     override fun with(map: AMap): MapMethodHandler {

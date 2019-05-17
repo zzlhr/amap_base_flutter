@@ -20,6 +20,7 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#setPosition" to SetPosition,
         "map#setMapStatusLimits" to SetMapStatusLimits,
         "tool#convertCoordinate" to ConvertCoordinate,
+        "tool#convertCoordinates" to ConvertCoordinates,
         "tool#calcDistance" to CalcDistance,
         "offline#openOfflineManager" to OpenOfflineManager,
         "map#addPolyline" to AddPolyline,
@@ -35,20 +36,3 @@ val MAP_METHOD_HANDLER: Map<String, MapMethodHandler> = mapOf(
         "map#addPolygon" to AddPolygon,
         "map#changeLatLng" to ChangeLatLng
 )
-
-/**
- * 搜索功能集合
- */
-val SEARCH_METHOD_HANDLER: Map<String, SearchMethodHandler> = mapOf(
-)
-
-/**
- * 导航功能集合
- */
-val NAVI_METHOD_HANDLER: Map<String, NaviMethodHandler> = mapOf(
-)
-
-/**
- * 定位功能集合
- */
-val LOCATION_METHOD_HANDLER: Map<String, LocationMethodHandler> = mapOf()
