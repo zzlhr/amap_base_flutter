@@ -48,7 +48,7 @@ class AMapView(context: Context,
 
     private val mapView = TextureMapView(context, amapOptions)
     private var disposed = false
-    private val registrarActivityHashCode: Int = AMapBaseMapPlugin.registrar.activity().hashCode()
+    private val registrarActivityHashCode: Int = registrar.activity().hashCode()
 
     override fun getView(): View = mapView
 
