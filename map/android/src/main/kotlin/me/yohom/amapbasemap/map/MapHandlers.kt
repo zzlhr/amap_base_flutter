@@ -6,7 +6,10 @@ import com.amap.api.maps.AMap
 import com.amap.api.maps.AMapUtils
 import com.amap.api.maps.CameraUpdateFactory
 import com.amap.api.maps.CoordinateConverter
-import com.amap.api.maps.model.*
+import com.amap.api.maps.model.CameraPosition
+import com.amap.api.maps.model.LatLng
+import com.amap.api.maps.model.LatLngBounds
+import com.amap.api.maps.model.Polyline
 import com.amap.api.maps.offlinemap.OfflineMapActivity
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -516,30 +519,6 @@ object ShowIndoorMap : MapMethodHandler {
         log("方法map#showIndoorMap android端参数: enabled -> $enabled")
 
         map.showIndoorMap(enabled)
-
-        result.success(success)
-    }
-}
-
-object ShowMyLocation : MapMethodHandler {
-
-    private lateinit var map: AMap
-
-    override fun with(map: AMap): ShowMyLocation {
-        this.map = map
-        return this
-    }
-
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
-        val show = call.argument<Boolean>("show") ?: false
-
-        log("方法map#showMyLocation android端参数: show -> $show")
-
-        map.isMyLocationEnabled = show
-        map.myLocationStyle = MyLocationStyle().apply {
-            showMyLocation(show)
-            myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE)
-        }
 
         result.success(success)
     }

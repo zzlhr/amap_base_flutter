@@ -120,6 +120,7 @@ class AMapController {
   }
 
   /// 显示我的位置
+  @Deprecated('使用setMyLocationStyle代替')
   Future showMyLocation(bool show) {
     L.p('showMyLocation dart端参数: show -> $show');
 

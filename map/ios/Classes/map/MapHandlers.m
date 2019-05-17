@@ -359,28 +359,6 @@
 
 @end
 
-@implementation ShowMyLocation {
-  MAMapView *_mapView;
-}
-
-- (NSObject <MapMethodHandler> *)initWith:(MAMapView *)mapView {
-  _mapView = mapView;
-  return self;
-}
-
-- (void)onMethodCall:(FlutterMethodCall *)call :(FlutterResult)result {
-  NSDictionary *paramDic = call.arguments;
-
-  BOOL show = (BOOL) paramDic[@"show"];
-
-  NSLog(@"ShowMyLocation ios端参数: show -> %@", show);
-//  [[UnifiedMyLocationStyle mj_objectWithKeyValues:styleJson] applyTo:_mapView];
-
-  result(FlutterMethodNotImplemented);
-}
-
-@end
-
 @implementation SetMapCustomEnable {
   MAMapView *_mapView;
 }
