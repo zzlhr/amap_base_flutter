@@ -29,6 +29,22 @@ class LatLng {
     );
   }
 
+  LatLng operator +(LatLng other) {
+    return LatLng(latitude + other.latitude, longitude + other.longitude);
+  }
+
+  LatLng operator -(LatLng other) {
+    return LatLng(latitude - other.latitude, longitude - other.longitude);
+  }
+
+  LatLng operator *(int multiplier) {
+    return LatLng(latitude * multiplier, longitude * multiplier);
+  }
+
+  LatLng operator /(int divider) {
+    return LatLng(latitude / divider, longitude / divider);
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
