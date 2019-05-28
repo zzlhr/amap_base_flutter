@@ -1,3 +1,6 @@
+## 0.0.5
+* LatLng增加加减乘除的操作符
+
 ## 0.0.4
 * 权限管理使用`permission_handler`处理
 
