@@ -30,19 +30,25 @@ class LatLng {
   }
 
   LatLng operator +(LatLng other) {
-    return LatLng(latitude + other.latitude, longitude + other.longitude);
+    return LatLng(
+      latitude + other?.latitude ?? 0,
+      longitude + other?.longitude ?? 0,
+    );
   }
 
   LatLng operator -(LatLng other) {
-    return LatLng(latitude - other.latitude, longitude - other.longitude);
+    return LatLng(
+      latitude - other?.latitude ?? 0,
+      longitude - other?.longitude ?? 0,
+    );
   }
 
   LatLng operator *(int multiplier) {
-    return LatLng(latitude * multiplier, longitude * multiplier);
+    return LatLng(latitude * multiplier ?? 1, longitude * multiplier ?? 1);
   }
 
   LatLng operator /(int divider) {
-    return LatLng(latitude / divider, longitude / divider);
+    return LatLng(latitude / divider ?? 1, longitude / divider ?? 1);
   }
 
   @override
