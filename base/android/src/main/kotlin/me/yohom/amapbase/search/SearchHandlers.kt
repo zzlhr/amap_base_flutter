@@ -248,15 +248,15 @@ object CalculateDriveRoute : SearchMethodHandler {
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         // 规划参数
-        val param = call.argument<String>("routePlanParam")!!.parseFieldJson<RoutePlanParam>()
+        val param :RoutePlanParam= call.argument<String>("routePlanParam")!!.parseFieldJson()
 
         log("方法calculateDriveRoute android端参数: routePlanParam -> $param")
 
         val routeQuery = RouteSearch.DriveRouteQuery(
                 RouteSearch.FromAndTo(param.from.toLatLonPoint(), param.to.toLatLonPoint()),
                 param.mode,
-                param.passedByPoints?.map { it.toLatLonPoint() },
-                param.avoidPolygons?.map { list -> list.map { it.toLatLonPoint() } },
+                param.passedByPoints?.map { value->  value.toLatLonPoint() },
+                param.avoidPolygons?.map { list -> list?.map { value->  value.toLatLonPoint() } },
                 param.avoidRoad
         )
         RouteSearch(AMapBasePlugin.registrar.context()).run {
@@ -284,7 +284,7 @@ object CalculateDriveRoute : SearchMethodHandler {
 }
 
 object DistanceSearchHandler : SearchMethodHandler {
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result?) {
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         val search = DistanceSearch(AMapBasePlugin.registrar.context())
         search.setDistanceSearchListener { distanceResult, i ->
             search.setDistanceSearchListener(null)
@@ -303,8 +303,8 @@ object DistanceSearchHandler : SearchMethodHandler {
         val type = call.argument<Int>("type")!!
 
         search.calculateRouteDistanceAsyn(DistanceSearch.DistanceQuery().apply {
-            this.origins = origins.map {
-                it.toLatlng().toLatLonPoint()
+            this.origins = origins.map {value->
+                value.toLatlng().toLatLonPoint()
             }.toMutableList()
             this.destination = target.toLatlng().toLatLonPoint()
             this.type = type
