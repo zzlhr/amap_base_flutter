@@ -9,6 +9,8 @@
 
 [TOC]
 
+## 各位，开个新坑，写了个工具，从原生SDK生成Dart接口，并基于这些Dart接口进行插件的开发，加速以及简化插件开发过程，欢迎围观[Demo工程](https://github.com/fluttify-community/fluttify-core-example)和[实验性工程](https://github.com/fluttify-community/amap_search_fluttify).
+
 ## 安装
 在你的`pubspec.yaml`文件的dependencies节点下添加:
 ```
