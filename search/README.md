@@ -1,3 +1,6 @@
+## #**DEPRECATED**#
+推荐使用基于[Fluttify](https://github.com/fluttify-community/fluttify-core-example)引擎生成dart接口的仓库[amap_search_fluttify](https://github.com/fluttify-community/amap_search_fluttify)
+
 # 高德地图Flutter插件 基于AndroidView和UiKitView
 
 |      amap_base     | [![pub package](https://img.shields.io/pub/v/amap_base.svg)](https://pub.Flutter-io.cn/packages/amap_base)                   |
