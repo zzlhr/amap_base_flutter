@@ -10,6 +10,9 @@ import io.flutter.plugin.common.MethodChannel
 import me.yohom.amapbase.AMapBasePlugin
 import me.yohom.amapbase.NaviMethodHandler
 import me.yohom.amapbase.map.success
+import com.amap.api.navi.AMapNavi
+
+
 
 object StartNavi: NaviMethodHandler {
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -18,6 +21,11 @@ object StartNavi: NaviMethodHandler {
         val naviType = call.argument<Int>("naviType") ?: AmapNaviType.DRIVER
 
         val end = Poi(null, LatLng(lat, lon), "")
+
+        var mAMapNavi: AMapNavi? = null
+        mAMapNavi = AMapNavi.getInstance(AMapBasePlugin.registrar.activity().applicationContext)
+        mAMapNavi.setUseInnerVoice(true)
+
         AmapNaviPage.getInstance().showRouteActivity(
                 AMapBasePlugin.registrar.activity(),
                 AmapNaviParams(null, null, end, when (naviType) {
