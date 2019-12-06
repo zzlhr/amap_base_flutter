@@ -284,7 +284,7 @@ object CalculateDriveRoute : SearchMethodHandler {
 }
 
 object DistanceSearchHandler : SearchMethodHandler {
-    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result?) {
+    override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         val search = DistanceSearch(AMapBasePlugin.registrar.context())
         search.setDistanceSearchListener { distanceResult, i ->
             search.setDistanceSearchListener(null)
@@ -292,9 +292,9 @@ object DistanceSearchHandler : SearchMethodHandler {
                 val list = distanceResult.distanceResults.map {
                     it.distance.toInt()
                 }
-                result?.success(list)
+                result.success(list)
             } else {
-                result?.error("测量失败 code ==> $i", null, null)
+                result.error("测量失败 code ==> $i", null, null)
             }
         }
 

@@ -188,9 +188,9 @@ object OpenOfflineManager : MapMethodHandler {
         return this
     }
 
-    override fun onMethodCall(p0: MethodCall?, p1: MethodChannel.Result?) {
-        AMapBasePlugin.registrar.activity().startActivity(
-                Intent(AMapBasePlugin.registrar.activity(),
+    override fun onMethodCall(p0: MethodCall, p1: MethodChannel.Result) {
+        registrar.activity().startActivity(
+                Intent(registrar.activity(),
                         OfflineMapActivity::class.java)
         )
     }

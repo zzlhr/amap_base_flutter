@@ -415,7 +415,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample13;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Runner;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -542,7 +542,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample13;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Runner;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -567,7 +567,7 @@
 					"$(PROJECT_DIR)/Flutter",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.yohom.amapBaseExample13;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Runner;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/..\"/**";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
